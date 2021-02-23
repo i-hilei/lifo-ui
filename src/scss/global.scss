@@ -1,0 +1,180 @@
+@import 'variables';
+
+.large-round-button {
+    background: $COLOR_BG;
+    border-radius: 81px;
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 40px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    text-transform: capitalize;
+    color: white;
+}
+
+.large-round-button-storked {
+    background: white;
+    border: 1px solid $COLOR_BG;
+    border-radius: 81px;
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 40px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    text-transform: capitalize;
+    color: $COLOR_BG;
+}
+
+.small-round-button {
+    background: $COLOR_BG;
+    border-radius: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 30px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    text-transform: capitalize;
+    color: white;
+}
+
+.box-text-area {
+    width: 100%;
+    ::ng-deep {
+        .mat-form-field-infix {
+            padding-top: 0px;
+        }
+        .mat-form-field-wrapper {
+            padding-bottom: 0px;
+        }
+        .mat-form-field-label {
+            margin-left: 40px;
+            margin-top: 15px;
+        }
+        .mat-form-field-underline {
+            display: none;
+        }
+    }
+
+    textarea {
+        width: calc(100% - 60px);
+        resize: none;
+        border: 1px solid #A0A4A8;
+        border-radius: 8px;
+        padding: 10px;
+        margin: 10px 30px;
+        height: 70px;
+    }
+}
+
+
+.leftRs {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 25px;
+    border: 0px;
+    left: 20px;
+    cursor: pointer;
+    padding: 5px;
+    .material-icons {
+        font-size: 40px;
+    }
+}
+
+.leftRs:focus {
+    outline: none;
+    border: 2px solid $COLOR_BG;
+    padding: 3px;
+}
+
+.rightRs {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 25px;
+    border: 0px;
+    right: 15px;
+    cursor: pointer;
+    padding: 5px;
+    .material-icons {
+        font-size: 40px;
+    }
+}
+
+.rightRs:focus {
+    outline: none;
+    border: 2px solid $COLOR_BG;
+    padding: 3px;
+}
+
+.leftRsSm {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    height: 30px;
+    background: rgba(13, 5, 60, 0.5);
+    border-radius: 15px;
+    left: 15px;
+    border: 0px;
+    padding: 3px;
+    color: white;
+    cursor: pointer;
+}
+
+.leftRsSm:focus {
+    outline: none;
+    border: 2px solid $COLOR_BG;
+    padding: 1px;
+}
+
+.rightRsSm {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    height: 30px;
+    background: rgba(13, 5, 60, 0.5);
+    border-radius: 15px;
+    right: 15px;
+    border: 0px;
+    padding: 3px;
+    color: white;
+    cursor: pointer;
+}
+
+.rightRsSm:focus {
+    outline: none;
+    border: 2px solid $COLOR_BG;
+    padding: 1px;
+}
+
+// for ng-select
+::ng-deep .ng-placeholder {
+    line-height: 25px;
+}
+
+
+// for mat tooltips
+::ng-deep .mat-tooltip {
+    font-size: 14px !important;
+}

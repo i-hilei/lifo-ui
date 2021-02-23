@@ -1,0 +1,133 @@
+<section class="influencer-info">
+    <section class="title">
+        <span class="text">Influencer info</span>
+        <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+    </section>
+
+    <!-- Country -->
+    <section class="info-item">
+        <section class="title">
+            <span class="text">Country</span>
+            <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+        </section>
+        <section>
+            <!-- <label nz-checkbox>USA</label> -->
+        </section>
+        <section>
+            <nz-select [(ngModel)]="countryFilter" [nzMaxTagCount]="3" nzMode="multiple" nzPlaceHolder="Country" nzAllowClear nzShowSearch>
+                <nz-option nzCustomContent *ngFor="let location of locationOptions" [nzLabel]="location.name" [nzValue]="location.name">
+                    {{ location.name }}</nz-option
+                >
+            </nz-select>
+        </section>
+    </section>
+
+    <!-- City -->
+    <section class="info-item">
+        <section class="title">
+            <span class="text">City</span>
+            <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+        </section>
+        <section>
+            <nz-select [(ngModel)]="cityFilter" [nzMaxTagCount]="3" nzMode="multiple" nzPlaceHolder="City" nzAllowClear nzShowSearch>
+                <nz-option nzCustomContent *ngFor="let item of locationOptions" [nzLabel]="item.title" [nzValue]="item.name">
+                    {{ item.title }}</nz-option
+                >
+            </nz-select>
+        </section>
+    </section>
+
+    <!-- Language -->
+    <section class="info-item">
+        <section class="title">
+            <span class="text">Language</span>
+            <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+        </section>
+        <section>
+            <!-- <label nz-checkbox>English</label> -->
+        </section>
+        <section>
+            <nz-select
+                [(ngModel)]="languageFilter"
+                [nzMaxTagCount]="3"
+                nzMode="multiple"
+                nzPlaceHolder="Language"
+                nzAllowClear
+                nzShowSearch
+            >
+                <nz-option nzCustomContent *ngFor="let item of languageOptions" [nzLabel]="item.name" [nzValue]="item.name">
+                    {{ item.name }}</nz-option
+                >
+            </nz-select>
+        </section>
+    </section>
+
+    <!-- Gender -->
+    <section class="info-item">
+        <section class="title">
+            <span class="text">Gender</span>
+            <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+        </section>
+        <section>
+            <label [(ngModel)]="genderFilter.male" nz-checkbox>Male</label>
+        </section>
+        <section>
+            <label [(ngModel)]="genderFilter.female" nz-checkbox>Female</label>
+        </section>
+    </section>
+
+    <!-- Follower -->
+    <section class="info-item follower">
+        <section class="title">
+            <span class="text">Follower</span>
+            <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+        </section>
+        <section class="from-input">
+            <span>From</span>
+            <nz-input-number
+                [(ngModel)]="followerFilter[0]"
+                [nzMin]="0"
+                [nzMax]="followerFilter[1] || MATH_MAX"
+                [nzStep]="1"
+                nzPlaceHolder="Add Integer"
+            ></nz-input-number>
+        </section>
+        <section class="end-input">
+            <span>To</span>
+            <nz-input-number
+                [(ngModel)]="followerFilter[1]"
+                [nzMin]="followerFilter[0]"
+                [nzStep]="1"
+                nzPlaceHolder="Add Integer"
+            ></nz-input-number>
+        </section>
+    </section>
+
+    <!-- Engagement -->
+    <section class="info-item engagement">
+        <section class="title">
+            <span class="text">Engagement</span>
+            <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+        </section>
+        <section class="from-input">
+            <span>From</span>
+            <nz-input-number
+                [(ngModel)]="engagementFilter[0]"
+                [nzMin]="1"
+                [nzMax]="engagementFilter[1] + '' || 100"
+                [nzStep]="1"
+                nzPlaceHolder="Add Integer"
+            ></nz-input-number>
+        </section>
+        <section class="end-input">
+            <span>To</span>
+            <nz-input-number
+                [(ngModel)]="engagementFilter[1]"
+                [nzMin]="engagementFilter[0]"
+                [nzMax]="100"
+                [nzStep]="1"
+                nzPlaceHolder="Add Integer"
+            ></nz-input-number>
+        </section>
+    </section>
+</section>

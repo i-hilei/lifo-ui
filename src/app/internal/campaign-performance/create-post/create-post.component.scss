@@ -1,0 +1,111 @@
+@import 'common';
+
+.title {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    text-transform: capitalize;
+    color: $COLOR_PRIMARY;
+    margin-bottom: 20px;
+
+    .material-icons {
+        float: right;
+        cursor: pointer;
+    }
+}
+
+.form {
+    margin-top: 20px;
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+.inf-name {
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 10px;
+}
+
+.upload-section {
+    width: 137px;
+    height: 137px;
+    background: rgba(13, 5, 60, 0.1);
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    cursor: pointer;
+
+    .material-icons {
+        font-size: 30px;
+        margin: auto;
+    }
+}
+
+.file-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.item-title {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    text-transform: capitalize;
+    color: $COLOR_PRIMARY;
+    margin-top: 10px;
+}
+
+.image-holder {
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 137px;
+    height: 137px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid grey;
+    .image {
+        max-width: 137px;
+        max-height: 137px;
+    }
+}
+
+
+.btn-group {
+    float: right;
+    .confirm {
+        margin-left: 20px;
+    }
+}
+
+.comment-item {
+    line-height: 30px;
+    font-size: 14px;
+
+    .user {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .remove-icon {
+        vertical-align: top;
+        font-size: 20px;
+        margin-top: 5px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+}
+
+.example-small-width {
+    width: 100px;
+    margin-right: 20px;
+}
+.example-full-width {
+    width: 400px;
+}

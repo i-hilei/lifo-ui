@@ -1,0 +1,101 @@
+<div>
+    <div class="influencer-card">
+        <div *ngIf="influencerDetail" (click)="viewDetail()">
+            <div class="image-holder">
+                <img src="{{influencerDetail.profile.picture}}">
+            </div>
+            <div class="user-profile">
+                <div class="profile-container">
+                    <div class="user-name">{{influencerDetail.profile.fullname}}</div>
+                    <div class="user-name-link">
+                        <span (click)="openInsPage()">@{{influencerDetail.profile.username}}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats-item ">
+                <div class="number person-set">
+                    <span class="material-icons"> person </span> 
+                    {{ influencerDetail.profile.followers | number }} 
+                    <br><span class="name">Followers</span>
+                </div>
+            </div>
+            <div class="stats-item ">
+                <div class="number person-set">
+                    <span class="material-icons"> person </span> 
+                    <span *ngIf="influencerDetail.audience">{{ (1 - influencerDetail.audience.credibility) * 100 |  number: '1.0-1'}}%</span>
+                    <br><span class="name">Fake Followers Rate</span>
+                </div>
+            </div>
+            <div class="stats-item">
+                <div class="number favorite-set"> 
+                    <span class="material-icons"> favorite </span> 
+                    {{ influencerDetail.stats?.avgLikes?.value | number }} 
+                    <br><span class="name">Avg Likes</span>
+                </div>
+            </div>
+            <div class="stats-item stats-item-wide">
+                <div class="number engagement-set">
+                    {{ influencerDetail.profile.engagements | number }} 
+                    ({{ influencerDetail.profile.engagementRate * 100 | number: '1.0-1'}}%)
+                    <br><span class="name">Engagements (Rate)</span>
+                </div>
+            </div>
+
+            <div class="stats-item" *ngIf="!showRecommend">
+                {{influencerDetail.status}}
+            </div>
+    
+            <!-- <div class="stats-item" *ngIf="showChooseInfluencer">
+               {{influencer.profile.reason}}
+            </div>
+    
+            <div class="stats-item" *ngIf="showChooseInfluencer">
+                $ {{influencer.profile.minPrice}} - $ {{influencer.profile.maxPrice}}
+            </div> -->
+    
+            <div class="operations">
+                <div class="operation-button"  (click)="prepareContract()" *ngIf="showPrepareContract">
+                    <button class="dark-color" nz-button nzType="primary" nzSize="large" nzShape="round">Prepare Contract</button>
+                </div>
+        
+                <div class="operation-button"  (click)="sendContract()" *ngIf="showSendContract">
+                    <button class="dark-color" nz-button nzType="primary" nzSize="large" nzShape="round">Send Contract</button>
+                </div>
+
+                <div class="operation-button" (click)="signContract()" *ngIf="showSignContract"> 
+                    <button class="orange-color" nz-button nzType="primary" nzSize="large" nzShape="round">Sign Contract</button>
+                </div>
+
+                <!-- <div class="operation-button sign-contract" (click)="downloadContract()" *ngIf="showContract"> 
+                    Donwload Contract
+                </div> -->
+
+                <div class="operation-button sign-contract" (click)="goToCreateContent()" *ngIf="hasCreateReview"> 
+                    <button class="light-color" nz-button nzType="primary" nzSize="large" nzShape="round">Create Content</button>
+                </div>
+                <div class="operation-button sign-contract" (click)="goToReview()" *ngIf="hasContentReview"> 
+                    <button class="light-color" nz-button nzType="primary" nzSize="large" nzShape="round">Content Review</button>
+                </div>
+        
+                <div class="operation-button" (click)="recommendInfluencer()" *ngIf="showRecommend">
+                    <button class="light-color" nz-button nzType="primary" nzSize="large" nzShape="round">Recommend</button>
+                </div>
+                
+                <div class="operation-button" (click)="chooseInfluencer()" *ngIf="showChooseInfluencer"> 
+                    <button class="dark-color" nz-button nzType="primary" nzSize="large" nzShape="round">Choose</button>
+                </div>
+    
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="influencer-detail" *ngIf="showDetail">
+        <app-influencer-detail 
+            [influencer]="influencerDetail" 
+            [displayInfluencer]="influencer"
+            [mode]="mode"></app-influencer-detail>
+    </div>
+
+</div>

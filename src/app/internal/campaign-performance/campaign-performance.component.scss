@@ -1,0 +1,88 @@
+@import 'common';
+
+.posting-container {
+    margin: 20px;
+    padding: 20px;
+
+    .title {
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 29px;
+        color: $COLOR_PRIMARY;
+        margin-bottom: 15px;
+
+        .new-button {
+            background-color: $COLOR_THEME_3;
+            border-radius: 20px;
+            color: white;
+        }
+    }
+
+    .empty-influencer {
+        .empty-container {
+            display: flex;
+            text-align: center;
+            margin: 40px;
+            padding-top: 80px;
+
+            .empty {
+                width: 400px;
+                height: 300px;
+                margin: auto;
+            }
+        }
+        .description {
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 22px;
+            color: #414BB2;
+            height: 120px;
+        }
+        margin-bottom: 20px;
+    }
+
+    .counters {
+        .half {
+            background: #FFFFFF;
+            border: 1px solid #DFE0EB;
+            box-sizing: border-box;
+            border-radius: 20px;
+            width: calc(50% - 40px);
+            display: inline-block;
+            vertical-align: top;
+            height: 160px;
+            margin: 20px;
+
+            .counter {
+                width: 33%;
+                display: inline-block;
+                text-align: center;
+
+                .icon {
+                    margin-top: 30px;
+                    height: 30px;
+                }
+
+                .name {
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: #9FA2B4;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    .material-icons {
+                        font-size: 16px;
+                    }
+                }
+
+                .count {
+                    font-weight: bold;
+                    font-size: 24px;
+                    line-height: 29px;
+                    color: $COLOR_PRIMARY;
+                }
+            }
+        }
+    }
+}

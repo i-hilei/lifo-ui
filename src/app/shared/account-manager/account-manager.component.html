@@ -1,0 +1,53 @@
+<div class="user-guide-container" *ngIf="isShowOld">
+  <div class="titles">
+    <span class="material-icons close-icon" (click)="close()"> close </span>
+  </div>
+  <h3 class="title">
+    {{ 'Have Our Account Manager Help for Campaign Creation' | translate }}
+  </h3>
+  <div class="name-input">
+    <form nz-form [formGroup]="validateForm">
+      <nz-form-item class="name-width">
+        <nz-form-label nzRequired nzFor="name">{{ 'Full Name' | translate }}</nz-form-label>
+        <nz-form-control nzErrorTip="{{ 'Please input your name!' | translate }}">
+          <input nz-input formControlName="name" id="name" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="name-width">
+        <nz-form-label nzRequired nzFor="email">{{ 'Email' | translate }}</nz-form-label>
+        <nz-form-control nzErrorTip="{{ 'The input is not valid E-mail!' | translate }}">
+          <input nz-input formControlName="email" id="email" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="name-width">
+        <nz-form-label nzRequired nzFor="phone_number">{{ 'Phone' | translate }}</nz-form-label>
+        <nz-form-control nzErrorTip="{{ 'Please input your phone number!' | translate }}">
+          <input formControlName="phone_number" id="'phone_number'" nz-input />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="marketing">
+        <nz-form-label nzRequired nzFor="marketing">{{ 'Your Experience with Influencer Marketing' | translate }}</nz-form-label>
+        <nz-select formControlName="marketing" class="marketing-select">
+          <nz-option *ngFor="let i of marketList" [nzLabel]="i" [nzValue]="i"></nz-option>
+        </nz-select>
+      </nz-form-item>
+    </form>
+    <div nz-row nzJustify="space-between" class="checkboxs">
+      <div nz-col nzSpan="10" class="left">
+        <label>{{ 'Interested social media platform' | translate }}</label>
+        <nz-checkbox-group [(ngModel)]="checkOptionsOne" (ngModelChange)="log(checkOptionsOne, 'one')"></nz-checkbox-group>
+      </div>
+      <div nz-col nzSpan="14" class="right">
+        <label>{{ 'What’s your major marketing targets?' | translate }}</label>
+        <nz-checkbox-group [(ngModel)]="checkOptionsTwo" (ngModelChange)="log(checkOptionsTwo, 'two')"></nz-checkbox-group>
+      </div>
+    </div>
+    <div class="footer">
+      <button nz-button nzType="primary" (click)="isBook()" [disabled]="!validateForm.valid">
+        {{ 'Book a demo' | translate }}
+      </button>
+      <nz-divider style="color: #BDBDBD;" nzText="{{ 'Or' | translate }}"></nz-divider>
+      <a (click)="isShowGuide()">{{ 'View Tutorial' | translate }}</a>
+    </div>
+  </div>
+</div>

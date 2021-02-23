@@ -1,0 +1,18 @@
+<!-- template-modal -->
+<div class="fullStyle" *ngIf="influencer">
+    <nz-modal #Fulltemplates 
+        nzClassName="fulltemplates"
+        [(nzVisible)]="isModalVisible" 
+        nzTitle="Campaign Details" 
+        (nzOnCancel)="handleCancel()" 
+        (nzOnOk)="handleOk()" 
+        nzMaskClosable=false
+        [nzFooter]=null
+        nzWidth="100%"
+        [nzStyle]="setModalStyle">
+
+        <app-campaign-overview [influencer]="influencer"></app-campaign-overview>
+    
+    </nz-modal>
+</div>
+

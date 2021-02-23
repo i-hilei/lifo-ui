@@ -1,0 +1,129 @@
+.tiny-box {
+    width: calc(100% - 20px);
+    // border-bottom: 1px solid rgb(211, 207, 207);
+    margin-left: 10px;
+    padding-top: 10px;
+    .image-holder {
+        margin: 12px 15px;
+        text-align: center;
+        // border: 2px solid #207BEC;
+        // margin-left: 10px;
+    
+        img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+        }
+    }
+    
+    .user-profile {
+        margin-top: 10px;
+        margin-bottom: 15px;
+        vertical-align: middle;
+        .user-name {
+            line-height: 20px;
+            text-align: center;
+            color: #000000;
+            b {
+                font-weight: 500;
+                display: inline-block;
+                font-size: 16px;
+                margin-bottom: 5px;
+            }
+            p {
+                margin-bottom: 5px;
+                font-size: 12px;
+            }
+            div {
+                font-weight: 300;
+                font-size: 12px;
+                line-height: 15px;
+            }
+        }
+        .enable {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .ant-badge-status-dot {
+            width: 9px;
+            height: 9px;
+        }
+    }
+
+    .user-status {
+        position: relative;
+        height: 440px;
+        overflow-y: scroll;
+        .status-step {
+            width: 90%;
+            // height: 110px;
+            background: #F5F6FB;
+            border-radius: 5px;
+            margin: 0 auto;
+            margin-bottom: 20px;
+            padding: 15px 10px;
+            text-align: center;
+            h3 {
+                font-size: 16px;
+                color: #4F4F4F;
+                margin-bottom: 0px;
+            }
+            .ant-btn {
+                width: 170px;
+                margin-top: 15px;
+                color: #414BB2;
+                font-weight: 600;
+                border: none;
+            }
+            .ant-btn:disabled {
+                color: #BDBDBD;
+                background: #FFFFFF;
+                opacity: 0.66;
+            }
+
+        }
+        .setOpacity {
+            opacity: .6;
+        }
+
+        .status-step-01:before {
+            content: '';
+            height: 600px;
+            width: 1px;
+            border: 1px dashed rgba(65, 75, 178, 0.3);
+            transform: translateX(-50%);
+            position: absolute;
+            left: 5px;
+            top: 0;
+        }
+        .status-step::after {
+            content: '';
+            height: 10px;
+            width: 10px;
+            border: 1px solid rgba(65, 75, 178, 0.3);
+            border-radius: 50%;
+            background: #fff;            
+        }
+        .status-step-01::after {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .status-step-02::after {
+            position: absolute;
+            left: 0;
+            top: 75px;
+        }
+        .status-step-03::after {
+            position: absolute;
+            left: 0;
+            top: 385px;
+        }
+        .status-step-04::after {
+            position: absolute;
+            left: 0;
+            top: 510px;
+        }
+    }
+    
+}

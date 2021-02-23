@@ -1,0 +1,115 @@
+@import 'common';
+
+.campaign-card-container {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .calendar {
+        display: inline-block;
+        padding: 0px 30px 10px 15px;
+        margin: 15px;
+        border-right: 1px solid #BDBDBD;
+        vertical-align: top;
+
+        .number-days {
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+    }
+
+    .preview {
+        display: inline-block;
+        vertical-align: baseline;
+        margin: 15px 0px;
+        margin-left: 40px;
+        background-color: lightgray;
+        width: 70px;
+        height: 70px;
+        border-radius: 35px;
+        .material-icons {
+            padding: 15px;
+            font-size: 40px;
+        }
+        img {
+            width: 70px;
+            height: 70px;
+            border-radius: 35px;
+        }
+    }
+
+    .name {
+        display: inline-block;
+        vertical-align: top;
+        padding: 20px;
+        width: calc(100% - 880px);
+        .end-time {
+
+        }
+    }
+
+    .title {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        text-transform: capitalize;
+        margin-bottom: 5px;
+        margin-top: 11px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        .material-icons {
+            vertical-align: top;
+        }
+    }
+
+    .content { 
+        font-size: 12px;
+        line-height: 17px;
+        color: rgba(13, 5, 60, 0.5);
+    }
+
+    .status {
+        display: inline-block;
+        vertical-align: top;
+        padding: 20px;
+        width: 220px;
+        
+    }
+
+    .type {
+        display: inline-block;
+        vertical-align: top;
+        padding: 20px;
+        width: 220px;
+    }
+
+    .commission {
+        display: inline-block;
+        vertical-align: top;
+        padding: 20px;
+        width: 140px;
+        .material-icons {
+            color: #F89E2D;
+            font-size: 20px;
+        }
+    }
+    
+    .switch {
+        display: inline-block;
+        vertical-align: top;
+        padding: 20px;
+    }
+
+    .icon {
+        display: inline-block;
+        vertical-align: top;
+        font-size: 30px;
+        padding: 30px 10px;
+        cursor: pointer;
+    }
+}

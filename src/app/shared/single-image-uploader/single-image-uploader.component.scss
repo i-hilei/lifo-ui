@@ -1,0 +1,56 @@
+
+
+
+
+    .upload-section {
+        width: 137px;
+        height: 137px;
+        background: rgba(13, 5, 60, 0.1);
+        border-radius: 8px;
+        display: flex;
+        cursor: pointer;
+
+        .material-icons {
+            font-size: 30px;
+            margin: auto;
+        }
+    }
+
+    .file-input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .image-container {
+        display: inline-block;
+        width: 137px;
+        height: 137px;
+        vertical-align: top;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .image-holder {
+        border-radius: 8px;
+        width: 137px;
+        height: 137px;
+        background-color: rgba(13, 5, 60, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .remove-icon {
+        padding: 10px;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    .image {
+        max-width: 137px;
+        max-height: 137px;
+    }

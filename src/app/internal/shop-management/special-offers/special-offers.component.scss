@@ -1,0 +1,83 @@
+.special-offer {
+    background: rgba(242, 153, 74, 0.1);
+    border: 1px solid rgba(242, 153, 74, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    height: 70px;
+    margin-bottom: 20px;
+    >h4 {
+        font-weight: 600;
+        font-size: 16px;
+        width: 250px;
+        float: left;
+    }
+    >div {
+        margin-left: 20px;
+        font-weight: 600;
+        float: left;
+        span:first-child {
+            margin-right: 10px;
+            color: #0D053C;
+        }
+    }
+    .increase {
+        width: 270px;
+        text-align: right;
+        nz-input-group {
+            width: 100px;
+        }
+    }
+    .operations {
+        width: 95px;
+        float: right;
+        span {
+            cursor: pointer;
+            font-weight: normal;
+            text-decoration: underline;
+            color: #414BB2;
+        }
+    }
+}
+
+.special-offer-sales {
+    background: rgba(39, 174, 96, 0.1);
+    border: 1px solid rgba(39, 174, 96, 0.5);
+}
+.special-offer-campaign {
+    background: rgba(134, 130, 157, 0.1);
+    border: 1px solid rgba(134, 130, 157, 0.5);
+    .increase {
+        width: 600px;
+        input {
+            width: 420px;
+            color: #000;
+            font-weight: 600;
+        }
+    }
+}
+.special-offer-edition {
+    background: rgba(235, 87, 87, 0.1);
+    border: 1px solid rgba(235, 87, 87, 0.5);
+    display: inline-block;
+    width: 23%;
+    > h4 {
+        width: auto;
+    }
+    .operations {
+        width: auto;
+    }
+}
+
+.special-offer-sample {
+    background: rgba(65, 75, 178, 0.08);
+    border: 1px solid rgba(65, 75, 178, 0.5);
+    width: 75%;
+    margin-left: 20px;
+    display: inline-block;
+    >h4 {
+        width: 300px;
+    }
+    .increase {
+        width: 220px;
+    }
+}

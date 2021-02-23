@@ -1,0 +1,295 @@
+@import 'common';
+@import 'global';
+
+.container {
+    width: 100%;
+    padding: 20px;
+
+    .header {
+        margin: 20px;
+        font-weight: 600;
+        font-size: 30px;
+        line-height: 36px;
+        color: white;
+        display: inline-block;
+        .material-icons {
+            font-size: 36px;
+            cursor: pointer;
+            vertical-align: top;
+        }
+    }
+
+    .pay-commission {
+        background: #FFFFFF;
+        border-radius: 15px;
+        padding: 10px 30px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 30px;
+        color: #EB5757;
+        button {
+            float: right;
+        }
+    }
+}
+
+.campaign-menu {
+    .header {
+        margin: 10px 20px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #0D053C;
+        display: inline-block;
+        a {
+            color: #0D053C;
+            i {
+                font-size: 14px;
+                vertical-align: middle;
+                cursor: pointer;
+                margin-right: 5px;
+            }
+            span {
+                font-size: 14px;
+                margin-right: 10px;
+            }
+        }
+        strong {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+    }
+    .ant-menu-item {
+        font-weight: bold;
+        font-size: 14px;
+        color: #828282;
+        i {
+            margin-left: 5px;
+        }
+    }
+
+    .ant-menu-item-selected {
+        color: #0D053C;
+        i {
+            color: #414BB2;
+        }
+    }
+}
+.campaign-details {
+    background: #fff;
+    height: 90px;
+    position: relative;
+    margin-bottom: 60px;
+    padding: 0 20px;
+    border-radius: 10px;
+    .campaign-title {
+        line-height: 90px;
+        color: #252733;
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .campaign-viewBtn {
+        position: absolute;
+        right: 20px;
+        top: 30px;
+        width: 180px;
+        border: 1px solid #414BB2;
+        color: #414BB2;
+    }
+}
+
+.menu {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(13, 5, 60, 0.15);
+    border-radius: 20px;
+    padding: 10px 40px;
+    margin: 10px 40px;
+    display: inline-block;
+    .menu-item {
+        display: inline-block;
+        margin-right: 20px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        color: $COLOR_PRIMARY;
+        opacity: 0.4;
+    }
+
+    .active {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 30px;
+        opacity: 1;
+    }
+}
+
+.influencer-list-container {
+    width: calc(100% - 80px);
+    margin: 0px 40px;
+}
+
+.budget-buttons {
+    text-align: right;
+    margin-top: 10px;
+    margin-right: 20px;
+    .estimate-budget {
+        margin-bottom: 10px;
+    }
+}
+
+.influencer-list {
+    position: relative;
+    .influencer-item {
+        display: inline-block;
+    }
+
+    .grey-cover {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        padding: 10px;
+        opacity: 0.7;
+        background-color: white;
+    }
+    .small-card-container {
+        display: inline-block;
+    }
+
+    .scroll-list {
+        width: 400px;
+        height: 600px;
+        display: inline-block;
+        vertical-align: top;
+        .influencer-list-table {
+            width: 100%;
+            height: 100%;
+            display: table;
+            border-right: 1px solid #DFE0EB;
+            border-collapse: collapse;
+            .influencer-list-item {
+                border-top: 1px solid #DFE0EB;
+            }
+        }
+    }
+
+    .chart-coontainer {
+        padding: 20px 40px;
+        display: inline-block;
+        vertical-align: top;
+        width: calc(100% - 500px);
+        .counter-container {
+            margin-bottom: 20px;
+            .counter-item {
+                height: 60px;
+                padding: 10px 40px;
+
+                display: inline-block;
+                vertical-align: top;
+                border-right: 1px solid #E5E5E5;
+                text-align: center;
+
+                .counter-title {
+                    color: $COLOR_GREY;
+                    margin-bottom: 10px;
+                    font-size: 16px;
+                }
+                .counter {
+                    font-weight: 600;
+                    font-size: 24px;
+                }
+            }
+
+            .last-item {
+                border-right: none !important;
+            }
+        }
+    }
+}
+
+.influencer-container {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 30px rgba(13, 5, 60, 0.05);
+    border-radius: 20px;
+    margin: 20px 0;
+    padding: 20px;
+    .influencer-header {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 29px;
+        margin-bottom: 20px;
+    }
+
+    .title {
+        .column-title {
+            display: inline-block;
+            width: 200px;
+        }
+        .name {
+            width: 380px;
+        }
+    }
+
+    .empty-influencer {
+        .empty-container {
+            display: flex;
+            text-align: center;
+            margin: 40px;
+            padding-top: 80px;
+
+            .empty {
+                width: 400px;
+                height: 300px;
+                margin: auto;
+            }
+        }
+
+        .search-icon {
+            text-align: center;
+
+            .material-icons {
+                font-size: 100px;
+                font-weight: 200;
+            }
+        }
+
+        .description {
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 22px;
+            color: #414BB2;
+            height: 120px;
+        }
+        margin-bottom: 20px;
+    }
+    
+}
+
+.influencer-selector {
+    margin-bottom: 15px;
+    .title {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        color: #0D053C;
+    }
+    .selector {
+        margin-left: 10px;
+    }
+    .approved {
+        color: red;
+    }
+}
+
+.signup-button {
+    margin: 20px 40px;
+}
+.currentViewCommons {
+    >div {
+        // background: #fff;
+    }
+}

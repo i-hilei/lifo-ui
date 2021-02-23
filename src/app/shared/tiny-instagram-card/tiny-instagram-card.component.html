@@ -1,0 +1,16 @@
+<div *ngIf="influencer" class="tiny-box">
+    <div class="checkbox" *ngIf="allowSelect">
+        <mat-icon svgIcon="empty-checkbox" *ngIf="!isSelected"></mat-icon>
+        <mat-icon svgIcon="checked-checkbox" *ngIf="isSelected"></mat-icon>
+    </div>
+    <div class="image-holder">
+        <img src="{{influencer.profile.picture}}">
+    </div>
+    <div class="user-profile">
+        <div class="user-name">
+            <b>{{influencer.profile.fullname}}</b>
+            <!-- <span>07/22 16:00</span> -->
+            <p>{{influencer.status}}</p>
+        </div>
+    </div>
+</div>

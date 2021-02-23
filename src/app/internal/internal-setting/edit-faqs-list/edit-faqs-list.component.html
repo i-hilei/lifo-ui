@@ -1,0 +1,43 @@
+<div class="edit-faqs">
+    <nz-spin nzTip="Loading..."  [nzSpinning]="isSpinning">
+        <div class="list-show-content" *ngFor="let item of faqList, let key = index;"  [ngClass]="item.isShowList?'list-box':'list-show'">
+            <div class="right">
+                <p class="input_box" *ngIf="item.isShowList">{{ item.question }}</p>
+                <input nz-input placeholder="Question" *ngIf="!item.isShowList" [(ngModel)]="item.question" />
+                <span class="category_edits" (click)="item.isShowList = false">
+                    <i nz-icon nzType="edit" nzTheme="outline"></i>Edit
+                </span>
+                <textarea rows="5" *ngIf="!item.isShowList" placeholder="Response" nz-input [(ngModel)]="item.response"></textarea>
+                <div class="textarea_box" *ngIf="item.isShowList">
+                    {{ item.response }}
+                </div>
+                <div class="btn-all" *ngIf="!item.isShowList">
+                    <button 
+                        nz-button 
+                        nzType="primary" 
+                        nzSize = "small" 
+                        (click)="updateFaq(item)"
+                    >
+                        Save
+                    </button>
+                    <button 
+                        nz-button 
+                        nzType="default" 
+                        nzSize="small" 
+                        (click)="deleteFaq(item.id)"
+                    >
+                        Delete
+                    </button>
+                    <button 
+                        nz-button 
+                        nzType="default" 
+                        nzSize="small" 
+                        (click)="item.isShowList = true"
+                    >
+                        Cancel
+                    </button>
+                </div>   
+            </div>
+        </div>
+    </nz-spin>
+</div>

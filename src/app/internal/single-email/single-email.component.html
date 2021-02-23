@@ -1,0 +1,133 @@
+<div class="person">
+    <div class="user-profile">
+        <a nz-button nzSize="default" nzType="link" (click)="showProfile()">View Profile</a>
+    </div>
+    <div *ngIf="influencer" class="influencer-tiny-box">
+        <div class="image-holder">
+            <img src="{{influencer.profile.influencer.profile.picture}}">
+        </div>
+        <div class="user-profile">
+            <div class="user-name">
+                <b>{{influencer.profile.influencer.profile.fullname}}</b>
+                <p>{{influencer.email}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="steps-container" *ngIf="influencer">
+    <div class="step">
+        <div class="step-title">
+            <mat-icon class="step-icon" svgIcon="step"></mat-icon>
+            Influencer outreach</div>
+        <div class="step-description">Now you can send invitation to the influencers. 
+            If you already negotiated the contract, click step two at top of the chatbox to skip this step.</div>
+        <div class="step-actions" *ngIf="showSendInvite">
+            <button nz-button nzType="primary" (click)="startToSendOffer()">Send Invitation</button>
+            <button nz-button (click)="skipOffer()">Move to contract signing</button>
+        </div>
+        <div class="step-actions" *ngIf="!showSendInvite">
+            <i nz-icon nzType="check-circle" nzTheme="fill" class="check-icon"></i> 
+            <span class="check-message">Offer Sent</span>
+
+            <div class="notification">
+                <!-- <span class="success-icon" *ngIf="showOfferAccepted"> 
+                    <i nz-icon nzType="check-circle" nzTheme="outline"></i> 
+                    Offer Accepted 
+                </span> -->
+    
+                <span class="fail-icon" *ngIf="showOfferDeclined"> 
+                    <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                    Offer Declined Reason: {{influencer['offer_response']['decline_type']}}
+                </span>
+
+                <!-- <a nz-button 
+                    nzSize="default" 
+                    nzType="link" 
+                    (click)="showOfferEmailThread()" 
+                    *ngIf="!shouldShowOfferEmailThread && influencer.inf_offer_thread"
+                >
+                    View Email Thread
+                    <i nz-icon nzType="caret-down" nzTheme="outline"></i>
+                </a>
+                <a nz-button 
+                    nzSize="default" 
+                    nzType="link" 
+                    (click)="shouldShowOfferEmailThread = false" 
+                    *ngIf="shouldShowOfferEmailThread && influencer.inf_offer_thread"
+                >
+                    Hide Thread
+                    <i nz-icon nzType="caret-up" nzTheme="outline"></i>
+                </a> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="email-thread">
+        <div class="email-thread-item" *ngFor="let email of offerEmailThread">
+            <div class="image-holder">
+                <img src="{{influencer.profile.influencer.profile.picture}}">
+            </div>
+            <div class="content">
+                <b> {{ email.from[0]['email'] }} </b>
+                <span class="time">{{ (email.date)*1000 | date:'MMMM d, HH:mm' }}</span>
+                <h4>{{ email.subject }}</h4>
+                <p [innerHTML]="email.body"></p>
+            </div>
+        </div>
+
+        <a nz-button nzType="link" class="reply-button" (click)="startReplyEmail()" *ngIf="offerEmailThread.length > 0 && !replyEmail">
+            <span class="material-icons"> reply </span> Reply
+        </a>
+    </div>
+
+    <div class="email-sender" *ngIf="replyEmail">
+        <div class="from">
+            <div *ngIf="emailAuth"> 
+                <img src="assets/svg/mailbox.svg" alt="" width="22">
+                <span class="chat-email-add">{{ emailAuth }}</span>
+            </div>
+            <div *ngIf="!emailAuth"> 
+                <img src="assets/svg/mailbox.svg" alt="" width="22">
+                <span (click)="authorizeNylas()" class="chat-email-auth">Authorize your email account</span> 
+            </div>
+        </div>
+        <app-email-editor 
+            #replyEmailEditor 
+            [htmlContent]="replyEmailContent"
+            [isHeight]="'300px'">
+        </app-email-editor>
+        <div class="action" (click)="sendReplyEmail()">
+            Send Email
+            <i class="send-icon" nz-icon nzType="send" nzTheme="outline"></i>
+        </div>
+    </div>
+    <div class="email-sender" *ngIf="sendingOffer && emailTemplate">
+        <div class="from">
+            <div *ngIf="emailAuth"> 
+                <img src="assets/svg/mailbox.svg" alt="" width="22">
+                <span class="chat-email-add">{{ emailAuth }}</span>
+            </div>
+            <div *ngIf="!emailAuth"> 
+                <img src="assets/svg/mailbox.svg" alt="" width="22">
+                <span (click)="authorizeNylas()" class="chat-email-auth">Authorize your email account</span> 
+            </div>
+        </div>
+        <div class="body subject">
+            <input nz-input placeholder="Subject" [(ngModel)]="emailTemplate.subject" nzSize="default" />
+        </div>
+        <div class="body">
+            <app-email-editor 
+                #sendOfferEditor 
+                [htmlContent]="emailTemplate.body"
+                [isHeight]="'300px'">
+            </app-email-editor>
+        </div>
+        <div class="action" (click)="sendOffer()">
+            Send Email
+            <i class="send-icon" nz-icon nzType="send" nzTheme="outline"></i>
+        </div>
+    </div>
+
+</div>
+

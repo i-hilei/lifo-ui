@@ -1,0 +1,650 @@
+<div class="reach-contaioner">
+    <h4>Campaign information</h4>
+    <div class="top clearfix">
+        <div class="reach-left">
+            <span>Campaign Name</span>
+            <h4>{{ campaign.campaign_name }}</h4>
+        </div>
+        <div class="reach-content productNames">
+            <span>Product Name</span>
+            <h4>{{ campaign.product_name }}</h4>
+        </div>
+        <div class="reach-content">
+            <span>Product Cost</span>
+            <h4>$ {{ campaign.unit_cost }}</h4>
+        </div>
+        <div class="reach-content">
+            <span>Targeted Number</span>
+            <h4>{{ campaign.number_of_posts }}</h4>
+        </div>
+        <div class="reach-content">
+            <span>Budget</span>
+            <h4>$ {{ campaign.budget }}</h4>
+        </div>
+        <div class="reach-content">
+            <span>Budget</span>
+            <h4>$ {{ campaign.budget }}</h4>
+        </div>
+        <div class="reach-content">
+            <span>Coupon</span>
+            <button nz-button nzType="primary" (click)="createPriceRule()">Create Price Rule</button>
+        </div>
+    </div>
+    <!-- <div class="bottom clearfix" *ngIf="campaign.audience_detail && campaign.audience_detail.audience">
+        <div class="reach-left" style="line-height: 55px;">
+            <span>Targeting Requirements：</span>
+        </div>
+        <div class="reach-content productNames">
+            <span>Language</span>
+            <h4>{{ campaign.audience_detail.audience ? campaign.audience_detail.audience.language.name : '' }}</h4>
+        </div>
+        <div class="reach-content">
+            <span>Gender</span>
+            <h4>{{ campaign.audience_detail.audience ? campaign.audience_detail.audience.gender : '' }}</h4>
+        </div>
+        <div class="reach-content">
+            <span>Age Bracket</span>
+            <h4>
+                <strong *ngFor="let i of campaign.audience_detail.audience ? campaign.audience_detail.audience.age : ''; let key = index">
+                    {{ i }} <strong *ngIf="key > 0">, </strong>
+                </strong>
+            </h4>
+        </div>
+    </div> -->
+    <mat-divider></mat-divider>
+    <div class="reach-invitation">
+        <p>
+            <span>Invitation</span>
+            <i *ngIf="isShowCreateBtn">There is no campaign invitation yet, please edit a new one.</i>
+            <button nz-button nzType="primary" (click)="invitationRouter()" *ngIf="isShowCreateBtn">Create Invitations</button>
+            <button nz-button nzType="default" (click)="previewInvitation()" *ngIf="!isShowCreateBtn">Preview Invitations</button>
+            <button nz-button nzType="primary" (click)="invitationRouter()" *ngIf="!isShowCreateBtn">Edit Campaign Invitations</button>
+        </p>
+    </div>
+</div>
+
+<div class="reach-contaioner" style="margin-top: 20px;">
+    <h4>Influencer Labeling <a (click)="isShowListLabel(campaignId)"><span><i nz-icon nzType="edit" nzTheme="outline"></i> Edit</span></a></h4>
+                    <div class="label-type clearfix" >
+                        <div class="left"># Influencer Attributes</div>
+                        <div class="right">
+                            <ng-container *ngFor="let item of attributesArr; let i = index">
+                                <nz-tag class="tag-father" nzMode="default">
+                                  {{ item['name'] }}
+                                 </nz-tag>
+                          
+                                  <ng-container *ngFor="let k of item['children']">
+                                    <span class="tag-child-margin">
+                                    <nz-tag  class="tag-children" nzMode="default">
+                                      {{ k['name'] }}</nz-tag>
+                                    </span>
+                                  </ng-container>                    
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="label-type clearfix">
+                         <div class="left"># Content Types</div>
+                        <div class="right">
+                            <ng-container *ngFor="let item of platformArr; let i = index">
+                                <nz-tag class="tag-father" nzMode="default">
+                                  {{ item['name'] }}
+                                </nz-tag>
+                                
+                                  <ng-container *ngFor="let k of item['children']">
+                                    <span class="tag-child-margin">
+                                    <nz-tag  class="tag-children" nzMode="default">
+                                      {{ k['name'] }}</nz-tag>
+                                    </span>
+                                  </ng-container>                    
+                        </ng-container>
+                        </div>
+                    </div>
+                    <div class="label-type clearfix">
+                        <div class="left"># Social Platforms</div>
+                        <div class="right">
+                            <ng-container *ngFor="let item of contentArr; let i = index">
+                                <nz-tag class="tag-father" nzMode="default">
+                                  {{ item['name'] }}
+                                </nz-tag>
+                                
+                                  <ng-container *ngFor="let k of item['children']">
+                                    <span class="tag-child-margin">
+                                    <nz-tag  class="tag-children" nzMode="default">
+                                      {{ k['name'] }}</nz-tag>
+                                    </span>
+                                  </ng-container>                    
+                            </ng-container>
+                        </div>
+                    </div>
+</div>
+<!-- Campaign Settings -->
+<div class="discovery-setting campaign-setting">
+    <div class="title">
+        <h4>
+            Specific Type Of Campaign Settings
+        </h4>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="container">
+        <h4>Edit Campaign Info</h4>
+        <div class="input-list input-setWidth">
+            <label>Campaign Name</label>
+            <input nz-input [(ngModel)]="campaignNameValue" />
+        </div>
+        <div class="input-list">
+            <label>Product Name</label>
+            <input nz-input [(ngModel)]="productNameValue" />
+        </div>
+        <div class="input-list">
+            <label>Product Price</label>
+            <nz-input-group nzPrefix="$">
+                <input nz-input [(ngModel)]="productPriceValue" />
+            </nz-input-group>
+        </div>
+        <div class="input-list input-setWidth">
+            <label>Product URL (For Weee! only)</label>
+            <input nz-input [(ngModel)]="productUrlValue" />
+        </div>
+        <div class="input-list">
+            <label>Brand Name</label>
+            <input nz-input [(ngModel)]="brandNameValue" />
+        </div><br>
+        <div class="input-list">
+            <label>Coupon Code</label>
+            <input nz-input [(ngModel)]="couponCodeValue" />
+        </div>
+        <div class="input-list">
+            <label>Discount Percentage</label>
+            <nz-input-group nzSuffix="%">
+                <input nz-input type="number" [(ngModel)]="discountValue" />
+            </nz-input-group>
+        </div>
+        <h4>Set Up Upfront Payment</h4>
+        <div class="input-list radioGroup">
+            <label>Pay upfront & Skip shipping</label>
+            <nz-radio-group [(ngModel)]="payUpfrontValue" nzButtonStyle="solid">
+                <label nz-radio-button [nzValue]='true'>Yes</label>
+                <label nz-radio-button [nzValue]='false'>No</label>
+            </nz-radio-group>
+        </div>
+        <div class="input-list">
+            <label>Percentage Of Commission</label>
+            <nz-input-group nzSuffix="%">
+                <input nz-input [(ngModel)]="percentageValue" />
+            </nz-input-group>
+        </div>
+    </div>
+    <div class="container">
+        <h4>Current Product</h4>
+        <div class="product-item" *ngFor="let product of currentProductList; index as i">
+            <img class="image" src="{{product.image?.src}}">
+            <div class="item-right">
+                <div class="product-title">
+                    {{product.title}}
+                    <button nz-button nzSize="small" (click)="deleteProduct(i)"> Remove Product </button>
+                </div>
+                <div class="variant-item" *ngFor="let variant of product.variants; index as j">
+                    {{variant.title}}
+                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteVariant(product, j)"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-list add-product-list">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a product" [(ngModel)]="newProduct">
+                <nz-option *ngFor="let product of productList" [nzLabel]="product.title" [nzValue]="product.id"></nz-option>
+            </nz-select>
+            Or
+            <input nz-input placeholder="Put Product ID" [(ngModel)]="newProduct" />
+            <button nz-button nzType="primary" (click)="addProduct()">Add Product</button>
+        </div>
+    </div>
+    <div  class="container">
+        <h4>Campaign Timeline</h4>
+        <div class="input-list">
+            <label>Post Start Time</label>
+            <nz-date-picker
+                [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                nzFormat="yyyy-MM-dd HH:mm"
+                nzPlaceHolder="Select Time"
+                [(ngModel)]="startPostTimeValue"
+                (ngModelChange)="postTimeOnChange($event)"
+                (nzOnOk)="postTimeOnOk($event)"
+            ></nz-date-picker>
+        </div>
+        <div class="input-list">
+            <label>Post Deadline</label>
+            <nz-date-picker
+                [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                nzFormat="yyyy-MM-dd HH:mm"
+                nzPlaceHolder="Select Time"
+                [(ngModel)]="postTimeValue"
+                (ngModelChange)="postTimeOnChange($event)"
+                (nzOnOk)="postTimeOnOk($event)"
+            ></nz-date-picker>
+        </div>
+    </div>
+    <div  class="container" *ngIf="campaignConfiguration">
+        <h4>Campaign Configuration</h4>
+        <div class="input-list">
+            <label>Fast Deliver Window Size</label>
+            <nz-input-group nzSuffix="hrs">
+                <input nz-input [(ngModel)]="campaignConfiguration.fast_deliver_window" />
+            </nz-input-group>
+        </div>
+        <div class="input-list">
+            <label>Quota</label>
+            <input nz-input [(ngModel)]="campaignConfiguration.quota" placeholder="Target: 10" />
+        </div>
+        <div class="input-list">
+            <label>Delivery Window</label>
+            <nz-input-group nzSuffix="hrs">
+                <input nz-input [(ngModel)]="campaignConfiguration.delivery_deadline" />
+            </nz-input-group>
+        </div>
+    </div>
+    <div class="footerBtn">
+        <button nz-button nzType="primary" (click)="campaignSave()">
+            Save
+        </button>
+    </div>
+</div>
+
+<!-- Discovery Settings -->
+<div class="discovery-setting">
+    <div class="title">
+        <h4>
+            Discovery Settings
+            <span>
+                Set up If this campaign is discoverable by all influencers
+            </span> 
+            <div class="status" [ngClass]="{'setColors': campaign.is_discoverable}">
+                Current state: <b>{{ campaign.is_discoverable ? 'On': 'Off' }}</b>
+            </div>
+        </h4>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="container" *ngIf="campaignConfiguration">
+        <h4>Set Up Global Pricing Rules</h4>
+        <div class="input-list">
+            <label>Discovery Expire Time</label>
+            <nz-date-picker
+                [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                nzFormat="yyyy-MM-dd HH:mm"
+                nzPlaceHolder="Select Time"
+                [(ngModel)]="endTimeValue"
+                (ngModelChange)="postTimeOnChange($event)"
+                (nzOnOk)="postTimeOnOk($event)"
+            ></nz-date-picker>
+        </div>
+        <div class="input-list">
+            <label>$ Per 1k Followers</label>
+            <nz-input-group nzPrefix="$">
+                <input nz-input [(ngModel)]="campaignConfiguration.cpm" />
+            </nz-input-group>
+        </div>
+        <div class="input-list">
+            <label>Fast Delivery Bonus Rate</label>
+            <nz-input-group nzSuffix="%">
+                <input nz-input [(ngModel)]="campaignConfiguration.fast_delivery_bonus" />
+            </nz-input-group> 
+        </div>
+        <div class="input-list">
+            <label>Max Base Commission</label>
+            <nz-input-group nzPrefix="$">
+                <input nz-input [(ngModel)]="campaignConfiguration.max_base_commission" />
+            </nz-input-group>
+        </div>
+    </div>
+    <div class="footerBtn">
+        <button nz-button nzType="primary" *ngIf="!campaign.is_discoverable" (click)="reviewCommission()">
+            Preview & Turn On
+        </button>
+        <button nz-button nzType="primary" *ngIf="campaign.is_discoverable" (click)="turnOnConfirm(false)">
+            Turn Off
+        </button>
+    </div>
+</div>
+
+<!-- Influencer List Pool -->
+<div class="list-pool">
+    <h4>Influencer List Pool</h4>
+    <div class="list-container">
+        <div class="list-header">
+            <span>Registered Influencers List（{{ allNumbers }}）</span>
+            <div class="list-header-right">
+                <button nz-button nzType="default" [nzSize]="'small'" [ngClass]="allChecked ? 'selectBtn' : ''" (click)="selectAllList()">
+                    Select All
+                </button>
+                <button nz-button nzType="primary" [nzSize]="'small'" (click)="isShowList()">Create New List</button>
+            </div>
+        </div>
+        <div class="all-list">
+            <nz-table #basicTable [nzData]="influencerList" [nzPageSize]="10">
+                <thead>
+                    <tr>
+                        <th nzWidth="30px"></th>
+                        <th [nzSortFn]="nameSort" [nzSortOrder]="'ascend'">List Name</th>
+                        <th nzWidth="180px">Sample</th>
+                        <th nzWidth="180px">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let data of basicTable.data">
+                        <tr>
+                            <td>
+                                <img *ngIf="data.platform !== 'tiktok'" class="logo-image" width="18" src="assets/images/instagram.jpg">
+                                <img *ngIf="data.platform === 'tiktok'" class="logo-image" width="18" src="assets/images/tiktok.jpg">
+                            </td>
+                            <td>
+                                <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="updateSingleChecked(data)"></label>
+                                {{ data.name }} ({{ data.ins_list.length }})
+                            </td>
+                            <td>
+                                <a (click)="showSubList(data)"><i nz-icon nzType="eye" nzTheme="outline"></i> Samples</a>
+                            </td>
+                            <td>
+                                <a (click)="editInfluencerList(data)"><i nz-icon nzType="edit" nzTheme="outline"></i> Edit</a>
+                            </td>
+                        </tr>
+                        <tr [nzExpand]="data.isShowed">
+                            <div class="sub-list discovery-table">
+                                <nz-table #nzTable nzShowPagination="false" [nzData]="data.sublist.slice(0, 5)" nzTableLayout="fixed">
+                                    <thead>
+                                        <tr>
+                                            <th nzWidth="340px">Influencers</th>
+                                            <th>Follower Range</th>
+                                            <th>Fake Followers Rate</th>
+                                            <th>Average Likes</th>
+                                            <th>Engagement Rate</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let inf of nzTable.data; let key = index">
+                                           
+                                            <tr>
+                                                <td class="tableTitle">
+                                                    <div class="image-holder">
+                                                        <img src="{{ inf.profile.picture }}" />
+                                                        <i
+                                                            class="like-icon"
+                                                            nz-icon
+                                                            nzType="like"
+                                                            nzTheme="fill"
+                                                            *ngIf="inf.profile.highlyRecommend"
+                                                        ></i>
+                                                    </div>
+                                                    <div class="user-profile">
+                                                        <div class="profile-container">
+                                                            <div class="user-name">{{ inf.profile.fullname }}</div>
+                                                            <div class="user-name-link">
+                                                                <span (click)="openInsPage(inf)">@{{ inf.profile.username }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="material-icons person-icon"> person </span>
+                                                    {{ inf.profile.followers | number }}
+                                                </td>
+                                                <td>{{ (1 - inf.audience.credibility) * 100 | number: '1.0-1' }}%</td>
+                                                <td>
+                                                    <span class="material-icons favorite-icon"> favorite </span>
+                                                    {{ inf.stats?.avgLikes?.value | number }}
+                                                </td>
+                                                <td>{{ inf.profile.engagementRate * 100 | number: '1.0-1' }}%</td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </nz-table>
+                            </div>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </nz-table>
+        </div>
+        <!-- <ul class="all-list">
+            <li *ngFor="let i of influencerList; let key = index">
+                <label nz-checkbox [(ngModel)]="i.checked" (ngModelChange)="updateSingleChecked(i)"></label>
+                <span class="list-name">{{ i.name }} ({{ i.ins_list.length }})</span>
+                <p>
+                    <a (click)="showSubList(i)"><i nz-icon nzType="eye" nzTheme="outline"></i> Samples</a>
+                    <a (click)="editInfluencerList(i)"><i nz-icon nzType="edit" nzTheme="outline"></i> Edit</a>
+                </p>
+                <ul class="sub-list discovery-table" *ngIf="i.isShowed">
+                    
+                </ul>
+            </li>
+        </ul> -->
+    </div>
+</div>
+
+<div class="recurit-detail" *ngIf="campaignRecruit && campaignRecruit.campaign && campaignRecruit.campaign.invitations">
+    <h4>Recruit History</h4>
+    <li *ngFor="let item of campaignRecruit.campaign.invitations | keyvalue">
+        {{ item.key * 1000 | date: 'MMMM d, HH:mm' }} : {{ item.value.invited_ins_influencers.length }} influencers
+    </li>
+</div>
+
+<div class="discovery-setting">
+    <div class="container" *ngIf="tempConfiguration">
+        <h4>Invitation Pricing Rules</h4>
+        <div class="input-list">
+            <label>$ Per 1k Followers</label>
+            <nz-input-group nzPrefix="$">
+                <input nz-input [(ngModel)]="tempConfiguration.cpm" />
+            </nz-input-group>
+        </div>
+        <div class="input-list">
+            <label>Fast Delivery Bonus Rate</label>
+            <nz-input-group nzSuffix="%">
+                <input nz-input [(ngModel)]="tempConfiguration.fast_delivery_bonus" />
+            </nz-input-group> 
+        </div>
+        <div class="input-list">
+            <label>Max Base Commission</label>
+            <nz-input-group nzPrefix="$">
+                <input nz-input [(ngModel)]="tempConfiguration.max_base_commission" />
+            </nz-input-group>
+        </div>
+        <div class="input-list">
+            <label>Offer Expiration Time</label>
+            <nz-input-group nzSuffix="hrs">
+                <input nz-input [(ngModel)]="tempConfiguration.offer_expiration_time" />
+            </nz-input-group>
+        </div>
+    </div>
+
+    <div class="footerBtn">
+        <button nz-button nzType="primary" (click)="showInvitations()" [nzLoading]="isCalculatingCommission">
+            <i nz-icon nzType="send"></i> Send Invitation
+        </button>
+    </div>
+</div>
+
+
+<!-- Turn On -->
+<nz-modal
+    [(nzVisible)]="showDiscoveryModal"
+    nzTitle="Confirm Commission and Bonus"
+    [nzFooter]="null"
+    nzWidth="800"
+    (nzOnCancel)="cancelDiscoveryModel()"
+>
+    <div class="discovery-table discovery-profile" *ngIf="discoveryProfileSimple.length > 0">
+        <nz-table #nzTable [nzData]="discoveryProfileSimple" nzTableLayout="fixed" [nzPageSize]="100" [nzScroll]="{ y: '450px' }">
+            <thead>
+                <tr>
+                    <th nzWidth="40%">Follower Range</th>
+                    <th nzWidth="30%">Commission</th>
+                    <th nzWidth="30%">Bonus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let data of nzTable.data; let key = index">
+                    <tr>
+                        <td>
+                            <span class="material-icons person-icon"> person </span>
+                            {{ data.inf_id }}
+                        </td>
+                        <td>$ {{ data.commission_dollar | number: '1.0-1' }}</td>
+                        <td>$ {{ data.bonus_dollar | number: '1.0-1' }}</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </nz-table>
+
+        <div class="buttons">
+            <button nz-button nzType="primary" (click)="turnOnConfirm(true)">
+                Turn On
+            </button>
+            <button nz-button (click)="cancelDiscoveryModel()">
+                Back
+            </button>
+        </div>
+    </div>
+</nz-modal>
+
+<!-- Send Invitation -->
+<nz-modal
+    [nzStyle]="{ top: '20px' }"
+    [(nzVisible)]="showInvitationModal"
+    nzTitle="Confirm Commission and Bonus"
+    [nzFooter]="null"
+    nzWidth="1200"
+    (nzOnCancel)="cancelSendInvitaion()"
+>
+    <div class="discovery-table" *ngIf="invitationProfileSimple.length > 0">
+        <div class="filter">
+            <div class="filter-title">
+                Filter
+                <div class="filter-buttons">
+                    <label nz-checkbox [(ngModel)]="filter.registered_only">Only Registered Users</label>
+                    <button nz-button nzType="primary" (click)="filterInfluencers()">Filter Influencers</button>
+                    <button nz-button nzType="primary" (click)="resetFilters()">Reset</button>
+                </div>
+            </div>
+            <div class="filter-item">
+                Min follwers Cnt
+                <nz-input-group>
+                    <input type="number" nz-input [(ngModel)]="filter.min_followers" />
+                </nz-input-group>
+            </div>
+            <div class="filter-item">
+                Max follwers Cnt
+                <nz-input-group>
+                    <input type="number" nz-input [(ngModel)]="filter.max_followers" />
+                </nz-input-group>
+            </div>
+            <div class="filter-item">
+                Min Fake Followers Cnt
+                <nz-input-group nzSuffix="%">
+                    <input type="number" nz-input [(ngModel)]="filter.min_fake_follower_rate" />
+                </nz-input-group>
+            </div>
+
+            <div class="filter-item">
+                Max Fake Followers Rate
+                <nz-input-group nzSuffix="%">
+                    <input type="number" nz-input [(ngModel)]="filter.max_fake_follower_rate" />
+                </nz-input-group>
+            </div>
+            <div class="filter-item">
+                Min Engagement Rate
+                <nz-input-group nzSuffix="%">
+                    <input type="number" nz-input [(ngModel)]="filter.min_engagement_rate" />
+                </nz-input-group>
+            </div>
+            <div class="filter-item">
+                Max Engagement Rate
+                <nz-input-group nzSuffix="%">
+                    <input type="number" nz-input [(ngModel)]="filter.max_engagement_rate" />
+                </nz-input-group>
+            </div>
+        </div>
+        <nz-table #nzTable [nzData]="displayedInvitationProfileSimple" nzTableLayout="fixed" [nzPageSize]="100" [nzScroll]="{ y: '440px' }">
+            <thead>
+                <tr>
+                    <th nzWidth="60px" [nzShowCheckbox]="true" [(nzChecked)]="allSelected"></th>
+                    <th nzWidth="340px">
+                        Influencers
+                        <nz-filter-trigger [(nzVisible)]="searchVisible" [nzActive]="searchValue?.length > 0" [nzDropdownMenu]="menu">
+                            <i nz-icon nzType="search" style="font-size: 20px; color: #414bb2;"></i>
+                        </nz-filter-trigger>
+                    </th>
+                    <th [nzSortFn]="sortFunctions['follower_cnts']">Follower Range</th>
+                    <th [nzSortFn]="sortFunctions['fake_percentage']">Fake Followers Rate</th>
+                    <th [nzSortFn]="sortFunctions['avg_likes']">Average Likes</th>
+                    <th [nzSortFn]="sortFunctions['engagement_rate']">Engagement Rate</th>
+                    <th [nzSortFn]="sortFunctions['commission_dollar']">Commission</th>
+                    <th [nzSortFn]="sortFunctions['bonus_dollar']">Bonus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let data of nzTable.data; let key = index">
+                    <tr>
+                        <td [(nzChecked)]="data.checked" nzShowCheckbox="true"></td>
+                        <td class="tableTitle">
+                            <div class="image-holder">
+                                <img src="{{ data.profile.picture }}" />
+                            </div>
+                            <div class="user-profile">
+                                <div class="profile-container">
+                                    <div class="user-name">
+                                        <span>{{ data.profile.fullname }}</span>
+                                        <img *ngIf="data.is_registered" src="assets/images/is_registered.png" />
+                                        <img *ngIf="data.complete_campaign" src="assets/images/complete_campaign.png" />
+                                        <img *ngIf="data.in_campaign" src="assets/images/in_campaign.png" />
+                                        <img *ngIf="data.in_list" src="assets/images/in_list.png" />
+                                    </div>
+                                    <div class="user-name-link">
+                                        <span (click)="openInsPage(data)">@{{ data.profile.username }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="material-icons person-icon"> person </span>
+                            {{ data.follower_cnts | number }}
+                        </td>
+                        <td>{{ data.fake_percentage * 100 | number: '1.0-1' }}%</td>
+                        <td>
+                            <span class="material-icons favorite-icon"> favorite </span>
+                            {{ data.avg_likes | number }}
+                        </td>
+                        <td>{{ data.engagement_rate * 100 | number: '1.0-1' }}%</td>
+                        <td>$ {{ data.commission_dollar | number: '1.0-1' }}</td>
+                        <td>$ {{ data.bonus_dollar | number: '1.0-1' }}</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </nz-table>
+
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+                <div class="search-box">
+                    <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                    <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                        Search
+                    </button>
+                    <button nz-button nzSize="small" (click)="resetSearch()">Reset</button>
+                </div>
+            </div>
+        </nz-dropdown-menu>
+
+        <div>
+            <b>Offer deadline: {{calculateInvDeadline()}}</b>
+        </div>
+        <div class="buttons">
+            <button nz-button nzType="primary" (click)="sendInviations()" [nzLoading]="isSendingInvitation">
+                <i nz-icon nzType="send"></i> Send Invitations
+            </button>
+        </div>
+    </div>
+</nz-modal>
+
+<app-create-new-list-dialog #newList (childOuter)="createList($event)"></app-create-new-list-dialog>
+<app-influencer-list-labeling #listLabel 
+pageName="campaign"
+[defaultLabelTagList] = "labelTagList"
+(childOuter)="getData($event)"></app-influencer-list-labeling>

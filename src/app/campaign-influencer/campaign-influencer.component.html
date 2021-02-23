@@ -1,0 +1,178 @@
+<div *ngIf="!isMobileView">
+    <div class="header-background">
+
+    </div>
+    <div class="title">
+        Campaign Details
+        <div class="image-holder">
+            <img src="assets/images/login.png">
+        </div>
+    </div>
+    <div class="container">
+        <div *ngIf="offerDetail">
+            <app-offer-detail-display 
+                [offerDetail]="offerDetail"
+                [isMobileView]="isMobileView"
+            ></app-offer-detail-display>
+        </div>
+        
+        <div class="buttons" *ngIf="!completeForm">
+            <button mat-flat-button class="accept-button" (click)="saveInfo()">
+                I'm Interested
+            </button>
+            <button mat-stroked-button class="reject-button" (click)="declineOffer()">
+                Not Interested
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="mobile-view" *ngIf="isMobileView && !showAcceptOfferMobile && !showDeclineOfferMobile">
+    <div class="mobile-title">
+        Campaign Details
+    </div>
+    <div class="icon-holder">
+        <mat-icon class="logo" svgIcon="logo"></mat-icon>
+    </div>
+
+    <div class="mobile-container">
+        <div *ngIf="offerDetail">
+            <app-offer-detail-display 
+                [offerDetail]="offerDetail"
+                [isMobileView]="isMobileView"
+            ></app-offer-detail-display>
+        </div>
+
+        <div class="buttons" *ngIf="!completeForm">
+            <button mat-flat-button class="accept-button" (click)="acceptOfferMobile()">
+                I'm Interested
+            </button>
+            <button mat-stroked-button class="reject-button" (click)="declineOfferMobile()">
+                Not Interested
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="mobile-view" *ngIf="isMobileView && showDeclineOfferMobile">
+    <div class="mobile-title">
+
+    </div>
+    <div class="icon-holder">
+        <mat-icon class="logo" svgIcon="logo"></mat-icon>
+    </div>
+    <div class="back-icon">
+        <span class="material-icons" (click)="backToOffer()"> arrow_back </span>
+    </div>
+
+    <div class="mobile-container">
+        <div class="big-icon-holder">
+            <mat-icon svgIcon="concern"></mat-icon>
+        </div>
+        
+        <div class="sub-title">
+            Tell us more about your concerns...
+        </div>       
+        <div class="input-box">
+            <mat-radio-group class="option-group" [(ngModel)]="decline_type" aria-label="Select an option">
+                <mat-radio-button value="low_commision">The commision is too low.</mat-radio-button> <br>
+                <mat-radio-button value="dislike_product">I don't like this product.</mat-radio-button> <br>
+                <mat-radio-button value="others">Others: 
+                    <mat-form-field class="example-half-width">
+                        <input 
+                            matInput 
+                            placeholder="" 
+                            [(ngModel)]="decline_text_reason"
+                            autocomplete="off"
+                        >
+                    </mat-form-field>
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+    
+        <div class="buttons">
+            <button mat-raised-button color="primary" class="accept-button" (click)="declientOfferRealMobile()"> Confirm </button>
+        </div>
+    </div>
+</div>
+
+<div class="mobile-view" *ngIf="isMobileView && showAcceptOfferMobile">
+    <div class="mobile-title">
+        Contact Information 
+    </div>
+    <div class="icon-holder">
+        <mat-icon class="logo" svgIcon="logo"></mat-icon>
+    </div>
+    <div class="back-icon">
+        <span class="material-icons" (click)="backToOffer()"> arrow_back </span>
+    </div>
+    <div class="description">
+        Please leave your information here. Lifo will generate a contract for you to review later.
+    </div>
+
+    <div class="mobile-container">
+        <div class="input-box">
+            <div class="input-name">Full Name</div>
+            <div class="input-field">
+                <mat-form-field class="example-half-width" floatLabel="never">
+                    <input 
+                        matInput 
+                        placeholder="" 
+                        [(ngModel)]="influencer.inf_name"
+                        autocomplete="off"
+                    >
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="input-box">
+            <div class="input-name">Phone Number</div>
+            <div class="input-field">
+                <mat-form-field class="example-half-width" floatLabel="never">
+                    <input 
+                        matInput 
+                        placeholder="" 
+                        [(ngModel)]="influencer.inf_phone"
+                        autocomplete="off"
+                    >
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <div class="input-box">
+            <div class="input-name">Address</div> 
+            <div class="explaination">We will ship a product for your content creation.</div>
+            <div class="input-field">
+                <mat-form-field class="example-half-width" floatLabel="never">
+                    <input 
+                        matInput 
+                        placeholder="" 
+                        [(ngModel)]="influencer.influencer_address1"
+                        autocomplete="off"
+                    >
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <div class="input-box">
+            <div class="input-name"></div> 
+            <div class="input-field">
+                <mat-form-field class="example-half-width" floatLabel="never">
+                    <input 
+                        matInput 
+                        placeholder="" 
+                        [(ngModel)]="influencer.influencer_address2"
+                        autocomplete="off"
+                    >
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="buttons" *ngIf="!completeForm">
+            <button mat-flat-button class="accept-button" (click)="acceptOfferRealMobile()">
+                Accept
+            </button>
+        </div>
+    </div>
+
+</div>

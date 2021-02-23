@@ -1,0 +1,124 @@
+
+.title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    .recommended-title {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 22px;
+        color: #0D053C;
+        margin-bottom: 5px;
+    }
+
+    .recommended-stats {
+        font-size: 14px;
+        line-height: 17px;
+        color: #0D053C;
+    }
+
+    .like-icon {
+        color: #F2994A;
+    }
+
+    .discoverBtn {
+        float: right;
+        margin-top: -44px;
+        width: 210px;
+        height: 40px;
+        background: #FFFFFF;
+        box-shadow: 0px 2px 6px rgba(13, 5, 60, 0.15);
+        border-radius: 20px;
+        margin-right: 10px;
+        color: #414BB2;
+        font-weight: 600;
+        .material-icons {
+            vertical-align: middle;
+            color: #414BB2;
+            margin-right: 10px;
+        }
+    }
+    .discoveringBtn {
+        background: #414BB2;
+        color: #fff;
+        .material-icons {
+            color: #fff;
+        }
+    }
+}
+
+.discovery-table {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    .image-holder {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+        border-radius: 50%;
+        // border: 2px solid #207BEC;
+        display: inline-block;
+    
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 50%;
+        }
+
+        .like-icon {
+            color: #F2994A;
+            position: absolute;
+            bottom: 14px;
+            left: 50px;
+            background: #fff;
+            padding: 4px;
+            border-radius: 50%;
+        }
+    }
+    
+    .user-profile {
+        width: 240px;
+        vertical-align: top;
+        display: inline-block;
+    
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height: 50px;
+        }
+    
+        .user-name {
+            font-weight: 600;
+            color: black;
+        }
+        .user-name-link {
+            margin-bottom: 5px;
+            cursor: pointer;
+            // text-decoration: underline;
+            span {
+                font-weight: 300;
+                font-size: 14px;
+                line-height: 17px;
+                color: #0071FF;
+            }
+        }
+        .enable {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+    
+    .material-icons {
+        vertical-align: bottom;
+        font-size: 19px;
+    }
+    .person-icon {
+        color: #414BB2;
+    }
+    .favorite-icon {
+        color: #FF759E;
+    }
+    .expand-icon {
+        cursor: pointer;
+        font-size: 20px;
+    }
+}

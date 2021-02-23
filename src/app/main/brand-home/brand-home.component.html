@@ -1,0 +1,353 @@
+<!-- <div class="header-background">
+
+</div> -->
+<div class="header">
+    <div class="welcome-message" *ngIf="brandUser">
+        <div>{{ 'Welcome' | translate }}, {{ brandUser['store_name'] }}!</div>
+    </div>
+    <div class="userInfo">
+        <!-- <app-change-password></app-change-password> -->
+        <img src="assets/images/language.png" class="imgLangs" alt="" width="22">
+        <nz-select [(ngModel)]="defaultLangs" class="langStyle" nzBorderless=true (ngModelChange)="setLangs($event)">
+            <nz-option nzValue="English" nzLabel="English"></nz-option>
+            <nz-option nzValue="Chinese" nzLabel="简体中文"></nz-option>
+        </nz-select>
+        <a nz-dropdown [nzDropdownMenu]="menu">
+            <span class="material-icons">
+                account_circle
+            </span>
+        </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <div class="user-message" *ngIf="brandUser">
+                <span class="material-icons">
+                    account_circle
+                </span>
+                <h3>{{ brandUser.store_name }}</h3>
+                <p style="margin-bottom: 30px;"><i nz-icon nzType="mail" nzTheme="outline" style="color: #000"></i> {{ brandUser.store_email }}</p>
+                <!-- <p><i nz-icon nzType="instagram" nzTheme="outline" style="color: #FF759E;"></i> @lifo_dev</p> -->
+                <button nz-button nzType="default" (click)="showPasswordModal()">{{ 'Change Password' | translate }}</button>
+            </div>
+        </nz-dropdown-menu>
+    </div>
+</div>
+<div class="container">
+    <div class="pageSubtitle">
+        <h3>
+            Lifo Fully-managed Influencer Marketing
+        </h3>
+        <p>
+            We find the best match from Lifo’s 10M+ influencers pool and manage the operations for you. 
+        </p>
+    </div>
+    <div nz-row class="campaign-container ads" *ngIf="productList">
+        <div nz-col nzSpan="12" class="ads-left">
+            <div class="home-subtitle">
+                {{ 'Create Smart Campaign' | translate }}
+            </div>
+            <div class="message">
+                <span class="message-content">{{ 'Promote your best sellers in one click' | translate }}</span>
+            </div>
+            <div class="common-show-product"  *ngIf="isShowProductViewList">
+                <div class="common-select-product">
+                    <img [src]="productList['image']['src']" width="100" height="80" alt="">
+                    <div>
+                        <p class="common-img-top">
+                            {{ productList.title }}
+                        </p>
+                        <p class="common-img-bottom">
+                            <span class="right2">
+                                $ {{ productList.variants[0].price }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="common-subtips">
+                {{ 'Number of Influencers' | translate }}
+            </div>
+            <div class="common-slider1">
+                <span>1</span>
+                <nz-slider 
+                    [(ngModel)]="sliderBudgetCounts"
+                    [nzDisabled]="sliderDisabled"
+                    (ngModelChange)="calculateAvg()"
+                    [nzMin]="1"
+                    [nzMax]="50"
+                    [nzStep]="1"
+                    >
+                </nz-slider>
+                <span>50</span>
+                <i nz-icon nzTooltipTitle="{{ 'The more commission you spend, the more influencers you can collaborate with, and the more audience will be able to see your product.' | translate }}" nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i> 
+            </div>
+            
+            <div class="common-result">
+                <p class="common-subtips common1-subtips">
+                    {{ 'Estimated Campaign Results' | translate }}
+                </p>
+                <div nz-row class="common-campaign-results">
+                    <div nz-col nzSpan="6" class="ads-results">
+                        <p>{{ 'Influencers' | translate }}</p>
+                        <p>
+                            {{ estimatedContents1 }} <span *ngIf="estimatedContents1 > 1">+ {{estimatedContents2 - estimatedContents1}}</span>
+                            <a class="tooltipDelivery" nzTooltipTitle="{{ 'We would recommend a 30% round up from the expected number of content to guarantee an on-time delivery as some influencers may work as part-time and slow in content production.' | translate }}" nzTooltipPlacement="top" nz-tooltip>Why?</a>
+                        </p>
+                    </div>
+                    <div nz-col nzSpan="9" class="ads-results">
+                        <p>{{ 'Free Product to be Provided' | translate }}</p>
+                        <p>{{ estimatedContents }}</p>
+                    </div>
+                    <div nz-col nzSpan="6" class="ads-results">
+                        <p>{{ 'Audience Reach' | translate }}</p>
+                        <p>{{ estimatedReach }}</p>
+                    </div>
+                    <div nz-col nzSpan="3" class="icons">
+                        <i nz-icon [nzTooltipTitle]="freeTitleTemplate" nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i> 
+                        <ng-template #freeTitleTemplate> 
+                            <b>{{ 'Free Product to be Provided' | translate }}:</b>
+                            <p>{{ 'Number of influencers to collaborate with' | translate }}</p>
+                            <b>{{ 'Audience Reach' | translate }}:</b>
+                            <p>{{ 'Estimated number of followers that can reach' | translate }}</p>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <button nz-button (click)="paySmartCampaign()" nzType="primary">{{ 'PAY_AMOUNT_AND_LAUNCH' | translate : { amount: campaignInfo.campaignPrice } }}</button>
+            <span class="influencer-price"> ${{perInfluencerPrice}}/{{ 'influencer' | translate }}</span>
+        </div>
+        <div nz-col nzSpan="12" class="ads-right">
+            <h3>{{ 'Get Your Instagram Stories in 1-click' | translate }}</h3>
+            <img src="assets/images/ads-phone.jpg" class="imgLangs" alt="" height="430px">
+            <a class="tooltipDelivery tooltipPosition" [nzTooltipTitle]="imgTemplate" nzTooltipPlacement="top" nz-tooltip>What is Instagram Story?</a>
+            <ng-template #imgTemplate> 
+                <p>{{ 'Instagram Stories let influencers post photos and videos, which will last for 24 hours.' | translate }}</p>
+                <p>{{ 'Based on Lifo’s analysis on previous campaigns' | translate }}<b>{{ '3 continuous Instagram Stories' | translate }}</b>{{ 'usually' | translate}}
+                <b>{{ 'get the same results as single static photo post' | translate }}</b>, {{ 'while' | translate }} <b>{{ 'cost less' | translate }}</b></p>
+            </ng-template>
+        </div>
+    </div>
+    <div class="campaign-container">
+        <div class="home-subtitle">
+            {{ 'Launch a Campaign' | translate }}
+        </div>
+    
+        <div class="message">
+            <p class="message-content">{{ 'What is Your Marketing Target?' | translate }}</p>
+        </div>
+
+        <div class="create-options">
+            <div class="create-option-item" (click)="createCampaignCommission('Brand Awareness')">
+                <div class="icon">
+                    <div>
+                        <span class="material-icons">{{ 'card_giftcard' | translate }}</span>
+                        <span>{{ 'E-Commerce Brand Awareness' | translate }}</span>
+                    </div>
+                </div>
+                <div class="description">
+                    {{ 'Increase your brand awareness by offering free products with or without an extra commission to the influencers to promote your brand' | translate }}
+                </div>
+                <div class="home-steps">
+                    <nz-steps [nzCurrent]="4" [nzProgressDot]="awarenessTemplate">
+                        <nz-step nzTitle="{{'Choose Product Or Brand To Promote' | translate}}"></nz-step>
+                        <nz-step nzTitle="{{'Lifo Influencer Matching' | translate}}"></nz-step>
+                        <nz-step nzTitle="{{'Fulfill Orders From Lifo To Influencers' | translate}}"></nz-step>
+                        <nz-step nzTitle="{{'Increase Brand Awareness' | translate}}"></nz-step>
+                    </nz-steps>
+                    <ng-template #awarenessTemplate let-dot let-status="status" let-index="index">
+                        <!-- <span class="setIndexStyle">{{ index+1 }}</span> -->
+                        <span class="setIndexStyle">
+                            <img *ngIf="index == 0" src="assets/images/ic_create.png" width=20 height=20>
+                            <img *ngIf="index == 1" src="assets/images/ic_match.png" width=20 height=20>
+                            <img *ngIf="index == 2" src="assets/images/ic_shipping.png" width=20 height=20>
+                            <img *ngIf="index == 3" src="assets/images/ic_promote.png" width=20 height=20>
+                        </span>
+                      </ng-template>
+                </div>
+            </div>
+            <div class="create-option-item" (click)="createCampaignCommission('Sales Conversion')">
+                <div class="icon">
+                    <div>
+                        <span class="material-icons"> {{ 'card_giftcard' | translate }}</span>
+                        <span>{{ 'E-Commerce Product Sales Conversion' | translate }}</span>
+                    </div>
+                </div>
+                <div class="description">
+                    {{ 'Increase your sales conversion by offering free products with or without an additional commission to the influencers to sell your products' | translate }}
+                </div>
+                <div class="home-steps">
+                    <nz-steps [nzCurrent]="4" [nzProgressDot]="salesTemplate">
+                        <nz-step nzTitle="{{'Choose Product To Promote' | translate}}"></nz-step>
+                        <nz-step nzTitle="{{'Lifo Influencer Matching' | translate}}"></nz-step>
+                        <nz-step nzTitle="{{'Fulfill Orders From Lifo To Influencers' | translate}}"></nz-step>
+                        <nz-step nzTitle="{{'Gain Sales Increase' | translate}}"></nz-step>
+                    </nz-steps>
+                    <ng-template #salesTemplate let-dot let-status="status" let-index="index">
+                        <span class="setIndexStyle">
+                            <img *ngIf="index == 0" src="assets/images/ic_create.png" width=20 height=20>
+                            <img *ngIf="index == 1" src="assets/images/ic_match.png" width=20 height=20>
+                            <img *ngIf="index == 2" src="assets/images/ic_shipping.png" width=20 height=20>
+                            <img *ngIf="index == 3" src="assets/images/ic_promote.png" width=20 height=20>
+                        </span>
+                      </ng-template>
+                </div>
+            </div>
+            <div class="create-option-item disabled" [matTooltip]="'Coming Soon'">
+                <div class="icon">
+                    <div>
+                        <span class="material-icons"> {{ 'card_giftcard' | translate }} </span>
+                        <span>{{ 'Online Service Customers Acquisition' | translate }}</span>
+                    </div>
+                </div>
+                <div class="description">
+                    {{ 'Turn influencers into your loyal customers and acquire more from their high-quality social media posts to their followers' | translate }}
+                </div>
+                <div class="home-steps">
+                    <nz-steps [nzCurrent]="4" [nzProgressDot]="customersTemplate">
+                        <nz-step nzTitle="{{'Provide Your Service Details' | translate}}"></nz-step>
+                        <nz-step nzTitle="{{'Lifo Influencer Matching' | translate}}"></nz-step>
+                        <nz-step nzTitle="{{'Influencers Try Out Your Service And Post' | translate}}"></nz-step>
+                        <nz-step nzTitle="{{'Acquire More Customers' | translate}}"></nz-step>
+                    </nz-steps>
+                    <ng-template #customersTemplate let-dot let-status="status" let-index="index">
+                        <span class="setIndexStyle">
+                            <img *ngIf="index == 0" src="assets/images/ic_create.png" width=20 height=20>
+                            <img *ngIf="index == 1" src="assets/images/ic_match.png" width=20 height=20>
+                            <img *ngIf="index == 2" src="assets/images/ic_promote.png" width=20 height=20>
+                            <img *ngIf="index == 3" src="assets/images/ic_customers.png" width=20 height=20>
+                        </span>
+                      </ng-template>
+                </div>
+                <span class="coming-soon">{{ 'Coming Soon' | translate }}</span>
+            </div>
+            <div class="create-option-item disabled" [matTooltip]="'Coming Soon'">
+                <div class="icon">
+                    <div>
+                        <span class="material-icons"> {{ 'card_giftcard' | translate }} </span>
+                        <span>{{ 'E-Commerce Affiliate Marketing' | translate }}</span>
+                    </div>
+                </div>
+                <div class="description">
+                    {{ 'Promote your product and pay the influencers based on PPS (Pay Per Sale) pricing model' | translate }}
+                </div>
+                <div class="home-steps">
+                    <nz-steps [nzCurrent]="4" [nzProgressDot]="marketingTemplate">
+                        <nz-step nzTitle="{{'Choose A Product To Promote' | translate}}"></nz-step>
+                        <nz-step nzTitle="{{'Lifo Influencer Matching' | translate}}"></nz-step>
+                        <nz-step nzTitle="{{'Influencers Post To Boost Sales' | translate}}"></nz-step>
+                        <nz-step nzTitle="{{'Paid Influencers By Each Sale' | translate}}"></nz-step>
+                    </nz-steps>
+                    <ng-template #marketingTemplate let-dot let-status="status" let-index="index">
+                        <span class="setIndexStyle">
+                            <img *ngIf="index == 0" src="assets/images/ic_create.png" width=20 height=20>
+                            <img *ngIf="index == 1" src="assets/images/ic_match.png" width=20 height=20>
+                            <img *ngIf="index == 2" src="assets/images/ic_promote.png" width=20 height=20>
+                            <img *ngIf="index == 3" src="assets/images/ic_pay.png" width=20 height=20>
+                        </span>
+                      </ng-template>
+                </div>
+                <span class="coming-soon">{{ 'Coming Soon' | translate }}</span>
+            </div>
+            <!-- <div class="create-option-item disabled" [matTooltip]="'Coming Soon'">
+                <div class="icon">
+                    <span class="material-icons"> pie_chart </span>
+                </div>
+                <div class="create-type"> Sales commission
+                    <span class="material-icons tooltip-icon" [matTooltip]="scTooltip"> error_outline </span> 
+                </div>
+            </div> -->
+            <!-- <div class="create-option-item disabled" [matTooltip]="'Coming Soon'"> -->
+            <!-- <div class="create-option-item ">
+                <div class="icon">
+                    <div>
+                        <span>Launch Marketing Campaign</span>
+                    </div>
+                </div>
+
+                <div class="description">
+                    In a few simple steps, you can kick off a high-quality influencer marketing campaign. Just pick your budget and Lifo will fully manage the campaign for you, with optimal results and fast turnover time.
+                </div>
+                <button nz-button class="createCampaignBtn" nzType="default" (click)="createCampaignCommission()">
+                    <i nz-icon nzType="plus" nzTheme="outline"></i>Create New Campaign</button>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="campaign-container">
+        <div class="home-subtitle">
+            {{ 'Overall Performance' | translate }}
+        </div>
+        <app-campaign-performance-counter [campaignPerformance]="campaignPerformance"></app-campaign-performance-counter>
+    </div>
+
+    <div class="campaign-container activeCampain">
+        <div class="home-subtitle">
+            {{ 'Unpaid Campaign' | translate }}
+        </div>
+        <div class="warning">
+            {{ 'Complete your payment to start collaborating with influencers' | translate }}
+        </div>
+        <!-- <p>{{ 'All new campaigns & active campaigns will be here' | translate }}</p> -->
+        <div *ngFor="let element of brandCampaigns">
+            <div class="campaign-item" *ngIf="element.application_charge?.status=='pending'">
+                <app-campaign-card 
+                    [campaign]="element"
+                    (onDeleteCampaign)="deleteCampaign($event)"
+                    [brandCampaign]="true"
+                    [isBrandView]="true"
+                    [campaignRevenue]="campaignRevenue"
+                ></app-campaign-card>
+            </div>
+        </div>
+    </div>
+
+    <div class="campaign-container activeCampain">
+        <div class="home-subtitle">
+            {{ 'Active Campaign' | translate }}
+        </div>
+        <!-- <p>{{ 'All new campaigns & active campaigns will be here' | translate }}</p> -->
+        <div *ngFor="let element of brandCampaigns">
+            <div class="campaign-item" *ngIf="element.application_charge?.status!='pending'">
+                <app-campaign-card 
+                    [campaign]="element"
+                    (onDeleteCampaign)="deleteCampaign($event)"
+                    [brandCampaign]="true"
+                    [isBrandView]="true"
+                    [campaignRevenue]="campaignRevenue"
+                ></app-campaign-card>
+            </div>
+        </div>
+    </div>
+
+    <div class="campaign-container activeCampain">
+        <div class="home-subtitle">
+            {{ 'Completed Campaign' | translate }}
+        </div>
+        <!-- <p>
+            {{ 'When a campaign completes, it will be  listed here for reference.' | translate }}
+        </p> -->
+
+        <div class="empty-container" *ngIf="completeCampaigns.length <= 0">
+            <img src="assets/svg/empty_campaign_table.svg" alt="" width="110">
+            <p>
+                {{ 'There is nothing here yet, go ahead and launch a new campaign.' | translate }}
+            </p>
+        </div>
+    
+        <div class="campaign-item" *ngFor="let element of completeCampaigns">
+            <app-campaign-card 
+                [campaign]="element"
+                (onDeleteCampaign)="deleteCampaign($event)"
+                [brandCampaign]="true"
+                [isBrandView]="true"
+                [campaignRevenue]="campaignRevenue"
+            ></app-campaign-card>
+        </div>
+    </div>
+</div>
+
+<app-change-password #changePass></app-change-password>
+<app-stripe-payment 
+    #payCard 
+    [campaignPrice]="campaignInfo.campaignPrice"
+    [additionalMessage]="campaignInfo.paymentMessage"
+    (onCompletePayment)="createProductOnlyCampaign($event)"
+    (onCancelPayment)="cancelSmartCampaign()"></app-stripe-payment>

@@ -1,0 +1,37 @@
+<div>
+    <div class="left">
+        <div class="image-container">
+            <img class="panel-image" src="assets/images/login.png">
+        </div>
+    </div>
+    <div class="right">
+        <div class="login-box">
+            <div class="title">Sign Up</div>
+            <div class="input-box" *ngIf="!this.code">
+                <div>Email Address</div>
+                <mat-form-field floatLabel="never" class="large-input-box">
+                    <input matInput placeholder="Email Address" [(ngModel)]="email">
+                </mat-form-field>
+            </div>
+            <div class="input-box">
+                <div>New Password</div>
+                <mat-form-field floatLabel="never" class="large-input-box">
+                    <input matInput placeholder="Enter Your Password" type="password" [(ngModel)]="newPassword">
+                </mat-form-field>
+            </div>
+            <div class="input-box">
+                <div>Confirm Password</div>
+                <mat-form-field floatLabel="never" class="large-input-box">
+                    <input matInput placeholder="Repeat Your Password" type="password" [(ngModel)]="confirmPassword">
+                </mat-form-field>
+            </div>
+            <br><br>
+            <div class="button-row" *ngIf="this.code">
+                <button mat-flat-button color="primary" class="large-round-button full-width" (click)="resetPassword()">Sign Up</button>
+            </div>
+            <div class="button-row" *ngIf="!this.code">
+                <button mat-flat-button color="primary" class="large-round-button full-width" (click)="signup()">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>

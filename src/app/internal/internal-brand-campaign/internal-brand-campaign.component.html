@@ -1,0 +1,108 @@
+<ul class="campaign-menu" nz-menu nzMode="horizontal">
+    <div class="header" *ngIf="campaign">
+        <span class="material-icons" (click)="backToHome()"> arrow_back </span>
+        {{campaign.campaign_name}}
+        <img *ngIf="platform !== 'tiktok'" class="logo-image" width="20" src="assets/images/instagram.jpg">
+        <img *ngIf="platform === 'tiktok'" class="logo-image" width="20" src="assets/images/tiktok.jpg">
+    </div>
+    <li nz-menu-item [nzSelected]="currentView === 'one-outreach'" (click)="currentView = 'one-outreach'">
+        Invitation
+        <i nz-icon nzType="file-search" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'discovery'" (click)="currentView = 'discovery'">
+        Discovery
+        <i nz-icon nzType="file-search" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'negotiation'" (click)="showNegotiation()">
+        Chatbox
+        <i nz-icon nzType="mail" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'outreach'" (click)="currentView = 'outreach'">
+        Outreach
+        <i nz-icon nzType="mail" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'operation'" (click)="currentView = 'operation'">
+        Operation
+        <i nz-icon nzType="setting" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'performance'"  (click)="currentView = 'performance'">
+        Performance
+        <i nz-icon nzType="bar-chart" nzTheme="outline"></i>
+    </li>
+</ul>
+
+<div class="container" *ngIf="campaign">
+    <div *ngIf="currentView === 'operation'">
+        <app-campaign-operation 
+            *ngIf="campaign && campaignRecruit"
+            [campaign]="campaign" 
+            [influencers]="campaignInfluencer"
+            [campaignRecruit]="campaignRecruit">
+        </app-campaign-operation>
+    </div>
+
+    <div *ngIf="currentView === 'overview'">
+        <app-campaign-overview [influencer]="campaign"></app-campaign-overview>
+    </div>
+
+    <div *ngIf="currentView === 'one-outreach'" style="padding: 15px 30px;">
+        <div class="pay-commission" *ngIf="campaign.application_charge">
+            Campaign Payment Status: {{campaign.application_charge.status}}
+            <button nz-button nzType="primary" (click)="activatePayment()"  *ngIf="campaign.application_charge.status === 'accepted'">Activate Payment</button>
+        </div>
+        <app-campaign-outreach 
+            *ngIf="campaign && campaignRecruit"
+            [campaign]="campaign"
+            [campaignRecruit]="campaignRecruit">
+        </app-campaign-outreach>
+    </div>
+
+    <div *ngIf="currentView === 'discovery'">
+        <div class="campaign-details">
+            <div class="recommended-title campaign-title">
+                Campaign Details
+            </div>
+            <button nz-button class="campaign-viewBtn" (click)="isShowDetails()">
+                View Details
+            </button>
+        </div>
+        <app-explore-tool></app-explore-tool>
+    </div>
+
+    <div *ngIf="currentView === 'negotiation'" >
+        <div class="selector">
+            <button class="refresh-button" mat-stroked-button (click)="showNegotiation()"> Refresh Influencer Status</button>
+        </div>
+        <app-mail-box-newui
+            [influencers]="campaignInfluencer"
+            [campaign]="campaign"
+            [mode]="'AM'"
+            (onViewPerformance)="viewPerformance()"
+            [view]="currentView"
+        ></app-mail-box-newui>
+    </div>
+
+    <app-campaign-performance 
+        *ngIf="currentView === 'performance'"
+        [editable]="true"
+    ></app-campaign-performance>
+
+     <!-- Outreach stage 1 -->
+    <div *ngIf="currentView === 'outreach'">
+        <div class="selector" *ngIf="campaignRecruit && campaignRecruit.campaign">
+            <nz-select [(ngModel)]="selectedRecruitVersion" (ngModelChange)="selectRecruitVersion($event)" nzAllowClear nzPlaceHolder="Choose">
+                <nz-option 
+                    *ngFor="let item of campaignRecruit.campaign.invitations | keyvalue" 
+                    [nzValue]="item.key" 
+                    [nzLabel]="getRecruitDisplay(item)"></nz-option>
+            </nz-select>
+        </div>
+        <app-mail-box-newui
+            [influencers]="outreachInfluencer"
+            [campaign]="campaign"
+            [view]="currentView"
+        ></app-mail-box-newui>
+    </div>
+</div>
+
+<app-influencer-view-details #influencerView [influencer]="campaign"></app-influencer-view-details>

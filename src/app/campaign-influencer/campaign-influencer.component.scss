@@ -1,0 +1,234 @@
+@import 'common';
+
+.mobile-view {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header-background {
+    height: 260px;
+    background-color: $COLOR_BG;
+    position: absolute;
+    z-index: -1;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    width: 100%;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 40px;
+    color: white;
+    padding: 30px 100px 0px 70px;
+
+    .image-holder {
+        float: right;
+        height: 40px;
+        img {
+            height: 40px;
+        }
+    }
+}
+
+.container {
+    width: calc(100% - 20px);
+    padding: 20px 50px; 
+
+    .campaign-overview {
+
+    }
+    
+    .product-detail {
+        margin: 20px 40px;
+        padding: 20px;
+        border-radius: 20px;
+        background-color: white;
+    }
+
+    .message {
+        font-size: 18px;
+        margin-bottom: 15px;
+        font-weight: 500;
+    }
+
+    .detail {
+        margin-bottom: 15px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: flex-end;
+
+        .accept-button {
+            margin-left: 30px;
+            margin-right: 20px;
+            background-color: $COLOR_THEME_3;
+            color: white;
+            border-radius: 20px;
+            height: 50px;
+            font-size: 20px;
+            border-radius: 25px;
+            padding: 0px 30px;
+        }
+
+        .reject-button {
+            border-radius: 20px;
+            background-color: white;
+            height: 50px;
+            font-size: 20px;
+            border-radius: 25px;
+            padding: 0px 30px;
+        }
+    }
+
+    .input {
+        width: 600px;
+        margin: auto;
+        .input-box {
+            .input-name {
+                vertical-align: top;
+                display: inline-block;
+                width: 130px;
+                margin-right: 20px;
+                line-height: 60px;
+            }
+            .input-field {
+                vertical-align: top;
+                display: inline-block;
+                width: 400px;
+                .example-half-width {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .step-one, .step-two, .step-three {
+        margin: 20px 40px;
+        padding: 20px;
+        border-radius: 20px;
+        background-color: white;
+    }
+}
+
+
+.mobile-title {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid #FBEEFF;
+    height: 70px;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.icon-holder {
+    float: right;
+    margin-top: -45px;
+    margin-right: 15px;
+
+    .logo {
+        width: 40px;
+    }
+}
+
+.back-icon {
+    margin-top: -45px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.description {
+    background: #FFFFFF;
+    border: 1px solid rgba(13, 5, 59, 0.08);
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin: 10px;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.mobile-container {
+    .input-box {
+        margin: 10px 20px;
+        .input-name {
+            font-weight: 600;
+        }
+        .input-field {
+            width: 100%;
+
+            .example-half-width {
+                width: 100%;
+            }
+        }
+
+        .mat-radio-button {
+            line-height: 50px;
+        }
+    }
+
+    .buttons {    
+        width: calc(100% - 120px);
+        margin-bottom: 80px;
+
+        .accept-button {
+            background-color: $COLOR_THEME_3;
+            color: white;
+            height: 46px;
+            width: 100%;
+            background: #414BB2;
+            box-shadow: 0px 0px 10px rgba(13, 5, 60, 0.2);
+            border-radius: 4px;
+            font-size: 16px;
+            margin: 10px 60px;
+        }
+
+        .reject-button {
+            height: 46px;
+            width: 100%;
+            background-color: white;
+            border: 1px solid #414BB2;
+            box-sizing: border-box;
+            box-shadow: 0px 0px 10px rgba(13, 5, 60, 0.1);
+            border-radius: 4px;
+            font-size: 16px;
+            margin: 10px 60px;
+        }
+    }
+
+    .big-icon-holder {
+        width: 100%;
+        padding: 20px 30px;
+
+        .mat-icon {
+            width: 100%;
+            height: auto;
+        }
+    }
+    .message-container {
+        margin: 10px;
+        border-radius: 20px;
+        background-color: white;
+        padding: 20px;
+    }
+
+    .sub-title {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 22px;
+        text-align: center;
+        color: $COLOR_PRIMARY;
+        margin-bottom: 15px;
+    }
+
+    .text {
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 30px;
+    }
+}

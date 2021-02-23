@@ -1,0 +1,35 @@
+@import 'common';
+
+.nav-container {
+    height: 100%;
+    .sidenav {
+        background-color: $COLOR_PRIMARY;
+        color: #fff;
+
+        .logo {
+            margin: 15px 10px;
+            .logo-image {
+                height: 40px;
+                width: 40px;
+            }
+        }
+        
+        .icon {
+            cursor: pointer;
+            .menu-icon, i {
+                font-size: 30px;
+                margin-left: 15px;
+                margin-bottom: 30px;
+            }
+        }
+        .lottery {
+            text-align: center;
+            height: 50px;
+        }
+        
+        .logout-icon {
+            position: absolute;
+            bottom: 10px;
+        }
+    }
+}

@@ -1,0 +1,29 @@
+@import 'common';
+
+.table-container {
+    padding: 20px;
+    .title {
+        font-weight: 600;
+        font-size: 24px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .overview-table {
+        border-collapse: collapse;
+        line-height: 30px;
+
+        .overview-title {
+            font-size: 16px;
+            letter-spacing: 0.3px;
+            color: #9FA2B4;
+            padding-right: 20px;
+        }
+
+        .overview-content {
+            font-size: 18px;
+            font-weight: 600;
+            color: #252733;
+        }
+    }
+}

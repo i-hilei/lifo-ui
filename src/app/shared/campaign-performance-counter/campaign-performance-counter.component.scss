@@ -1,0 +1,47 @@
+@import 'common';
+
+.counters {
+    .half {
+        box-sizing: border-box;
+        margin: 20px;
+
+        .counter {
+            // width: 33%;
+            // display: inline-block;
+            .inner-box {
+            text-align: center;
+            padding: 25px 0;
+            background: #fff;
+            border-radius: 10px;
+            // margin: 5px;
+
+            .icon {
+                height: 30px;
+                .material-icons {
+                    font-size: 25px;
+                    color: #414BB2;
+                }
+            }
+
+            .name {
+                font-weight: normal;
+                font-size: 14px;
+                line-height: 22px;
+                color: #9FA2B4;
+                margin-bottom: 5px;
+                .material-icons {
+                    font-size: 16px;
+                    vertical-align: sub;
+                }
+            }
+
+            .count {
+                font-weight: bold;
+                font-size: 20px;
+                line-height: 29px;
+                color: $COLOR_PRIMARY;
+            }
+        }
+        }
+    }
+}

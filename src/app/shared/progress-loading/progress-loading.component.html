@@ -1,0 +1,8 @@
+<section class="progress-loading">
+    <nz-modal [nzVisible]="true" [nzTitle]="title" [nzFooter]="null" [nzClosable]="false">
+        <div>
+            <section>{{ realMessage }}</section>
+            <nz-progress [nzShowInfo]="false" [nzPercent]="(completedCount / totalSize) * 100"></nz-progress>
+        </div>
+    </nz-modal>
+</section>

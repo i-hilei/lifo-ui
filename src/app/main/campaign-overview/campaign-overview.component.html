@@ -1,0 +1,247 @@
+<div class="create-container" *ngIf="influencer">
+    <div class="common-submit">
+        <h4>{{ 'Basic Information' | translate }}</h4>
+        <mat-divider></mat-divider>
+        <ul class="submit-ul">
+            <li>
+                <span class="left">{{ 'Campaign Name' | translate }}</span>
+                <span class="right">{{ influencer['campaign_name'] }}</span>
+            </li>
+            <li style="height: 50px;">
+                <span class="left">{{ 'Product Information' | translate }}</span>
+                <span class="right">
+                    <div class="common-search-result submit-info-results clearfix" style="padding: 0;" >
+                        <div class="left">
+                            <img class="logo-image" [src]="influencer['product_image']" width="50" height="50">
+                        </div>
+                        <div class="right">
+                            <p class="name">
+                                <span>{{ influencer['product_name'] }}</span>
+                            </p>
+                            <p class="price">
+                                <span>$ {{ influencer['product_price'] }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </span>
+            </li>
+            <li>
+                <span class="left">{{ 'Campaign Budget' | translate }}</span>
+                <span class="right"><span *ngIf="influencer['budget'] !== 0">$</span> {{ influencer['budget'] !== 0 ? influencer['budget'] : 'Free products only'}}</span>
+            </li>
+            <li *ngIf="influencer.estimatedContents">
+                <span class="left">{{ 'Free Products To Be Provided' | translate }}</span>
+                <span class="right">{{ influencer.estimatedContents }}</span>
+            </li>
+            <li *ngIf="influencer.estimatedReach">
+                <span class="left">{{ 'Estimated Reach Of Audience' | translate }}</span>
+                <span class="right">{{ influencer.estimatedReach }}</span>
+            </li>
+            <li>
+                <span class="left">{{ 'Delivery Date' | translate }}</span>
+                <span class="right">{{ displayTime(influencer.end_time) }}</span>
+            </li>
+            <li *ngIf="influencer.coupon_discount_percentage">
+                <span class="left">{{ 'Promotional Discount' | translate }}</span>
+                <span class="right"><b class="coupon-code">{{influencer.campaign_coupon_code}}</b>{{ influencer.coupon_discount_percentage }} % {{ 'Off Sitewide' | translate }}</span>
+            </li>
+            <li>
+                <span class="left">{{ 'Platform' | translate }}</span>
+                <span class="right">
+                    <img class="logo-image" width="18" style="margin-right: 10px;" src="assets/images/{{ influencer.platform.toLowerCase() }}.jpg">
+                    <span>{{ influencer.platform }}</span>
+                </span>
+            </li>
+            <li>
+                <span class="left">{{ 'Content Type' | translate }}</span>
+                <span class="right"> {{ influencer.content_type }} </span>
+            </li>
+            <li class="tagsStyle" *ngIf="influencer?.offer_detail?.post_tags || influencer?.offer_detail?.post_hastags">
+                <span class="left">{{ 'Hashtags And Handles ' | translate }}</span>
+                <span class="right clearfix">
+                    <div class="content has-left" *ngIf="!isStrings(influencer.offer_detail.post_tags)">
+                        <ng-container *ngFor="let item of influencer.offer_detail.post_tags; let i = index">
+                            <nz-tag class="tag-father" nzMode="default">
+                              @ {{ item }}
+                             </nz-tag> 
+                        </ng-container>
+                    </div>
+                    <div class="content has-left" *ngIf="!isStrings(influencer.offer_detail.post_hastags)">
+                        <ng-container *ngFor="let item of influencer.offer_detail.post_hastags; let i = index">
+                            <nz-tag class="tag-father" nzMode="default">
+                              # {{ item }}
+                             </nz-tag>
+                        </ng-container>
+                    </div>
+                </span>
+            </li>
+            <li>
+                <span class="left">{{ 'Coupon Code' | translate }}</span>
+                <span class="right">
+                    <nz-tag *ngIf="influencer['campaign_coupon_code'] !== ''" style="font-weight: 600;">{{ influencer['campaign_coupon_code'] }}</nz-tag>
+                     <span> - {{ influencer['coupon_discount_percentage'] }}% off sitewide</span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="common-submit" *ngIf="influencer.new_audience_detail">
+        <h4>{{ 'Preferred Influencer Style' | translate }}</h4>
+        <mat-divider></mat-divider>
+        <ul class="submit-ul">
+            <li>
+                <span class="left">{{ 'Age' | translate }}</span>
+                <span class="right" *ngIf="influencer.new_audience_detail?.age">{{ influencer.new_audience_detail?.age }}</span>
+                <span class="right" *ngIf="!influencer.new_audience_detail?.age || influencer.new_audience_detail?.age.length === 0">{{ 'All' | translate }}</span>
+            </li>
+            <li>
+                <span class="left">{{ 'Gender' | translate }}</span>
+                <span class="right" *ngIf="influencer.new_audience_detail?.gender">{{ influencer.new_audience_detail?.gender | translate}}</span>
+                <span class="right" *ngIf="!influencer.new_audience_detail?.gender">{{ 'All' | translate }}</span>
+            </li>
+            <li>
+                <span class="left">{{ 'Language' | translate }}</span>
+                <span class="right" *ngIf="influencer.new_audience_detail?.language">{{ influencer.new_audience_detail?.language | translate}}</span>
+                <span class="right" *ngIf="!influencer.new_audience_detail?.language || influencer.new_audience_detail?.language.length === 0">{{ 'All' | translate }}</span>
+            </li>
+            <li>
+                <span class="left">{{ 'Min Follower Base' | translate }}</span>
+                <span class="right" *ngIf="influencer.new_audience_detail?.min_follower">{{ influencer.new_audience_detail?.min_follower }}</span>
+                <span class="right" *ngIf="!influencer.new_audience_detail?.min_follower">{{ 'All' | translate }}</span>
+            </li>
+            <li class="regionStyle">
+                <span class="left">{{ 'Region' | translate }}</span>
+                <span class="right" *ngIf="influencer.new_audience_detail.region && influencer.new_audience_detail.region.length !== 0">
+                    <span class="showSelectValue" *ngFor="let item of influencer.new_audience_detail.region">
+                      {{ item.name }},
+                    </span>
+                </span>
+                <span class="right" *ngIf="!influencer.new_audience_detail.region || influencer.new_audience_detail.region.length === 0">
+                    {{ 'All' | translate }}
+                </span>
+            </li>
+            <li class="regionStyle">
+                <span class="left">{{ 'Influencer Tags' | translate }}</span>
+                <span class="right" *ngIf="influencer.new_audience_detail.interest && influencer.new_audience_detail.interest.length !== 0">
+                    <span class="showSelectValue" *ngFor="let item of influencer.new_audience_detail?.interest">
+                      {{ item.value }},
+                    </span>
+                </span>
+                <span class="right" *ngIf="!influencer.new_audience_detail.interest || influencer.new_audience_detail.interest.length === 0">
+                    {{ 'All' | translate }}
+                </span>
+            </li>
+        </ul>
+    </div>
+    <ng-container *ngIf="payments === 'show'">
+        <div class="common4-payStyle">
+            <h4>
+                {{ 'Payment Details' | translate }}
+                <!-- <button class="pre-button" nzSize="small" nz-button nzType="default" [disabled]="isShowUnpaid">
+                    {{ 'Unpaid' | translate }}
+                </button> -->
+            </h4>
+            <mat-divider></mat-divider>
+            <ul class="results-list estimated-price payStyle-ul clearfix">
+                <li>
+                    <span class="left">
+                        <span class="left-name">{{ 'Campaign Budget' | translate }}</span>
+                        <span class="right-value">
+                            <span *ngIf="influencer.budget !== 0">$</span> {{ influencer.budget !== 0 ? influencer.budget : 'Free products only'}}
+                        </span>
+                    </span>
+                </li>
+                <li>
+                    <span class="left">
+                        <span class="left-name through"><i>{{ 'Platform Service Charge (10%)' | translate }}</i></span>
+                        <span class="right-value through">$ {{ influencer.budget * 0.1 }} </span>
+                    </span>
+                </li>
+                <li>
+                    <span class="left">
+                        <span class="left-name"><i>{{ 'Payment Method' | translate }}</i></span>
+                        <span class="right-value">{{ influencer.offer_detail.payment_platform }} </span>
+                    </span>
+                </li>
+                <li>
+                    <span class="left">
+                        <span class="left-name"><i>{{ 'Payment Date' | translate }}</i></span>
+                        <span class="right-value">{{ displayTime(influencer.end_time) }}</span>
+                    </span>
+                </li>
+                <mat-divider style="margin-bottom: 20px;"></mat-divider>
+                <li class="li-totals">
+                    <span class="left">
+                        <span class="left-name totals"><b>{{ 'Total Price' | translate }}</b></span>
+                        <span class="right-value totals" style="color: #0D053C;">${{ influencer.budget }}</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="payments !== 'show'">
+        <div class="common-submit" *ngIf="!influencer.contact_info">
+            <h4>{{ 'Contact Information Confirmation' | translate }}
+                <span>{{ 'We may contact you for additional questions if needed' | translate }}</span>
+            </h4>
+            <mat-divider></mat-divider>
+            <div class="emailForm">
+                <form nz-form [nzLayout]="'inline'" class="mailStyles" [formGroup]="validateForm" >
+                    <nz-form-item>
+                        <nz-form-label nzRequired nzFor="store_email">
+                            <i nz-icon nzType="mail" nzTheme="outline" style="color: #000"></i> {{ 'Email' | translate }}
+                        </nz-form-label>
+                        <nz-form-control nzErrorTip="Please provide a valid email">
+                            <input nz-input formControlName="store_email" id="store_email" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label nzRequired nzFor="store_phone">
+                            <i nz-icon nzType="phone" nzTheme="outline"></i> {{ 'Phone' | translate }}
+                        </nz-form-label>
+                        <nz-form-control nzErrorTip="Please provide a valid phone number">
+                            <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+                                <ng-template #addOnBeforeTemplate>
+                                    <nz-select formControlName="store_phone_prefix" class="phone-select">
+                                        <nz-option nzLabel="+1" nzValue="+1"></nz-option>
+                                        <nz-option nzLabel="+86" nzValue="+86"></nz-option>
+                                    </nz-select>
+                                </ng-template>
+                                <input formControlName="store_phone" id="'store_phone'" nz-input />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
+            <div class="book-demo">
+                <button nz-button (click)="bookDemo()">Book a Demo</button>
+            </div>
+        </div> 
+        <div class="common-submit" *ngIf="influencer.contact_info">
+            <h4>{{ 'Contact Information Confirmation' | translate }}
+                <span>{{ 'We may contact you for additional questions if needed' | translate }}</span>
+            </h4>
+            <mat-divider></mat-divider>
+            <div class="emailForm">
+                <div class="left">
+                    <span>
+                        <i nz-icon nzType="mail" nzTheme="outline" style="color: #000"></i>
+                        {{ 'Email' | translate }}
+                    </span>
+                    <span>
+                        {{ influencer.contact_info?.store_email }}
+                    </span>
+                </div>
+                <div class="right">
+                    <span>
+                        <i nz-icon nzType="phone" nzTheme="outline" style="color: #000"></i>
+                        {{ 'Phone' | translate }}
+                    </span>
+                    <span>
+                        {{ influencer.contact_info?.store_phone_prefix }} {{ influencer.contact_info?.store_phone }}
+                    </span>
+                </div>
+            </div>
+        </div> 
+    </ng-container>
+    
+</div>

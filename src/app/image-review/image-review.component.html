@@ -1,0 +1,101 @@
+<div class="concept-content">
+    <div class="left">
+        <div class="empty-content" *ngIf="historyList.length <= 1">
+            <div class="empty-container">
+                <mat-icon class="empty" svgIcon="content-review-empty"></mat-icon>
+            </div>
+            <div class="description">
+                Your influencer is working hard to create the best content for you. <br />
+                You will get notified when there is an update!
+            </div>
+        </div>
+
+        <div *ngIf="historyList.length > 1">
+            <div class="version-select-list">
+                <!-- <div class="content-type">
+                    <nz-button-group nzSize="large">
+                        <button nz-button [ngClass]="{'selected': true}">Image</button>
+                        <button nz-button>Video</button>
+                    </nz-button-group>
+                </div> -->
+
+                <div class="version-select">
+                    <ng-select
+                        class="influencer-ng-select"
+                        [clearable]="false"
+                        bindLabel="version_name"
+                        bindValue="history_id"
+                        [items]="historyList"
+                        [(ngModel)]="historyId"
+                        (change)="selectVersion($event)"
+                    >
+                        <ng-template ng-option-tmp ng-label-tmp let-item="item"> Version {{ item.version_name }} </ng-template>
+                    </ng-select>
+                </div>
+            </div>
+
+            <div class="image-content">
+                <section *ngIf="files.length !== 0" class="campaign-review">
+                    <section class="tab-content">
+                        <section class="img-preview">
+                            <nz-carousel
+                                #carousel
+                                [nzDots]="false"
+                                [nzEnableSwipe]="false"
+                                (nzBeforeChange)="beforeChange($event)"
+                                (nzAfterChange)="afterChange()"
+                            >
+                                <div nz-carousel-content *ngFor="let file of files">
+                                    <img *ngIf="file?.type === 'image'" [src]="file.url" />
+                                    <video controls *ngIf="file?.type === 'video'" [src]="file.videoUrl"></video>
+                                </div>
+                            </nz-carousel>
+                        </section>
+                        <section class="img-tab">
+                            <section class="img-container">
+                                <section
+                                    *ngFor="let file of files; let i = index"
+                                    class="img-tab-item"
+                                    [ngClass]="{ selected: i === selectedIndex }"
+                                    (click)="selectPreviewImg(i)"
+                                >
+                                    <img *ngIf="file?.url" [src]="file.url" />
+                                    <i *ngIf="file?.type === 'video'" nz-icon nzType="play-circle" nzTheme="outline"></i>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </div>
+
+            <div class="concept-container" *ngIf="campaign">
+                <div class="concept-title">
+                    Download Files
+                </div>
+                <div class="concept-detail">
+                    <div *ngFor="let file of files">
+                        <a *ngIf="file?.type === 'image'" (click)="downloadImage(file.url)">{{file.url}}</a>
+                        <a *ngIf="file?.type === 'video'" href="{{file.videoUrl}}" target="_blank" download>{{file.videoUrl}}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-container" *ngIf="campaign">
+                <div class="concept-title">
+                    Content
+                </div>
+                <div class="concept-detail">
+                    {{ campaign.description ? campaign.description : 'Description' }}
+                </div>
+            </div>
+
+            <div class="approve-button" *ngIf="campaign">
+                <button mat-flat-button color="primary" class="large-round-button" (click)="approveImage()">Approve</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="right" *ngIf="selectedMedia">
+        <app-media-thread [selectedMedia]="selectedMedia" [mediaList]="[]" [allMedia]="allMedia"></app-media-thread>
+    </div>
+</div>

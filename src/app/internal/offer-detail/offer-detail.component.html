@@ -1,0 +1,121 @@
+<div class="panel offer-panel">
+    <h3 class="title">Campaign Overview
+        <span class="material-icons closed" (click)="onNoClick()"> close </span>
+    </h3>
+    <div class="description"> Influencers will access to this information if they are interested in the colloration.</div>
+    <div class="template-selector">
+        <!-- <div class="radioBtn">
+            <nz-radio-group [(ngModel)]="radioValue" nzButtonStyle="solid">
+                <label nz-radio-button nzValue="formatted">Formatted</label>
+                <label nz-radio-button nzValue="freeStyle">Free-style</label>
+            </nz-radio-group>
+        </div> -->
+        <span class="sub-title detail-title"> Product details </span>
+        <ng-select 
+            class="template-version-select" 
+            [clearable]="false" 
+            [items]="productDetailTemplates"
+            [(ngModel)]="selectedProductDetailTemplate"
+            (change)="selectProductDetailTemplate($event)"
+        >
+            <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                {{item.template_name}}
+            </ng-template>
+        </ng-select>
+    </div>
+    <div class="content-edit">
+        <app-email-editor #productEditor [htmlContent]="productDetailHtml"></app-email-editor>
+        <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="6">
+                <div class="inner-box">
+                    <div class="image-title">  Select Image </div>
+                    <div class="select-left">
+                        <label class="upload-section">
+                            <span class="material-icons" *ngIf = "uploadURL == ''"> add_photo_alternate </span>
+                            <div *ngIf = "uploadURL == ''">Upload images</div>
+                            <img [src]="uploadURL" alt="" *ngIf = "uploadURL != ''">
+                            <input class="file-input" type="file" id="inputFile" (change)="onDrop($event.target.files)" accept=".png,.jpg"> 
+                        </label>
+                        <span *ngIf="(snapshot | async) as snap">
+                            {{ snap.bytesTransferred }} of {{ snap.totalBytes }} 
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="18">
+                <div class="inner-box">
+                    <div class="link-right">
+                        <div class="image-title">  Link </div>
+                        <div class="linkDiv">
+                            <nz-input-group [nzPrefix]="prefixTemplateUser">
+                            <input 
+                                nz-input 
+                                placeholder="Paste Shopify URL here" 
+                                [(ngModel)]="shopifyLink"
+                                autocomplete="off"
+                            >
+                            </nz-input-group>
+                            <ng-template #prefixTemplateUser>
+                                <span class="material-icons link-icons">
+                                link
+                                </span>
+                            </ng-template>
+                        </div>
+                        <div class="linkDiv">
+                            <nz-input-group [nzPrefix]="amazonTemplateUser">
+                            <input 
+                                nz-input 
+                                placeholder="Paste Amazon URL here" 
+                                [(ngModel)]="amazonLink"
+                                autocomplete="off"
+                            >
+                            </nz-input-group>
+                            <ng-template #amazonTemplateUser>
+                                <span class="material-icons link-icons">
+                                link
+                                </span>
+                            </ng-template>
+                        </div>
+                        <div class="linkDiv">
+                            <nz-input-group [nzPrefix]="otherTemplateUser">
+                            <input 
+                                nz-input 
+                                placeholder="Others" 
+                                [(ngModel)]="linkOthers"
+                                autocomplete="off"
+                            >
+                            </nz-input-group>
+                            <ng-template #otherTemplateUser>
+                                <span class="material-icons link-icons">
+                                link
+                                </span>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="coll-info">
+        <div class="sub-title"> Collaboration Details </div>
+        <ng-select 
+            class="template-version-select" 
+            [clearable]="false" 
+            [items]="offerDetailTemplates"
+            [(ngModel)]="selectedOfferDetailTemplate"
+            (change)="selectOfferDetailTemplate($event)"
+        >
+            <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                {{item.template_name}}
+            </ng-template>
+        </ng-select>
+    </div>
+    <div class="content">
+        <app-email-editor #offerEditor [htmlContent]="offerDetailHtml"></app-email-editor>
+    </div>
+    <div class="butn">
+        <button nz-button nzType="primary" class="gener-btn" (click)="confirm()">Save</button>
+        <button nz-button nzType="default" (click)="cancel()">Cancel</button>
+    </div>
+</div>

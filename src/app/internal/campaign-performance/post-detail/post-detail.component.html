@@ -1,0 +1,45 @@
+<div class="container" *ngIf="influencer">
+    <div class="user">
+        @{{influencer.account_id}}
+        <button class="edit-button" (click)="download(influencer)" nz-button nzType="primary" nzSize="small">{{ 'Export' | translate }}</button>
+        <button class="edit-button" *ngIf="editable" (click)="editPost()" nz-button nzType="primary" nzSize="small">Edit</button>
+    </div>
+    <div class="counters">
+        <div class="counter">
+            <span class="material-icons">
+                favorite_border
+            </span>
+            <span class="count">{{influencer.likes}}</span>
+        </div>
+        <div class="counter">
+            <span class="material-icons">
+                chat_bubble_outline
+            </span>
+            <span class="count"> {{influencer.comments}} </span>
+        </div>
+        <!-- <div class="counter">
+            <span class="material-icons commission-icon"> monetization_on </span>
+            <span class="count"> $ {{influencer.commission}} </span>
+        </div> -->
+    </div>
+    <div class="screenshot">
+        <div class="image-holder" >
+            <img class="image" src="{{influencer.screenshot}}">
+        </div>
+    </div>
+    <div class="link">
+        <a nz-button nzSize="large" nzType="link" (click)="open()">
+            <span class="material-icons"> link </span>
+            <span class="real-link"> {{influencer.link}} </span>
+        </a>
+        <a nz-button nzType="link" (click)="copyLink()"><i nz-icon nzType="copy" nzTheme="outline"></i></a>
+    </div>
+    <!-- <div class="post-detail">
+        <div class="comments">
+            <div class="comment-item" *ngFor="let comment of influencer.comment_content; index as i">
+                <span class="user"> {{comment.user}} </span>
+                <span class="comment"> {{comment.comment}} </span>
+            </div>
+        </div>
+    </div> -->
+</div>

@@ -1,0 +1,45 @@
+<div class="header">
+    <div class="welcome-message" *ngIf="auth.user | async as user;">
+        <div>Welcome, {{ user.displayName }}!</div>
+    </div>
+
+    <div class="menu-set">
+        <i nz-icon nzType="setting" nzTheme="outline" (click)="viewGlobalSetting()"></i>
+    </div>
+    <div class="userInfo">
+        <!-- <app-change-password></app-change-password> -->
+        <a nz-dropdown [nzDropdownMenu]="menu">
+            <span class="material-icons">
+                account_circle
+            </span>
+        </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <div class="user-message" *ngIf="auth.user | async as user;">
+                <span class="material-icons">
+                    account_circle
+                </span>
+                <h3>{{ user.displayName }}</h3>
+                <p style="margin-bottom: 30px;"><i nz-icon nzType="mail" nzTheme="outline" style="color: #000"></i> {{ user.email }}</p>
+                <!-- <p><i nz-icon nzType="instagram" nzTheme="outline" style="color: #FF759E;"></i> @lifo_dev</p> -->
+                <button nz-button nzType="default" (click)="showPasswordModal()">Change Password</button>
+            </div>
+        </nz-dropdown-menu>
+    </div>
+</div>
+<div class="container">
+    <div class="campaign-container active-campaign" *ngFor="let brandOverview of brandCampaignOverView">
+        <div class="home-subtitle"> {{brandOverview.brand}} </div>
+    
+        <div class="campaign-item" *ngFor="let element of brandOverview.campaigns">
+            <app-campaign-card 
+                [campaign]="element"
+                (onDeleteCampaign)="deleteCampaign($event)"
+                [brandCampaign]="true"
+                [isInternal]="true"
+                [isBrandView]="true"
+            ></app-campaign-card>
+        </div>
+    </div>
+</div>
+
+<app-change-password #changePass></app-change-password>

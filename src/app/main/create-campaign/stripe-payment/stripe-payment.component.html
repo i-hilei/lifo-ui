@@ -1,0 +1,155 @@
+<div class="changePass">
+    <nz-modal
+        [(nzVisible)]="isVisible"
+        [nzTitle]="modalTitle"
+        [nzContent]="modalContent"
+        nzMaskClosable=false
+        [nzFooter]=null
+        nzWidth = '600'
+        (nzOnCancel)="handleCancel()"
+    >
+        <ng-template #modalTitle>
+            <b style="font-size: 22px;"> {{ 'Credit Card Information' | translate }} </b>
+        </ng-template>
+
+        <ng-template #modalContent>
+            <form
+                  [formGroup]="stripeTest"
+                  class="example"
+            >
+                <!-- Name <input formControlName="name" /> -->
+                <!-- <input formControlName="amount" /> -->
+                <div class="contentInput ipt-name" style="margin-top: 20px;" [ngClass]="{'cardError': isCardError}"> 
+                    <span>{{ 'Cardholder Name' | translate }}<b style="color:#c40f12;"> *</b></span>
+                    <input class="cardnames" nz-input type="text" (ngModelChange)="cardholderChange($event)" formControlName="name" placeholder="{{ 'First name' | translate }}" />
+                    <input class="cardnames" nz-input type="text" (ngModelChange)="cardholderChange($event)" formControlName="lastName" placeholder="{{ 'Last name' | translate }}" />
+                </div>
+                <p class="errorInfos" *ngIf="isCardError">
+                    {{ 'Please enter your cardholder name' | translate }}
+                </p>
+                <!-- <div class="contentInput ipt-name">
+                    <span>{{ 'Zip' | translate }} <b style="color:#c40f12;"> *</b></span>
+                    <input nz-input type="" formControlName="zip" placeholder="{{ 'Enter your zipcode' | translate }}" />
+                </div> -->
+                <div class="contentInput ipt-name" [ngClass]="{'cardError': displayError}">
+                    <span>{{ 'Card' | translate }} <b style="color:#c40f12;"> *</b></span>
+                    <div class="payInfos">
+                        <ngx-stripe-card
+                            (change)="changeCard($event)"
+                            [options]="cardOptions"
+                            [elementsOptions]="elementsOptions"
+                          >
+                        </ngx-stripe-card>
+                    </div>
+                </div>
+                <p class="errorInfos" *ngIf="displayError">{{ displayErrorInfo | translate }}</p>
+                <div class="payFails" *ngIf="isShowPayInfo">
+                    <i nz-icon nzType="exclamation-circle" nzTheme="fill"></i>
+                    <span>{{ 'Payment failed, please reconfirm the payment information' | translate }}</span>
+                </div>
+                <div class="message">{{additionalMessage}}</div>
+                <button type="submit" class="paySubmit" nz-button [disabled]="submitDisabled" nzType="primary" (click)="pay()">
+                    {{ 'PAY' | translate }} ${{ campaignPrice? campaignPrice : 0 | number}}
+                </button>
+            </form>
+        </ng-template>
+    </nz-modal>
+    <nz-modal
+      [(nzVisible)]="isVisibleTags"
+      [nzTitle] = null
+      [nzContent]="modalContentTags"
+      nzClosable = false
+      nzMaskClosable=false
+      [nzFooter]=null
+      nzWidth = '760'
+  >
+
+      <ng-template #modalContentTags>
+          <div class="content-tags">
+            <div class="header-tags">
+                <nz-alert nzType="success" [nzMessage]="successInfo" nzShowIcon></nz-alert>
+                <b style="font-size: 22px;margin: 20px 0;display: block;"> {{ 'As the Last step' | translate }} </b>
+            </div>
+            <h3 class="title">Add handles & hashtags To your campaign (Optional):</h3>
+            <p class="description">The social media accounts (handles) and hashtags that the influencers should mention in their posts.</p>
+            <form nz-form [formGroup]="detailsValidateForm">
+                <nz-form-item style="margin-bottom: 15px;">
+                    <nz-form-control class="tags-lists">
+                        <ng-container *ngIf="tags01.length > 0">
+                            <nz-tag *ngFor="let tag of tags01; let i = index" nzMode="closeable" (nzOnClose)="handleClose('tags01', tag)">
+                                @ {{ tag }}
+                            </nz-tag>
+                        </ng-container>
+                        
+                        <nz-input-group  style="width: 100px;margin-right: 8px;" [nzPrefix]="prefixTemplateUser">
+                            <input nz-input formControlName="tags01_value" id="tags01_value" (keydown.enter)="handleInputConfirm('tags01_value', 'tags01')" [(ngModel)]="tags01_value"  placeholder="handle" />
+                        </nz-input-group>
+                        <ng-template #prefixTemplateUser>@</ng-template>
+                        <button nz-button nzType="default" (click)="handleInputConfirm('tags01_value', 'tags01')">
+                            <i nz-icon nzType="plus" nzTheme="outline"></i>
+                        </button>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control class="tags-lists">
+                        <ng-container *ngIf="tags02.length > 0">
+                            <nz-tag *ngFor="let tag of tags02; let i = index" nzMode="closeable" (nzOnClose)="handleClose('tags02', tag)">
+                                # {{ tag }}
+                            </nz-tag>
+                        </ng-container>
+                        
+                        <nz-input-group  style="width: 100px;margin-right: 8px;" [nzPrefix]="prefixTemplateUsers">
+                            <input nz-input formControlName="tags02_value" id="tags02_value" (keydown.enter)="handleInputConfirm('tags02_value', 'tags02')" [(ngModel)]="tags02_value" placeholder="hashtag" />
+                        </nz-input-group>
+                        <ng-template #prefixTemplateUsers>#</ng-template>
+                        <button nz-button nzType="default" (click)="handleInputConfirm('tags02_value', 'tags02')">
+                            <i nz-icon nzType="plus" nzTheme="outline"></i>
+                        </button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+            <mat-divider></mat-divider>
+            <div class="common-submit">
+                <h4>{{ 'Confirm Contact Information:' | translate }}
+                    <!-- <span>{{ 'We may contact you for additional questions if needed' | translate }}</span> -->
+                </h4>
+                <form nz-form [nzLayout]="'inline'" class="mailStyles" [formGroup]="validateForm" >
+                    <nz-form-item>
+                        <nz-form-label nzRequired nzFor="store_email">
+                          <i nz-icon nzType="mail" nzTheme="outline" style="color: #000"></i> {{ 'Email' | translate }}
+                        </nz-form-label>
+                        <nz-form-control nzErrorTip="Please provide a valid email">
+                          <input nz-input formControlName="store_email" id="store_email" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item style="margin-left: 15px;">
+                        <nz-form-label nzRequired nzFor="store_phone">
+                          <i nz-icon nzType="phone" nzTheme="outline"></i> {{ 'Phone' | translate }}
+                        </nz-form-label>
+                        <nz-form-control
+                          [nzValidateStatus]="isStatus"
+                          nzErrorTip="Please provide a valid phone number"
+                        >
+                          <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+                            <ng-template #addOnBeforeTemplate>
+                              <nz-select formControlName="store_phone_prefix" class="phone-select">
+                                <nz-option nzLabel="+1" nzValue="+1"></nz-option>
+                                <nz-option nzLabel="+86" nzValue="+86"></nz-option>
+                              </nz-select>
+                            </ng-template>
+                            <input formControlName="store_phone" id="'store_phone'" nz-input />
+                          </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
+            <button type="submit" class="paySubmit" nz-button nzType="primary" (click)="comfirmTags()"
+                    [disabled]="!validateForm.value.store_email || !validateForm.value.store_phone">
+                Confirm
+            </button>
+          </div>
+      </ng-template>
+  </nz-modal>
+</div>
+
+

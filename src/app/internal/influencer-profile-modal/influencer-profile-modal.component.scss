@@ -1,0 +1,251 @@
+.clearfix:after { content:"."; clear: both; height: 0; overflow: hidden; visibility: hidden; display: block; }
+.clearfix { zoom: 1;}
+.fullStyle {
+    .ant-modal {
+        position: relative;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        padding-bottom: 0;
+    }
+
+
+    .follower-info {
+        width: calc(100% - 480px);
+        display: inline-block;
+        vertical-align: top;
+    }
+}
+.influencer-infos{
+    overflow: hidden;
+    margin-bottom: 20px;
+    .image-holder {
+        width: 150px;
+        text-align: center;
+        float: left;
+        margin-top: 20px;
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+    }
+    .user-profile {
+        float: left;
+        width: 87%;
+        .user-name {
+            .account-id {
+                font-weight: bold;
+                font-size: 20px;
+                line-height: 24px;
+                text-transform: capitalize;
+                color: #000000;
+                margin-bottom: 5px;
+            }
+            .account-stats {
+                line-height: 24px;
+                .material-icons {
+                    margin-right: 6px;
+                    vertical-align: top;
+                }
+                .follower {
+                    margin-right: 20px;
+                }
+            }
+            .info {
+                font-size: 14px;
+                line-height: 17px;
+                margin-top: 8px;
+            }
+        }
+    }
+}
+
+.post-container {
+    padding: 20px;
+    .title {
+        font-weight: 600;
+        margin-bottom: 10px;
+        font-size: large;
+        height: 36px;
+        width: 100%;
+        span {
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 36px;
+            // text-transform: capitalize;
+            color: #000000;
+        }
+    }
+    .posts {
+        width: 224px;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 14px;
+    }
+    .perform-left {
+        width: 200px;
+    }
+    .perform-right {
+        width: 85%;
+    }
+}
+.footers {
+    text-align: center;
+    .cancelBtn {
+        margin-top: 20px;
+        width: 200px;
+        color: #fff;
+        background: #414BB2;
+        border: 1px solid #414BB2;
+    }
+}
+
+.spin-set {
+    nz-spin {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.reach-contaioner {
+    padding: 20px;
+    background: #FFFFFF;
+    border-radius: 20px;   
+    >h4 {
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #0D053C;
+        font-size: 18px;
+        a {
+            span {
+                float: right;
+                font-size: 14px;
+            }
+        }
+    }
+    .top, .bottom {
+        margin: 10px 0;
+        .reach-left {
+            float: left;
+            width: 330px;
+            span {
+                font-size: 14px;
+                color: #c7c7c7;
+            }
+            h4 {
+                font-weight: 600;
+                font-size: 16px;
+            }
+        }
+        .reach-content {
+            float: left;
+            width: 170px;
+            span {
+                font-size: 14px;
+                color: #c7c7c7;
+            }
+            h4 {
+                font-weight: 600;
+                font-size: 16px;
+                strong {
+                    font-weight: bold;
+                }
+            }
+        }
+        .productNames {
+            width: 200px;
+        }
+    }
+    .reach-invitation {
+        margin: 40px 0;
+        p {
+            color: rgba(13, 5, 60, 0.5);
+            span {
+                font-weight: 600;
+                color: #0D053C;
+                font-size: 20px;
+                margin-right: 50px;
+            }
+            button {
+                float: right;
+                margin-right: 10px;
+            }
+        }
+    }
+    .label-type {
+        line-height: 35px;
+        .left {
+            float: left;
+            width: 230px;
+            text-align: right;
+            margin-right: 10px;
+            color: #252733;
+        }
+        .right {
+            width: calc(100%-240px);
+            float: left;
+        }
+        nz-tag {
+            background: #ECEDF7;
+            border-radius: 4px;
+            border: 0;
+            padding: 4px 6px;
+            color: #0D053C;
+            font-size: 14px;
+        }
+        .tag-child-margin {
+            margin-left: -14px;
+            margin-right: 10px;
+            .tag-children {
+                margin-right: 0;
+                color: rgba(13, 5, 60, 0.5);
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.campaigns-list {
+    ul {
+        background: #F7F8FC;
+        border-radius: 10px;
+        list-style: none;
+        padding: 25px;
+        li {
+            font-size: 14px;
+            color: #0D053C;
+            height: 35px;
+            line-height: 35px;
+            border-bottom: 1px solid rgba(13, 5, 60, 0.05);
+            span:first-child {
+                min-width: 200px;
+                display: inline-block;
+                margin-right: 10px;
+            }
+            span:last-child {
+                float: right;
+                margin-right: 10px;
+                color: rgba(13, 5, 60, 0.5);
+            }
+        }
+        .title {
+            font-weight: 600;
+        }
+        li:first-child, li:last-child {
+            border: 0;
+        }
+    }
+    // .right {
+    //     overflow-x: auto;
+    //     li {
+    //         width: 510px;
+    //     }
+    // }
+    
+}

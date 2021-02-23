@@ -1,0 +1,77 @@
+<div class="top" *ngIf="influencerContent.length > 0">
+  <!-- <span class="title">Category:</span> -->
+  <ng-container *ngFor="let item of influencerContent; let i = index">
+      <nz-tag class="tag-father" *ngIf="item.checked" [nzMode]="isMode(item['children'])?'default':'closeable'" (nzOnClose)="onTagClose('title', item.name, '')">
+        {{ sliceTagName(item.name) }}
+      </nz-tag>
+      
+        <ng-container *ngFor="let k of item['children']">
+          <span class="tag-child-margin" *ngIf="k.checked">
+          <nz-tag  class="tag-children" nzMode="closeable" (nzOnClose)="onTagClose('subTitle',item.name, k.name)">
+            {{ k.name }}</nz-tag>
+          </span>
+        </ng-container>                    
+  </ng-container>                
+  <!-- <nz-tag class="editable-tag" nzNoAnimation (click)="showList('inputCategoryVisible')"> + <span>Add New Label</span> <i nz-icon nzType="plus"></i></nz-tag> -->
+  <button
+   class="add-new-label"
+    nz-button
+    nzType="primary"
+    nz-popover
+    nzPopoverPlacement="bottom"
+    [(nzPopoverVisible)]="popVisible"
+    (nzPopoverVisibleChange)="changeVisible($event)"
+    nzPopoverTrigger="click"
+    [nzPopoverContent]="contentTemplate"
+  >
+  <i nz-icon nzType="plus"></i> Add New Label
+  </button>
+  <ng-template #contentTemplate>
+    <div class="box-container">
+      <div class="regionalBox">
+        <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="log('left', $event)">
+          <ul class="containers isSelected">
+            <li *ngFor="let item of this.influencerContent"
+            (click) = "isSelectedFun(item.name)" [ngClass]="{'selected': item['selected']}">
+              <label nz-checkbox [ngModel]="item.checked" [nzValue]="item.name">{{ item.name }}</label>
+            </li>
+          </ul>
+        </nz-checkbox-wrapper>
+      </div>
+      <div class="regionalBox">
+        <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="log('right', $event)">
+          <ul class="containers">
+            <ng-container *ngFor="let item of this.influencerContent">
+              <ng-container *ngIf="item.name === leftSelectedValue">
+                <li *ngFor="let keys of item.children">
+                  <label nz-checkbox [ngModel]="keys['checked']" [nzValue]="keys.name">{{ keys.name }}</label>
+                </li>
+              </ng-container>                            
+            </ng-container>
+            <li>
+              <nz-tag *ngIf="!inputCategoryInputVisible" class="editable-tag" nzNoAnimation (click)="showInput('inputCategoryInputVisible')"> # <span>Add New Label</span> <i nz-icon nzType="plus"></i></nz-tag>
+              
+              <nz-input-group style="width: 180px;" nzSearch *ngIf="inputCategoryInputVisible" [nzAddOnAfter]="suffixIconButton">
+                <input
+                #inputElement
+                nz-input
+                nzSize="small"
+                type="text"
+                placeholder="Create New"
+                [(ngModel)]="inputCategoryValue"
+                style="background: #ECEDF7;height:28px;border-radius: 4px;color:#000;outline:medium;"
+                (keydown.enter)="handleInputConfirm('rightSelectValue', 'inputCategoryValue', 'inputCategoryInputVisible')"
+              />
+              </nz-input-group>
+              <ng-template #suffixIconButton>
+                <button nz-button nzType="primary" style="margin-left: 10px;" nzSize="small" (click)="handleInputConfirm('rightSelectValue', 'inputCategoryValue', 'inputCategoryInputVisible')">
+                  <i nz-icon nzType="plus" nzTheme="outline"></i>
+                </button>
+              </ng-template>
+            </li>
+          </ul>
+        </nz-checkbox-wrapper>
+      </div>
+    </div>
+  </ng-template>                
+</div>

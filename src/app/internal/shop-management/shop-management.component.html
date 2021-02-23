@@ -1,0 +1,115 @@
+<div class="header">
+    <div class="welcome-message">
+        <div>Product Listing Management</div>
+    </div>
+</div>
+<div class="shop-container">
+    <div class="title">List Products to Storefront</div>
+    <app-table-search #tableSearch
+    (refreshOuter)="shopRefresh()" 
+    (searchOuter)="shopSearch($event)" 
+    isReset = 'show'
+    title = 'shop_management'
+    [searchData]="shopData">
+    </app-table-search>
+    
+    <div class="table">
+        <nz-table #nzTable [nzData]="productList" [nzScroll]="{ x: '1200px' }" nzTableLayout="fixed" [nzLoading]="loading">
+            <thead>
+                <tr>
+                    <!-- <th nzLeft nzWidth="440px">
+                        Product
+                    </th>
+                    <th>Vendor</th>
+                    <th>Compare At Price</th>
+                    <th>Vendor Discount</th>
+                    <th>Cost</th>
+                    <th nzWidth="230px">Commission Per Sale</th>
+                    <th>Sales Price</th> -->
+                    <th
+                        *ngFor="let column of listOfColumns; let key = index; trackBy: trackByName"
+                        [(nzSortOrder)]="column.sortOrder"
+                        [nzSortFn]="column.sortFn"
+                        [nzLeft]="column.left"
+                        [nzWidth]="key == 0 ? '300px': 'auto'">
+                        {{ column.name }}
+                    </th>
+                    <th nzWidth="80px"></th>
+                    <th nzWidth="80px" nzRight></th>
+                    
+                </tr>
+                
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let data of nzTable.data">
+                    <tr>
+                        <td nzLeft [nzExpand]="expandSet.has(data.id)" (nzExpandChange)="onExpandChange(data.id, $event)">
+                            <div class="image-holder">
+                                <img src="{{ data.image?.src }}" />
+                            </div>
+                            <div class="user-profile">
+                                {{ data.title }}
+                            </div>
+                        </td>
+                        <td> {{data.vendor}} </td>
+                        <td> 
+                            $ {{ data.variants[0].compare_at_price }}
+                        </td>
+                        <td> 
+                            <nz-input-group  *ngIf="!data.active || data.editable" nzSuffix="%">
+                                <input nz-input type="number" [(ngModel)]="data.discount" />
+                            </nz-input-group>
+                            <div *ngIf="data.active && !data.editable"> {{ data.discount }}% </div>  
+                        </td>
+                        <td>$ {{ data.variants[0].compare_at_price * (100 - data.discount) / 100 | number: '1.0-2' }} </td>
+
+                        <td>
+                            <div  *ngIf="!data.active || data.editable" class="commission-input">
+                                <nz-input-group nzPrefix="$">
+                                    <input nz-input type="number" [(ngModel)]="data.commission" />
+                                </nz-input-group>
+                                <span style="color: red"> Max ${{ data.variants[0].compare_at_price * data.discount / 100 | number: '1.0-2' }}</span>
+                            </div>
+                            
+                            <span style="color: red"> {{commissionError(data)}}</span>
+                            <div *ngIf="data.active && !data.editable">$ {{ data.commission }}</div>
+                        </td>
+                        <td>
+                            <div *ngIf="data.active && !data.editable"> $ {{ data.variants[0].price }} </div> 
+                            <div *ngIf="!data.active || data.editable"> $ {{ data.variants[0].compare_at_price * (100 - data.discount) / 100 + data.commission | number: '1.0-2'}} </div>
+                        </td>
+                        <td> 
+                            <button nz-button nzSize="small" nzType="link" *ngIf="!data.editable && data.active" (click)="data.editable = true">Edit</button>
+                            <button nz-button nzSize="small" nzType="primary" *ngIf="data.editable" (click)="uploadShopItem(data)">Save</button>
+                        </td>
+                        <td nzRight>
+                            <nz-switch [ngModel]="data.active" (ngModelChange)="switch(data)" nzCheckedChildren="On" nzUnCheckedChildren="Off"></nz-switch>
+                        </td>
+                    </tr>
+                    <tr [nzExpand]="expandSet.has(data.id)">
+                        <h4>Product Label<a (click)="isShowListLabel(data.id)"><span><i nz-icon nzType="edit" nzTheme="outline"></i> Edit</span></a></h4>
+                        <p>
+                            <ng-container *ngFor="let item of data['label_list']; let i = index">
+                                <nz-tag class="tag-father" nzMode="default">
+                                  {{ item['name'] }}
+                                </nz-tag>
+                                
+                                  <ng-container *ngFor="let k of item['children']">
+                                    <span class="tag-child-margin">
+                                    <nz-tag  class="tag-children" nzMode="default">
+                                      {{ k['name'] }}</nz-tag>
+                                    </span>
+                                  </ng-container>                    
+                            </ng-container>  
+                        </p>
+                        <app-special-offers *ngIf="expandSet.has(data.id)" [datas]="data" (childOuter)="reloadDatas($event)"></app-special-offers>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </nz-table>
+    </div>
+</div>
+
+<app-influencer-list-labeling #listLabel 
+[defaultLabelTagList] = "labelTagList"
+(childOuter)="getData($event)" pageName="shop_product"></app-influencer-list-labeling>

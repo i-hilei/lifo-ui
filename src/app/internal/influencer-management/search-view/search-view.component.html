@@ -1,0 +1,61 @@
+<div class="search-container">
+  <app-table-search #tableSearch
+    (searchOuter)="shopSearch($event)" 
+    isReset = 'hide'
+    title = 'search_view'
+    [searchData]="shopData">
+  </app-table-search>
+  <div class="search-show" *ngIf="app_applied_status">
+    <app-applied-status 
+    #applied [appliedInfluencers]="app_applied"></app-applied-status>
+  </div>
+  <div class="search-show" *ngIf="app_order_pending_status">
+    <app-order-pending-status 
+    #orderPending [orderPendingInfluencers]="app_order_pending"></app-order-pending-status>
+  </div>
+  <div class="search-show" *ngIf="shipping_pending_status">
+    <app-shipment-pending-status 
+    #shipmentPending [shipPendingInfluencer]="shipping_pending"></app-shipment-pending-status>
+  </div>
+  <div class="search-show" *ngIf="shipping_shipped_status">
+    <app-shipped-status 
+    #shippedStatus [shippedInfluencer]="shipping_shipped"></app-shipped-status>
+  </div>
+  <div class="search-show" *ngIf="shipping_incident_status">
+    <app-shipping-incident-status 
+    #shippingIncident [shipIncidentInfluencer]="shipping_incident"></app-shipping-incident-status>
+  </div>
+  <div class="search-show" *ngIf="draft_pending_status">
+    <app-draft-pending-status 
+    #draftPending [draftPendingInfluencer]="draft_pending"></app-draft-pending-status>
+  </div>
+  <div class="search-show" *ngIf="draft_unloaded_status">
+    <app-draft-uploaded-status
+    #draftUploaded [draftUploadedInfluencer]="draft_unloaded"></app-draft-uploaded-status>
+  </div>
+  <div class="search-show" *ngIf="draft_overdue_status">
+    <app-draft-overdue-status
+    #draftOverdue [draftOverdueInfluencer]="draft_overdue"></app-draft-overdue-status>
+  </div>
+  <div class="search-show" *ngIf="post_pending_status">
+    <app-post-pending-status
+    #postPending [postPendingInfluencer]="post_pending"></app-post-pending-status>
+  </div>
+  <div class="search-show" *ngIf="post_overdue_status">
+    <app-post-overdue-status
+    #postOverdue [postOverdueInfluencer]="post_overdue"></app-post-overdue-status>
+  </div>
+  <div class="search-show" *ngIf="commission_pending_status">
+    <app-commission-pending-status
+    #commissionPending [commissionPendingInfluencer]="commission_pending"></app-commission-pending-status>
+  </div>
+  <div class="search-show" *ngIf="campaign_completed_status">
+    <app-campaign-completed-status
+    #campaignCompleted [campaignCompletedInfluencer]="campaign_completed"></app-campaign-completed-status>
+  </div>
+  <div class="search-show" *ngIf="campaign_uncompleted_status">
+    <app-campaign-uncompleted-status
+    #campaignUncompleted [campaignClosedInfluencer]="campaign_uncompleted"></app-campaign-uncompleted-status>
+  </div>
+
+</div>

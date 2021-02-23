@@ -1,0 +1,121 @@
+
+.email {
+    padding: 0px 20px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.post-container {
+    width: 100%;
+    padding: 20px;
+    display: inline-block;
+    vertical-align: top;
+
+    .title {
+        font-size: large;
+        font-weight: 600;
+        margin-bottom: 10px;
+        background: #F7F7FF;
+        border-radius: 10px;
+        height: 36px;
+        width: 100%;
+        span{
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 36px;
+            margin-left: 17px;
+            text-transform: capitalize;
+            color: #000000;
+        }
+    }
+    .postAll {
+        .posts {
+            width: 230px;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 14px;
+        }
+    }
+}
+.addNotes {
+    padding: 20px;
+    h4 {
+        font-size: 16px;
+        line-height: 20px;
+        color: #414BB2;
+        i {
+            cursor: pointer;
+        }
+    }
+    .showNotesPage {
+        width: 100%;
+        background: #fff;
+        padding: 10px;
+        border: 1px solid rgba(13, 5, 60, 0.3);
+        border-radius: 8px;
+        min-height: 100px;
+    }
+    .notesBtn {
+        margin: 20px 0;
+        button {
+            width: 120px;
+            margin-right: 20px;
+        }
+        button:last-child {
+            color: #414BB2;
+            border: 1px solid #414BB2;
+        }
+    }
+    
+}
+
+.expandTr {
+    h4 {
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #000;
+        font-size: 18px;
+        padding-left: 20px;
+        a {
+            span {
+                float: right;
+                font-size: 14px;
+            }
+        }
+    }
+    .label-type {
+        line-height: 35px;
+        .left {
+            float: left;
+            width: 230px;
+            text-align: right;
+            margin-right: 10px;
+            color: #252733;
+        }
+        .right {
+            width: calc(100%-240px);
+            float: left;
+        }
+        nz-tag {
+            background: #ECEDF7;
+            border-radius: 4px;
+            border: 0;
+            padding: 4px 6px;
+            color: #0D053C;
+            font-size: 14px;
+        }
+        .tag-child-margin {
+            margin-left: -14px;
+            margin-right: 10px;
+            .tag-children {
+                margin-right: 0;
+                color: rgba(13, 5, 60, 0.5);
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.clearfix:after { content:"."; clear: both; height: 0; overflow: hidden; visibility: hidden; display: block; }
+.clearfix { zoom: 1;}

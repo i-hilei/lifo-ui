@@ -1,0 +1,79 @@
+.audience-info {
+    .title {
+        .text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        i {
+            cursor: pointer;
+            user-select: none;
+            margin-left: 5px;
+        }
+    }
+
+    nz-select,
+    nz-input {
+        width: 100%;
+    }
+
+    .search-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        .search-item {
+            min-width: 180px;
+            margin-top: 10px;
+            margin-right: 5px;
+        }
+
+        .city,
+        .language,
+        .ethnicity,
+        .age-bracket,
+        .hashtag,
+        .interests {
+            .search-name {
+                i {
+                    cursor: pointer;
+                    user-select: none;
+                    margin-left: 5px;
+                }
+            }
+        }
+
+        .city-percentage,
+        .language-percentage,
+        .ethnicity,
+        .age-bracket {
+            margin-right: 20px;
+        }
+
+        .city-percentage,
+        .language-percentage {
+            width: 120px;
+
+            .search-inputs {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                ::ng-deep .ant-input-number {
+                    width: 49%;
+                }
+            }
+        }
+
+        .ethnicity {
+            width: 150px;
+        }
+
+        .age-bracket {
+            width: 130px;
+        }
+
+        .hashtag,
+        .interests {
+            min-width: 210px;
+        }
+    }
+}

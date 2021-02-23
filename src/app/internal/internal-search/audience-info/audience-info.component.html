@@ -1,0 +1,156 @@
+<section class="audience-info">
+    <section class="title">
+        <span class="text">Audience Info</span>
+        <i nz-icon nz-type="info"></i>
+    </section>
+
+    <section class="search-container">
+        <!-- City -->
+        <section class="search-item city">
+            <section class="search-name">
+                <span>City</span>
+                <i nz-icon nzType="info-circle"></i>
+            </section>
+            <section class="search-inputs">
+                <nz-select [(ngModel)]="cityFilter.name" nzPlaceHolder="City" nzShowSearch nzAllowClear>
+                    <nz-option
+                        nzCustomContent
+                        *ngFor="let location of locationOptions"
+                        [nzLabel]="location.title"
+                        [nzValue]="location.name"
+                    >
+                        {{ location.title }}</nz-option
+                    >
+                </nz-select>
+            </section>
+        </section>
+        <!-- City Percentge -->
+        <section class="search-item city-percentage">
+            <section class="search-name">
+                <span>Percentge</span>
+                <i nz-icon nz-type="info"></i>
+            </section>
+            <section class="search-inputs">
+                <nz-input-number
+                    [(ngModel)]="cityFilter.range[0]"
+                    [nzMin]="1"
+                    [nzMax]="cityFilter.range[1] || 100"
+                    [nzStep]="1"
+                    nzPlaceHolder="Min"
+                ></nz-input-number>
+                <nz-input-number
+                    [(ngModel)]="cityFilter.range[1]"
+                    [nzMin]="cityFilter.range[0]"
+                    [nzMax]="100"
+                    [nzStep]="1"
+                    nzPlaceHolder="Max"
+                ></nz-input-number>
+            </section>
+        </section>
+
+        <!-- Language -->
+        <section class="search-item language">
+            <section class="search-name">
+                <span>Language</span>
+                <i nz-icon nzType="info-circle"></i>
+            </section>
+            <section class="search-inputs">
+                <nz-select [(ngModel)]="languageFilter.name" nzPlaceHolder="Language" nzShowSearch nzAllowClear>
+                    <nz-option nzCustomContent *ngFor="let item of languageOptions" [nzLabel]="item.name" [nzValue]="item.code">
+                        {{ item.name }}</nz-option
+                    >
+                </nz-select>
+            </section>
+        </section>
+        <!-- Language Percentge -->
+        <section class="search-item language-percentage">
+            <section class="search-name">
+                <span>Percentge</span>
+                <i nz-icon nz-type="info"></i>
+            </section>
+            <section class="search-inputs">
+                <nz-input-number
+                    [(ngModel)]="languageFilter.range[0]"
+                    [nzMin]="1"
+                    [nzMax]="languageFilter.range[1] || 100"
+                    [nzStep]="1"
+                    nzPlaceHolder="Min"
+                ></nz-input-number>
+                <nz-input-number
+                    [(ngModel)]="languageFilter.range[1]"
+                    [nzMin]="languageFilter.range[0]"
+                    [nzMax]="100"
+                    [nzStep]="1"
+                    nzPlaceHolder="Max"
+                ></nz-input-number>
+            </section>
+        </section>
+
+        <!-- Ethnicity -->
+        <section class="search-item ethnicity">
+            <section class="search-name">
+                <span>Ethnicity</span>
+                <i nz-icon nzType="info-circle"></i>
+            </section>
+            <section class="search-inputs">
+                <nz-select nzPlaceHolder="Ethnicity" nzShowSearch nzAllowClear>
+                    <nz-option nzCustomContent *ngFor="let item of ['1', '2', '3']" [nzLabel]="item" [nzValue]="item">
+                        {{ item }}</nz-option
+                    >
+                </nz-select>
+            </section>
+        </section>
+
+        <!-- Age Bracket -->
+        <section class="search-item age-bracket">
+            <section class="search-name">
+                <span>Age Bracket</span>
+                <i nz-icon nzType="info-circle"></i>
+            </section>
+            <section class="search-inputs">
+                <input nz-input placeholder="Age Bracket" />
+            </section>
+        </section>
+
+        <!-- Gender -->
+        <section class="search-item age-bracket">
+            <section class="search-name">
+                <span>Gender</span>
+                <i nz-icon nzType="info-circle"></i>
+            </section>
+            <section class="search-inputs">
+                <nz-select nzPlaceHolder="Gender" nzShowSearch nzAllowClear>
+                    <nz-option nzCustomContent *ngFor="let item of genders" [nzLabel]="item.title" [nzValue]="item.value">
+                        {{ item.title }}</nz-option
+                    >
+                </nz-select>
+            </section>
+        </section>
+
+        <!-- # Hashtag -->
+        <section class="search-item hashtag">
+            <section class="search-name">
+                <span># Hashtag</span>
+                <i nz-icon nzType="info-circle"></i>
+            </section>
+            <section class="search-inputs">
+                <input nz-input placeholder="eg: Lifestyle, Pets" />
+            </section>
+        </section>
+
+        <!-- Interests -->
+        <section class="search-item interests">
+            <section class="search-name">
+                <span>Interests</span>
+                <i nz-icon nzType="info-circle"></i>
+            </section>
+            <section class="search-inputs">
+                <nz-select nzPlaceHolder="eg: Movies, Flowers" nzMode="multiple" nzShowSearch nzAllowClear>
+                    <nz-option nzCustomContent *ngFor="let item of interestOptions" [nzLabel]="item.name" [nzValue]="item.id">
+                        {{ item.name }}</nz-option
+                    >
+                </nz-select>
+            </section>
+        </section>
+    </section>
+</section>

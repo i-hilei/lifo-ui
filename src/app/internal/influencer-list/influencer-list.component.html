@@ -1,0 +1,96 @@
+<div class="influencer-lists">
+    <div class="header">
+        <h4>Influencer List</h4>
+    </div>
+    <div class="container-box">
+        <div class="container-list">
+            <h4 class="sub-title">Influencer List Pool</h4>
+            <button nz-button nzType="primary" (click)="isShowList('create', [])">Create New List</button>
+            <div class="table-list">
+                <nz-table #basicTable [nzData]="influencerList" [nzPageSize]="20">
+                    <thead>
+                        <tr>
+                            <th nzWidth="60px"></th>
+                            <th [nzSortFn]="nameSort" [nzSortOrder]="'ascend'">List Name</th>
+                            <th nzWidth="150px">Add influencers</th>
+                            <th nzWidth="150px">Copy List</th>
+                            <th nzWidth="150px">Rename</th>
+                            <th nzWidth="150px">Delete</th>
+                            <th nzWidth="100px">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let data of basicTable.data">
+                        <tr>
+                            <td style="padding:0; padding-left:10px;" [nzExpand]="expandSet.has(data.id)" (nzExpandChange)="onExpandChange(data.id, $event)">
+                                <img *ngIf="data.platform !== 'tiktok'" class="logo-image" width="18" src="assets/images/instagram.jpg">
+                                <img *ngIf="data.platform === 'tiktok'" class="logo-image" width="18" src="assets/images/tiktok.jpg">
+                            </td>
+                            <td>{{ data.name }} ({{ data.ins_list.length }})</td>
+                            <td>
+                                <a (click)="addInfluencer(data.id)"><i nz-icon nzType="user-add" nzTheme="outline"></i> Add</a>
+                            </td>
+                            <td>
+                                <a (click)="isShowList('copy', data.ins_list)"><i nz-icon nzType="copy" nzTheme="outline"></i> Copy</a>
+                            </td>
+                            <td>
+                                <a (click)="showDialog(data, 'rename')"><i nz-icon nzType="edit" nzTheme="outline"></i> Rename</a>
+                            </td>
+                            <td>
+                                <a (click)="showDialog(data, 'delete')"> <i nz-icon nzType="delete" nzTheme="outline"></i> Delete </a>
+                            </td>
+
+                            <td>
+                                <a (click)="showSubList(data)" class="list-icon">
+                                    <span class="material-icons">
+                                        more_horiz
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr [nzExpand]="expandSet.has(data.id)">
+                            <h4>List Label<a (click)="isShowListLabel(data.id)"><span><i nz-icon nzType="edit" nzTheme="outline"></i> Edit</span></a></h4>
+                            <p>
+                                <ng-container *ngFor="let item of data['label_list']; let i = index">
+                                    <nz-tag class="tag-father" nzMode="default">
+                                      {{ item['name'] }}
+                                    </nz-tag>
+                                    
+                                      <ng-container *ngFor="let k of item['children']">
+                                        <span class="tag-child-margin">
+                                        <nz-tag  class="tag-children" nzMode="default">
+                                          {{ k['name'] }}</nz-tag>
+                                        </span>
+                                      </ng-container>                    
+                                </ng-container>  
+                            </p>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </nz-table>
+            </div>
+
+            <nz-modal nzTitle="Rename List" [(nzVisible)]="renameDialogVisible" [nzClosable]="false">
+                <input nz-input placeholder="New Name" [(ngModel)]="newName" />
+                <div *nzModalFooter>
+                    <button nz-button nzType="default" (click)="renameDialogVisible = false">Cancel</button>
+                    <button nz-button nzType="primary" (click)="renameList()">Confirm</button>
+                </div>
+            </nz-modal>
+
+            <nz-modal nzTitle="Delete List" [(nzVisible)]="deleteDialogVisible" [nzClosable]="false">
+                <section>Do you want to delete the list?</section>
+
+                <div *nzModalFooter>
+                    <button nz-button nzType="default" (click)="deleteDialogVisible = false">Cancel</button>
+                    <button nz-button nzType="primary" (click)="deleteList()">Confirm</button>
+                </div>
+            </nz-modal>
+        </div>
+    </div>
+</div>
+
+<app-create-new-list-dialog #newList (childOuter)="createList($event)"></app-create-new-list-dialog>
+<app-influencer-list-labeling #listLabel 
+[defaultLabelTagList] = "labelTagList"
+(childOuter)="getData($event)" pageName="list"></app-influencer-list-labeling>

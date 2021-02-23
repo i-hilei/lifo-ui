@@ -1,0 +1,59 @@
+<ul class="campaign-menu" nz-menu nzMode="horizontal">
+    <div class="header">
+        Influencer Management
+    </div>
+    <li nz-menu-item [nzSelected]="currentView === 'search'" (click)="currentView = 'search'">
+        Search
+        <i nz-icon nzType="search" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'application'" (click)="currentView = 'application'">
+        Application
+        <i nz-icon nzType="file-search" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'shipping'" (click)="currentView = 'shipping'">
+        Shipping
+        <i nz-icon nzType="shop" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'draft'" (click)="currentView = 'draft'">
+        Draft
+        <i nz-icon nzType="mail" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'post'" (click)="currentView = 'post'">
+        Post
+        <i nz-icon nzType="upload" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'commission'" (click)="currentView = 'commission'">
+        Commission
+        <i nz-icon nzType="file-protect" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'completed'" (click)="currentView = 'completed'">
+        Campaign Completed
+        <i nz-icon nzType="setting" nzTheme="outline"></i>
+    </li>
+</ul>
+<div *ngIf="currentView === 'search'">
+    <app-search-view></app-search-view>
+</div>
+<div *ngIf="currentView === 'application'">
+    <app-application-view></app-application-view>
+</div>
+
+<div *ngIf="currentView === 'shipping'">
+    <app-shipping-view></app-shipping-view>
+</div>
+
+<div *ngIf="currentView === 'draft'">
+    <app-draft-view></app-draft-view>
+</div>
+
+<div *ngIf="currentView === 'post'">
+    <app-post-view></app-post-view>
+</div>
+
+<div *ngIf="currentView === 'commission'">
+    <app-commission-view></app-commission-view>
+</div>
+
+<div *ngIf="currentView === 'completed'">
+    <app-completed-view></app-completed-view>
+</div>

@@ -1,0 +1,38 @@
+.influencer-info {
+    width: 100%;
+    height: 100%;
+    .title {
+        .text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        i {
+            cursor: pointer;
+            user-select: none;
+            margin-left: 5px;
+        }
+    }
+
+    .info-item {
+        margin-top: 20px;
+
+        nz-select {
+            width: 100%;
+        }
+    }
+    .follower,
+    .engagement {
+        .from-input,
+        .end-input {
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            ::ng-deep {
+                input {
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+}

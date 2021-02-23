@@ -1,0 +1,79 @@
+<div *ngIf="!isMobileView">
+    <div class="header-background">
+
+    </div>
+    <div class="title">
+        <span *ngIf="!completeSigning">Contract Signing</span>
+        <span *ngIf="completeSigning">Thank You!</span>
+    
+        <div class="image-holder">
+            <img src="assets/images/login.png">
+        </div>
+    </div>
+    <div class="container" *ngIf="!completeSigning">
+        <div *ngIf="offerDetail">
+            <app-offer-detail-display [offerDetail]="offerDetail"></app-offer-detail-display>
+        </div>
+    
+        <div class="buttons">
+            <button mat-stroked-button class="accept-button" (click)="signContract()">
+                Sign Contract
+            </button>
+        </div>
+    </div>
+    
+    <div class="container" *ngIf="completeSigning">
+        <div class="message-container">
+            <div class="sub-title">Thank you for collaborating with Lifo! </div>
+            <div class="text">You should be getting an email from us for downloading the contract.</div>
+            <div class="text">We are building the best influencer marketing product and we are coming soon ! </div>
+            <div class="text">Click <a href="https://lifo.ai" target="_blank">here</a> to subscribe, we will let you know as soon as there is any update ! </div>
+        </div>
+        <div class="buttons">
+            <button mat-stroked-button class="accept-button" (click)="followLifo()">
+                <i nz-icon nzType="instagram" nzTheme="outline" class="icon"></i>
+                Follow Lifo
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="mobile-view" *ngIf="isMobileView">
+    <div class="mobile-title">
+        
+    </div>
+    <div class="icon-holder">
+        <mat-icon class="logo" svgIcon="logo"></mat-icon>
+    </div>
+
+    <div class="mobile-container" *ngIf="!completeSigning">
+        <div *ngIf="offerDetail">
+            <app-offer-detail-display [offerDetail]="offerDetail" [isMobileView]="true"></app-offer-detail-display>
+        </div>
+
+        <div class="buttons">
+            <button mat-stroked-button class="accept-button" (click)="signContract()">
+                Sign Contract
+            </button>
+        </div>
+    </div>
+
+    <div class="mobile-container" *ngIf="completeSigning">
+        <div class="big-icon-holder">
+            <mat-icon svgIcon="havefive"></mat-icon>
+        </div>
+        <div class="message-container">
+            <div class="sub-title">Thank you for collaborating with Lifo! </div>
+            <div class="text">We are building the best influencer marketing product and we are coming soon ! </div>
+            <div class="text">Click <a href="https://lifo.ai" target="_blank">here</a> to subscribe, we will let you know as soon as there is any update ! </div>
+        </div>
+        <div class="follow-message">Follow us on Instagram to know more about Lifo. </div>
+        <div class="buttons">
+            <button mat-stroked-button class="accept-button" (click)="followLifo()">
+                <i nz-icon nzType="instagram" nzTheme="outline" class="icon"></i>
+                Follow Lifo
+            </button>
+        </div>
+    </div>
+</div>
+

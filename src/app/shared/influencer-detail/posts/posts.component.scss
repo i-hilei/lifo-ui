@@ -1,0 +1,49 @@
+.post-container {
+    display: inline-block;
+    .image-container {
+        height: 230px;
+        width: 230px;
+        img {
+            height: 230px;
+            width: 230px;
+        }
+    }
+
+    .post-info {
+        line-height: 25spx;
+        padding: 0;
+        .material-icons {
+            font-size: 20px;
+            margin-right: 5px;
+            vertical-align: top;
+            margin-top: 2px;
+        }
+        .post-number {
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 17px;
+            color: #252733;
+            margin-right: 15px;
+        }
+    }
+
+    .caption-container {
+        height: 180px;
+        padding: 5px 15px;
+        overflow-y: scroll;
+    }
+}
+@media screen and ( max-width: 1300px ) {
+    .post-container {
+        .image-container {
+            width: 180px;
+            height: 180px;
+            img {
+                width: 180px;
+                height: 180px;
+            }
+        }
+    }
+}

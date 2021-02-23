@@ -1,0 +1,18 @@
+<div class="search-input">
+  <nz-select [(ngModel)]="selectItem" *ngIf="title === 'shop_management'">
+      <nz-option nzValue="product_name" nzLabel="Product Name"></nz-option>
+      <nz-option nzValue="vender_name" nzLabel="Vendor Name"></nz-option>
+  </nz-select>
+  <nz-select [(ngModel)]="searchItem" *ngIf="title === 'search_view'">
+    <nz-option nzValue="instagram" nzLabel="Instagram handle"></nz-option>
+    <nz-option nzValue="tiktok" nzLabel="Tiktok handle"></nz-option>
+    <nz-option nzValue="email" nzLabel="email"></nz-option>
+</nz-select>
+  <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+      <input type="text" nz-input [(ngModel)]="searchValue" placeholder="Search" />
+  </nz-input-group>
+  <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch (click)="searchFun()"><i nz-icon nzType="search"></i></button>
+  </ng-template>
+</div>
+<span class="reset" (click)="refresh()" *ngIf="isReset === 'show'">Reset</span>

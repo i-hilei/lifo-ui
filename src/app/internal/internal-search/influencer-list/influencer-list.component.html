@@ -1,0 +1,75 @@
+<section class="influencer-list">
+    <!-- Paginator -->
+    <section class="paginator-info">
+        <section class="selected-influencer-count">
+            <span class="count">{{ selectedInfluencerList.length }}</span>
+            <span> influencer selected</span>
+        </section>
+
+        <section class="paginator-influencer-found">
+            <section class="influencer-found">
+                <span class="count">{{ influencerList.length | number: '1.0':'en-US' }}</span>
+                <span> influencers found</span>
+            </section>
+            <section class="influencer-paginator">
+                <span class="paginator-num">{{ page }}/{{ pageCount }}</span>
+                <button nz-button nzType="primary" nzSize="small" [disabled]="page === 1" (click)="goPage(false)">
+                    <i nz-icon nzType="left" nzTheme="outline"></i>
+                </button>
+                <button nz-button nzType="primary" nzSize="small" [disabled]="page === pageCount" (click)="goPage(true)">
+                    <i nz-icon nzType="right" nzTheme="outline"></i>
+                </button>
+            </section>
+        </section>
+    </section>
+
+    <!-- List -->
+    <section class="influencer-item-list">
+        <!-- Header and some other button -->
+        <section class="header-items">
+            <!-- Select All -->
+            <section class="header-item select-all">
+                <button nz-button nzType="default" [ngClass]="{ 'all-selected': isAllSelected }" (click)="selectAll()">Select All</button>
+            </section>
+
+            <!-- Sort By -->
+            <section class="header-item sort-by">
+                <!-- <i nz-icon nzType="left" nzTheme="outline"></i> -->
+                <span>Sort by:</span>
+            </section>
+
+            <section
+                [class]="'header-item ' + column.columnKey"
+                [ngClass]="{ highlight: get(sort, ['columnKey']) === column.columnKey ? true : false }"
+                *ngFor="let column of headerColumnList"
+                (click)="clickSort(column)"
+            >
+                {{ column.columnName }}
+            </section>
+        </section>
+
+        <!-- Influencer items -->
+        <section class="influencer-item" *ngFor="let influencer of influencersOfThisPage">
+            <!-- Checkbox -->
+            <section class="header-item select-all">
+                <label nz-checkbox [(ngModel)]="influencer.selected"></label>
+            </section>
+
+            <!-- Name -->
+            <section class="header-item sort-by">
+                <span>{{ influencer.name }}</span>
+            </section>
+
+            <section
+                [class]="'header-item ' + column.columnKey"
+                [ngClass]="{ highlight: get(sort, ['columnKey']) === column.columnKey ? true : false }"
+                *ngFor="let column of headerColumnList"
+            >
+                {{ influencer[column.columnKey] }}
+            </section>
+        </section>
+    </section>
+
+    <!-- Operation buttons -->
+    <section class="btns"></section>
+</section>

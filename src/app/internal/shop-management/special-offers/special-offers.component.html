@@ -1,0 +1,76 @@
+<div class="isShowSpecial">
+  <h4>Special Offers</h4>
+  <div class="special-offer">
+    <h4>Special Offer For Commission</h4>
+    <div class="increase">
+        <span>Commission Increase</span>
+        <nz-input-group  nzSuffix="%">
+            <input nz-input type="number" [disabled]="isCommissionEdit" [(ngModel)]="increaseValue" />
+        </nz-input-group>
+    </div>
+    <div class="times">
+        <span>Limited Time</span>
+        <nz-range-picker [(ngModel)]="commissionPicker" [nzDisabled]="isCommissionEdit" [nzFormat]="dateFormat"></nz-range-picker>
+    </div>
+    <div class="operations">
+        <span *ngIf="isCommissionEdit" 
+        (click)="isCommissionEdit = false">Edit</span>
+        <span *ngIf="!isCommissionEdit" (click)="commissionSave('commission', isCommissionSwitch)">Save</span>
+        <nz-switch [(ngModel)]="isCommissionSwitch" nzCheckedChildren="On" nzUnCheckedChildren="Off" (ngModelChange)="switchChange('commission',$event)"></nz-switch>
+    </div>
+  </div>
+  <div class="special-offer special-offer-sales">
+    <h4>Special Offer For Sales</h4>
+    <div class="increase">
+        <span>Discounted Price</span>
+        <nz-input-group  nzPrefix="$">
+            <input nz-input type="number" [disabled]="isSalesEdit" [(ngModel)]="salesValue" />
+        </nz-input-group>
+    </div>
+    <div class="times">
+        <span>Limited Time</span>
+        <nz-range-picker [(ngModel)]="salesPicker" [nzDisabled]="isSalesEdit" [nzFormat]="dateFormat"></nz-range-picker>
+    </div>
+    <div class="operations">
+        <span *ngIf="isSalesEdit" (click)="isSalesEdit = false">Edit</span>
+        <span *ngIf="!isSalesEdit" (click)="commissionSave('sales', isSalesSwitch)">Save</span>
+        <nz-switch [(ngModel)]="isSalesSwitch" nzCheckedChildren="On" nzUnCheckedChildren="Off"
+        (ngModelChange)="switchChange('sales',$event)"></nz-switch>
+    </div>
+  </div>
+  <div class="special-offer special-offer-campaign">
+    <h4>Related Campaign ID</h4>
+    <div class="increase">
+        <span>Campaign ID</span>
+        <input nz-input type="text" [disabled]="isCampaignEdit" [(ngModel)]="campaignIdValue" />
+    </div>
+    <div class="operations">
+        <span *ngIf="isCampaignEdit" (click)="isCampaignEdit = false">Edit</span>
+        <span *ngIf="!isCampaignEdit" (click)="commissionSave('campaign', isCampaignSwitch)">Save</span>
+        <nz-switch [(ngModel)]="isCampaignSwitch" nzCheckedChildren="On" nzUnCheckedChildren="Off"
+        (ngModelChange)="switchChange('campaign',$event)"></nz-switch>
+    </div>
+  </div>
+  <div class="special-offer special-offer-edition">
+    <h4>Special Edition</h4>
+    <div class="operations">
+        <nz-switch [(ngModel)]="isEditionSwitch" nzCheckedChildren="On" nzUnCheckedChildren="Off"
+        (ngModelChange)="switchChange('edition',$event)"></nz-switch>
+    </div>
+  </div>
+  <div class="special-offer special-offer-sample">
+    <h4>Allow Influencer Purchase Sample</h4>
+    <div class="increase">
+        <span>Sample Price</span>
+        <nz-input-group  nzPrefix="$">
+            <input nz-input type="number" [disabled]="isSampleEdit" [(ngModel)]="sampleValue" />
+        </nz-input-group>
+    </div>
+    <div class="operations">
+        <span *ngIf="isSampleEdit" (click)="isSampleEdit = false">Edit</span>
+        <span *ngIf="!isSampleEdit" (click)="commissionSave('sample', isSampleSwitch)">Save</span>
+        <nz-switch [(ngModel)]="isSampleSwitch" nzCheckedChildren="On" nzUnCheckedChildren="Off"
+        (ngModelChange)="switchChange('sample',$event)"></nz-switch>
+    </div>
+  </div>
+</div>

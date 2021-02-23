@@ -1,0 +1,13 @@
+<div class="post-container">
+    <div class="image-container">
+        <img *ngIf="platform === 'instagram'" src="{{post.image}}">
+        <img *ngIf="platform === 'tiktok'" src="{{post.thumbnail}}">
+    </div>
+    <div class="post-info">
+        <span class="material-icons" style="color:#FF759E;"> favorite </span> <span class="post-number">{{post.likes}}</span>
+        <span class="material-icons" style="color:#2F80ED;"> chat_bubble </span> <span class="post-number">{{post.comments}}</span> 
+    </div>
+    <!-- <div class="caption-container">
+        {{post.text}}
+    </div> -->
+</div>

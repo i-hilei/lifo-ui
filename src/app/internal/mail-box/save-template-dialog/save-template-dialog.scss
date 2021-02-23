@@ -1,0 +1,32 @@
+@import 'common';
+
+.confirm-dialog-container {
+    height: 100%;
+    padding: 25px 35px;
+    box-sizing: border-box;
+    position: relative;
+
+    h3 {
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 1;
+        margin-bottom: 20px;
+    }
+
+    .example-full-width {
+        width: 400px;
+    }
+
+    .btn-group {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+        margin-top: 20px;
+
+        .mat-raised-button {
+            margin-left: 20px;
+        }
+    }
+}

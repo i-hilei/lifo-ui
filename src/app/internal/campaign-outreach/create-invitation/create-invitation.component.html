@@ -1,0 +1,288 @@
+<div class="header">
+    <div (click)="backToCampaign()">
+        <span class="material-icons"> arrow_back </span>
+        <span>Back</span>
+    </div>
+    <div class="title-message">Create Invitation</div> 
+</div>
+<nz-progress [nzPercent]="viewPage*25+25" [nzSuccessPercent]="viewPage*25" [nzShowInfo]="false"></nz-progress>
+
+<div class="container" *ngIf="campaign">
+    <div class="create-container" *ngIf="viewPage === 1">
+        <h4>Product Details Information</h4>
+        <div class="showProductItem clearfix">
+        <img [src]="campaign.product_image" alt="" width="100" height="60">
+        <div class="item-right">
+            <p>Product Name <span>{{ campaign.product_name }}</span></p>
+            <p>Product Price <span class="product-price">$ {{ campaign.product_price }}</span></p>
+        </div>
+    </div>
+    <div class="productCost">
+        <span>Product Cost</span>
+        <nz-input-group nzPrefix="$">
+            <input type="text" nz-input [(ngModel)]='campaignData.unit_cost'/>
+        </nz-input-group>
+        <!-- <i nz-icon nzType="question-circle" nzTheme="outline"></i> -->
+    </div>
+    <div class="product-detailsall">
+      <div class="template-selector">
+        <h4 class="detail-title"> Product Introduction </h4>
+        <ng-select 
+            class="template-version-select" 
+            [clearable]="false" 
+            style="float: right;"
+            nzPlaceHolder="Example Template"
+            [items]="productDetailTemplates"
+            [(ngModel)]="selectedProductDetailTemplate"
+            (change)="selectProductDetailTemplate($event)"
+        >
+            <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                {{item.template_name}}
+            </ng-template>
+        </ng-select>
+        <div class="description"> 
+            Introduce the highlights of your product to attract influencers. <br>
+            The better you showcase your product, the more likely influencers will agree to collaborate.  </div>
+      </div>
+      <div class="content-edit">
+        <app-email-editor #productEditor [htmlContent]="productDetailHtml"></app-email-editor>
+        <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="8">
+                <div class="inner-box">
+                    <div class="image-title detail-title">  Select Image </div>
+                    <div class="select-left">
+                        <label class="upload-section">
+                            <span class="material-icons" *ngIf = "uploadURL == ''"> add_photo_alternate </span>
+                            <div *ngIf = "uploadURL == ''">Upload images</div>
+                            <img [src]="uploadURL" alt="" *ngIf = "uploadURL != ''">
+                            <input class="file-input" type="file" id="inputFile" (change)="onDrop($event.target.files)" accept=".png,.jpg"> 
+                        </label>
+                        <span *ngIf="(snapshot | async) as snap">
+                            {{ snap.bytesTransferred }} of {{ snap.totalBytes }} 
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="16">
+                <div class="inner-box">
+                    <div class="link-right">
+                        <div class="image-title detail-title"> URL to your product page </div>
+                        <div class="description">
+                            Provide the product link for influencers to research on. This will increase the chances for them to accept your offer if they love your proudct!
+                        </div>
+                        <span></span>
+                        <div class="linkDiv">
+                            <nz-input-group [nzPrefix]="prefixTemplateUser">
+                            <input 
+                                nz-input 
+                                placeholder="Paste Shopify URL here" 
+                                [(ngModel)]="shopifyLink"
+                                autocomplete="off"
+                            >
+                            </nz-input-group>
+                            <ng-template #prefixTemplateUser>
+                                <span class="material-icons link-icons">
+                                link
+                                </span>
+                            </ng-template>
+                        </div>
+                        <div class="linkDiv">
+                            <nz-input-group [nzPrefix]="amazonTemplateUser">
+                            <input 
+                                nz-input 
+                                placeholder="Paste Amazon URL here" 
+                                [(ngModel)]="amazonLink"
+                                autocomplete="off"
+                            >
+                            </nz-input-group>
+                            <ng-template #amazonTemplateUser>
+                                <span class="material-icons link-icons">
+                                link
+                                </span>
+                            </ng-template>
+                        </div>
+                        <div class="linkDiv">
+                            <nz-input-group [nzPrefix]="otherTemplateUser">
+                            <input 
+                                nz-input 
+                                placeholder="Others" 
+                                [(ngModel)]="linkOthers"
+                                autocomplete="off"
+                            >
+                            </nz-input-group>
+                            <ng-template #otherTemplateUser>
+                                <span class="material-icons link-icons">
+                                link
+                                </span>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="button-group">
+      <button class="next-button" nz-button nzType="primary" (click)="pageTwoToThree()">
+          Next
+      </button>
+      <button class="close-button" (click)="pageTwoToOne()" nz-button nzType="default">
+          Back
+      </button>
+    </div>
+  </div> 
+  <div class="create-container" *ngIf="viewPage === 2">
+    <div class="sub-title">
+        Collaboration Details
+    </div>
+
+    <div class="message">
+        <div class="message-content"> 
+            Think of this as the instructions you’re giving to each influencer!
+        </div>
+        <!-- <span class="material-icons"> close </span> -->
+    </div>
+    <div class="coll-Top">
+        <form nz-form [formGroup]="detailsValidateForm">
+            <nz-form-item>
+                <label class="img-icon">
+                    <img class="logo-image" src="assets/images/{{ campaign.platform }}.jpg">
+                    <span>{{ campaign.platform }}</span>
+                </label>
+                <nz-form-label>
+                    What Contents Are You Looking For?
+                </nz-form-label>
+                <nz-form-control nzErrorTip="Please input content_format!">
+                    <input nz-input placeholder="e.g. Fashion style casual look"  formControlName="content_format" id="content_format" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label>
+                    Visual Content Guidelines
+                </nz-form-label>
+                <nz-form-control nzErrorTip="Please input visual_content_guideline!">
+                    <textarea
+                        nz-input 
+                        placeholder="Describe your vision, or any guidelines, for the visual content generated by the influencer here. If left empty, default: 'Product must be visible'"  
+                        formControlName="visual_content_guideline" 
+                        id="visual_content_guideline">
+                    </textarea> 
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label>
+                    Post Caption Guidelines
+                </nz-form-label>
+                <nz-form-control nzErrorTip="Please input text_post_guideline!">
+                    <textarea 
+                        nz-input 
+                        placeholder="Describe guidelines, if any, for influencers as they write the text post that accompanies the visual content. If left empty, default:  “Must mention brand name”"  
+                        formControlName="text_post_guideline" 
+                        id="text_post_guideline">
+                    </textarea>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item style="margin-bottom: 15px;">
+                <nz-form-label style="margin-bottom: 10px;">
+                    Tags Required (Optional)
+                </nz-form-label>
+                <nz-form-control class="tags-lists">
+                    <ng-container *ngIf="tags01.length > 0">
+                        <nz-tag *ngFor="let tag of tags01; let i = index" nzMode="closeable" (nzOnClose)="handleClose('tags01', tag)">
+                            @ {{ tag }}
+                        </nz-tag>
+                    </ng-container>
+                    
+                    <nz-input-group  style="width: 100px;margin-right: 8px;" nzPrefix="@">
+                        <input nz-input formControlName="tags01_value" id="tags01_value" (keydown.enter)="handleInputConfirm('tags01_value', 'tags01')" [(ngModel)]="tags01_value"  placeholder="handle" />
+                    </nz-input-group>
+                    <button nz-button nzType="default" (click)="handleInputConfirm('tags01_value', 'tags01')">
+                        <i nz-icon nzType="plus" nzTheme="outline"></i>
+                    </button>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control class="tags-lists">
+                    <ng-container *ngIf="tags02.length > 0">
+                        <nz-tag *ngFor="let tag of tags02; let i = index" nzMode="closeable" (nzOnClose)="handleClose('tags02', tag)">
+                            # {{ tag }}
+                        </nz-tag>
+                    </ng-container>
+                    
+                    <nz-input-group  style="width: 100px;margin-right: 8px;" nzPrefix="#">
+                        <input nz-input formControlName="tags02_value" id="tags02_value" (keydown.enter)="handleInputConfirm('tags02_value', 'tags02')" [(ngModel)]="tags02_value" placeholder="hashtag" />
+                    </nz-input-group>
+                    <button nz-button nzType="default" (click)="handleInputConfirm('tags02_value', 'tags02')">
+                        <i nz-icon nzType="plus" nzTheme="outline"></i>
+                    </button>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item *ngIf="campaign.coupon_discount_percentage">
+                <nz-form-label>
+                    Promotional Discount
+                </nz-form-label>
+                <nz-form-control class="discount">
+                    <span>· {{ campaign.coupon_discount_percentage }}% off sitewide</span>
+                    <span *ngIf="campaign.campaign_coupon_code !== ''" class="holiday">
+                        {{ campaign.campaign_coupon_code }}</span>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+
+    <div class="button-group">
+        <button class="next-button" nz-button nzType="primary" (click)="showPageThree()">
+            Next
+        </button>
+        <button class="close-button" (click)="viewPage = 1" nz-button nzType="default">
+            Back
+        </button>
+    </div>
+  </div>
+  <div class="create-container page3-container" *ngIf="viewPage === 3">
+    <div class="sub-title">
+      Compensation
+    </div>
+    <form nz-form [formGroup]="paymentForm" (ngSubmit)="createProductOnlyCampaign()">
+        
+        <nz-form-item>
+            <nz-form-label>
+                How will you compensate your influencer?
+            </nz-form-label>
+            <nz-form-control nzErrorTip="Please input compensate_method!">
+                <input 
+                    nz-input
+                    placeholder="If left empty, default: “Free product”"  
+                    formControlName="compensate_method" 
+                    id="compensate_method"
+                    autocomplete="off" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>
+                Payment method
+            </nz-form-label>
+            <nz-form-control nzErrorTip="Please input payment_platform!">
+                <input 
+                    nz-input 
+                    placeholder="If left empty, default: PayPal, we pay for the PayPal fee"  
+                    formControlName="payment_platform" 
+                    id="payment_platform"
+                    autocomplete="off" />
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+
+    <div class="button-group">
+        <button class="next-button create-button" 
+            (click)="createProductOnlyCampaign()"
+            [disabled]="!detailsValidateForm.valid" nz-button nzType="primary" >
+            Create
+        </button>
+        
+        <button class="close-button" (click)="viewPage = 2" nz-button nzType="default">
+            Back
+        </button>
+    </div>
+  </div>
+</div>

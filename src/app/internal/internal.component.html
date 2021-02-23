@@ -1,0 +1,40 @@
+<mat-sidenav-container class="nav-container">
+    <mat-sidenav #sidenav mode="side" opened class="sidenav" [fixedInViewport]="true" [fixedTopGap]="0"
+        [fixedBottomGap]="0">
+        <div class="logo">
+            <mat-icon class="logo-image" svgIcon="logo-circle"></mat-icon>
+        </div>
+        <div class="icon" (click)="goHome()">
+            <mat-icon class="menu-icon" mat-list-icon> home </mat-icon>
+        </div>
+        <div class="icon" (click)="goInfluencer()">
+            <i nz-icon nzType="bars" nzTheme="outline"></i>
+        </div>
+        <div class="icon" (click)="goUserManagement()">
+            <mat-icon class="menu-icon" mat-list-icon> person_add </mat-icon>
+        </div>
+        <div class="icon" (click)="goTransactionHistory()">
+            <mat-icon class="menu-icon" mat-list-icon> money </mat-icon>
+        </div>
+        <div class="icon" (click)="goToMonitoring()">
+            <mat-icon class="menu-icon" mat-list-icon> show_chart </mat-icon>
+        </div>
+        <div class="icon" (click)="goToShopListing()">
+            <mat-icon class="menu-icon" mat-list-icon> storefront </mat-icon>
+        </div>
+        <div class="icon lottery" (click)="goToLottery()">
+            <img class="self-image" src="assets/svg/lifo-lottery-icon.svg" alt="" width="24">
+        </div>
+        <div class="icon" (click)="goToOperation()">
+            <mat-icon class="menu-icon" mat-list-icon> group </mat-icon>
+        </div>
+       
+        <div class="icon logout-icon" (click)="logout()">
+            <mat-icon class="menu-icon" mat-list-icon> exit_to_app </mat-icon>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

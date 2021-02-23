@@ -1,0 +1,21 @@
+<div class="changePass">
+  <nz-modal
+      [(nzVisible)]="isVisible"
+      [nzTitle]="modalTitle"
+      [nzContent]="modalContent"
+      nzMaskClosable=false
+      [nzFooter]=null
+      nzWidth = '600'
+  >
+      <ng-template #modalTitle>
+          <b style="font-size: 22px;"> {{ 'As the Last step' | translate }} </b>
+      </ng-template>
+
+      <ng-template #modalContent>
+          <h3>Add handles & hashtags To your campaign (Optional):</h3>
+          <p>The social media accounts (handles) and hashtags that the influencers should mention in their posts.</p>
+      </ng-template>
+  </nz-modal>
+</div>
+
+

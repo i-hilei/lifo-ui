@@ -1,0 +1,234 @@
+.email-containers {
+    margin: 0;
+    width: 100%;
+    height: 700px;
+    border-radius: 0;
+    
+    .email-row {
+        margin-left: 0;
+        margin-right: 0;
+        height: 700px;
+        .inner-box {
+            height: 100%;
+        }
+        .user-list, .info-status {
+            width: 300px;
+            height: 700px;
+            background: #fff;
+        }
+        .user-list {
+            float: left;
+            position: relative;
+            overflow-y: auto;
+            .contact {
+                width: 100%;
+                height: 620px;
+                overflow-y: auto;
+                .check-all {
+                    cursor: pointer;
+                    padding: 10px;
+                    line-height: 18px;
+                    mat-icon {
+                        width: 18px;
+                        height: 18px;
+                        vertical-align: top;
+                        margin-right: 10px;
+                    }
+                }
+                .ant-collapse-item {
+                    background-color: #FFF;
+                }
+                .ant-collapse-header {
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 20px;
+                    text-transform: capitalize;
+                    color: #0D053C;
+                }
+                .ant-collapse-content {
+                    background-color: #FFF;
+                    .ant-collapse-content-box {
+                        padding: 0px;
+
+                    }
+                }
+
+                .contact-item {
+                    cursor: pointer;
+                }
+                .self-image {
+                    margin: 12px 12px 12px 20px
+                }
+                .self-name {
+                    display: inline-block;
+                    font-weight: 600;
+                }
+            }
+            .contact .selected {
+                background-color:#fafafa;
+            }
+        }
+        .progress-steps {
+            margin: 0px 0px 0px 310px;
+            background: #fff;
+        }
+        .info-status {
+            float: right;
+            overflow: hidden;
+        }
+    }
+    .chat-box {
+        height: 100%;
+        margin: 0 310px;
+        background: #fff;
+        min-width: 560px;
+        .chat-box-header {
+            padding-left:30px;
+            height: 55px;
+            padding-top: 10px;
+            // line-height: 55px;
+            font-family: Montserrat;
+            font-style: normal;
+            .chat-email-add {
+                margin-left: 8px;
+                text-decoration: underline;
+                color: #2F80ED;
+            }
+            .chat-email-auth {
+                margin-left: 10px;
+                color: #2F80ED;
+                cursor: pointer;
+            }
+            .ant-row {
+                height: auto;
+                .header-left {
+                    span:first-child {
+                        font-weight: 500;
+                        font-size: 14px;
+                        color: #0D053C;
+                    }
+                    span:last-child {
+                        display: block;
+                        font-weight: 300;
+                        font-size: 12px;
+                    }
+                }
+                .header-right {
+                    text-align: right;
+                    padding-right: 20px;
+                    cursor: pointer;
+                    span:first-child {
+                        vertical-align: middle;
+                        margin-right: 10px;
+                    }
+                }
+                .header-right:hover {
+                    span {
+                        color: #414BB2;
+                    }
+                }
+            }
+            
+        }
+        .chat-set {
+            width: 100%; 
+            height: 600px;
+            padding: 10px 15px;
+            position: relative;
+            .email-row {
+                height: 50px;
+                padding: 10px 0px;
+                .email-title-box {
+                    width: calc(100% - 72px);
+                }
+            }
+            .chat-box-edit {
+                color: #4F4F4F;
+            }
+            // border: 1px solid #999;
+            .template-ico {
+                color: #414BB2;
+                float: right;
+                margin-top: 15px;
+                cursor: pointer;
+                 .material-icons {
+                     vertical-align: bottom;
+                 }
+                 .template-text {
+                    font-family: Montserrat;
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 14px;
+                    line-height: 17px;
+                 }
+            }
+            .order-detail {
+                position: relative;
+                bottom: 10px;
+                height: 6px;
+            }
+            
+        }
+        .autoHeights {
+            height: 550px;
+        }
+    }
+    .send-full-width, .example-full-width{
+        width: calc(100% - 250px);
+        // height: 20px;
+    }
+    .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+        padding-bottom: 15px;
+    }
+    
+    .chat-button {
+        margin-top: 6px;
+        padding: 0 15px;
+        .chat-send-button {
+            padding: 10px 40px;
+            background: #414BB2;
+            border-radius: 4px;
+            color: #fff;
+            line-height: 12px;
+            margin-right: 10px;
+        }
+        .chat-other-button {
+            padding: 10px 40px;
+            background: #FFFFFF;
+            border: 1px solid #414BB2;
+            border-radius: 4px;
+            color: #414BB2;
+            line-height: 12px;
+        }
+        .chat-other-button:last-child {
+            float: right;
+            .material-icons {
+                font-size: 18px;
+                vertical-align: sub;
+                margin-right: 10px;
+                margin-top: -6px;
+            }
+        }
+    }
+}
+
+.alltemplate {
+    width: 100%;
+    height: 100%;
+    .ant-modal-header {
+        position: position;
+        .ant-modal-title {
+            line-height: 20px;
+        }
+    }
+    .ant-modal-body {
+        position: absolute;
+        background: #fff;
+        top: 50px;
+        border-top: 1px solid #999;
+        .ant-row {
+            height: 100%;
+            overflow: hidden;
+        }
+    }
+}

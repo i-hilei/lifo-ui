@@ -1,0 +1,15 @@
+<div class="addNotes" *ngIf="displayInfluencer">
+    <h4>Note Pad <i nz-icon nzType="edit" nzTheme="outline" (click)="editNodtes()"></i></h4>
+    <div class="showNotesPage" *ngIf="isEdits && 
+        displayInfluencer['note']  && 
+        displayInfluencer['note'] != ''">
+        {{ displayInfluencer['note'] }}
+    </div>
+    <nz-spin nzTip="Save..." [nzSpinning]="isSpinning">
+        <textarea rows="4" nz-input [(ngModel)]="inputValue" *ngIf="!isEdits"></textarea>
+    </nz-spin>
+    <div class="notesBtn" *ngIf="!isEdits">
+        <button nz-button nzType="primary" (click)="saveEdits()">save</button>
+        <button nz-button nzType="default" (click)="cancelEdits()">cancel</button>
+    </div>
+</div>

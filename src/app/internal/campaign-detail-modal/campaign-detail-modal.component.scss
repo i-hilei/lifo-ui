@@ -1,0 +1,31 @@
+.clearfix:after { content:"."; clear: both; height: 0; overflow: hidden; visibility: hidden; display: block; }
+.clearfix { zoom: 1;}
+.fullStyle {
+    .ant-modal {
+        position: relative;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        padding-bottom: 0;
+    }
+}
+
+.spin-set {
+    nz-spin {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+.footers {
+    text-align: center;
+    .cancelBtn {
+        margin-top: 20px;
+        width: 200px;
+        color: #fff;
+        background: #414BB2;
+        border: 1px solid #414BB2;
+    }
+}

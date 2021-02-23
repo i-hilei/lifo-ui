@@ -1,0 +1,33 @@
+.addNotes {
+    padding: 0 20px;
+    margin-top: 30px;
+    h4 {
+        font-size: 16px;
+        line-height: 20px;
+        color: #414BB2;
+        i {
+            cursor: pointer;
+        }
+    }
+    .showNotesPage {
+        width: 100%;
+        // background: #fff;
+        padding: 10px 0;
+        color: #0D053C;
+        // border: 1px solid rgba(13, 5, 60, 0.3);
+        // border-radius: 8px;
+        // min-height: 100px;
+    }
+    .notesBtn {
+        margin: 20px 0;
+        button {
+            width: 120px;
+            margin-right: 20px;
+        }
+        button:last-child {
+            color: #414BB2;
+            border: 1px solid #414BB2;
+        }
+    }
+    
+}

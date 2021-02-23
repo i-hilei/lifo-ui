@@ -1,0 +1,66 @@
+<div class="email-sender">
+    <div class="from">
+        <div class="label">Send From</div>
+        <div class="emails" *ngIf="emailAuth"> 
+            <img src="assets/svg/mailbox.svg" alt="" width="22">
+            <span class="chat-email-add">{{ emailAuth }}</span>
+        </div>
+        <div class="emails" *ngIf="!emailAuth"> 
+            <img src="assets/svg/mailbox.svg" alt="" width="22">
+            <span (click)="authorizeNylas()" class="chat-email-auth">Authorize your email account</span> 
+        </div>
+        <ng-select 
+            class="template-version-select" 
+            [clearable]="false" 
+            [items]="allTemplates"
+            [(ngModel)]="selectedTemplate"
+            (change)="selectTempalte($event)"
+        >
+            <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                {{item.template_name}}
+            </ng-template>
+        </ng-select>
+    </div>
+
+    <div class="from">
+        <div class="label">Send To</div>
+        <div class="emails">
+            <nz-tag 
+                *ngFor="let inf of selectedInfluencers;"
+            >
+                {{ inf.email }}
+            </nz-tag>
+        </div>
+    </div>
+    <div class="body subject" *ngIf="emailTemplate">
+        <input nz-input placeholder="Subject" [(ngModel)]="emailTemplate.subject" nzSize="default" />
+    </div>
+    <div class="body" *ngIf="emailTemplate">
+        <app-email-editor 
+            #sendOfferEditor 
+            [htmlContent]="emailTemplate.body"
+            [isHeight]="'400px'"></app-email-editor>
+    </div>
+    <div class="action" (click)="sendEmail()" *ngIf="!showEmailSendingStatus">
+        Send Emails
+        <i class="send-icon" nz-icon nzType="send" nzTheme="outline"></i>
+    </div>
+    <div class="action" (click)="saveNewTemplate()">
+        Save as Template
+        <i class="send-icon" nz-icon nzType="save" nzTheme="outline"></i>
+    </div>
+</div>
+
+<nz-modal 
+    [(nzVisible)]="showEmailSendingStatus" 
+    nzTitle="Sending Batch Emails" 
+    (nzOnCancel)="cancelSendingBatchEmail()" 
+    [nzFooter]="null"
+>
+    <div *ngIf="selectedInfluencers && selectedInfluencers.length > 0">
+        Emails sent to {{emailSendingStatus}} / {{selectedInfluencers.length}} influencers.
+        <nz-progress 
+            [nzShowInfo]="false"
+            [nzPercent]="emailSendingStatus/selectedInfluencers.length * 100"></nz-progress>
+    </div>
+</nz-modal>

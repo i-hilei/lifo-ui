@@ -1,0 +1,90 @@
+import { Component, OnInit, OnChanges, ViewChild, Input } from '@angular/core';
+import { InternalService } from '@src/app/services/internal.service';
+import { Subscription } from 'rxjs';
+
+@Component({
+  selector: 'app-campaign-uncompleted-status',
+  templateUrl: './campaign-uncompleted-status.component.html',
+  styleUrls: ['../../application-view/application-view.component.scss'],
+})
+export class CampaignUncompletedStatusComponent implements OnInit, OnChanges {
+  @ViewChild('performance') performance;
+  @ViewChild('influencerProfile') influencerProfile;
+  @ViewChild('campaignDetail') campaignDetail;
+  @Input() campaignClosedInfluencer = [];
+  campaignCompletedInfluencer = [];
+  newCampaignList = [];
+  subscriptions: Subscription[] = [];
+  newRowData = {};
+  loading = true;
+
+  constructor(
+    private internalService: InternalService,
+  ) { }
+
+  ngOnInit() {
+  }
+
+  getConciseCampaign(campaign) {
+    return {
+        brand_campaign_id: campaign.brand_campaign_id,
+        campaign_name: campaign.campaign_name,
+        platform: campaign.platform,
+        end_time: campaign.end_time,
+        post_time: campaign.post_time,
+        start_post_time: campaign.start_post_time,
+        product_name: campaign.product_name,
+        product_price: campaign.product_price,
+        brand_id: campaign.brand_id,
+        configuration: campaign.configuration,
+    };
+}
+
+  showFullModals(val) {
+    this.influencerProfile.influencer = val;
+    this.influencerProfile.showModals();
+  }
+
+  showDetailModals(val) {
+    this.campaignDetail.campaignId = val['campaign']['brand_campaign_id'];
+    this.campaignDetail.showModals();
+  }
+
+  reviewCampaign(influencer) {}
+
+  addPerformanceDefault(data) {
+    this.performance.showModal();
+    this.newRowData = data;
+  }
+
+  calScore(val) {
+    const newArr = Object.values(val);
+    let sum = 0;
+    for (let i = newArr.length - 1; i >= 0; i--) {
+        sum += Number(newArr[i]);
+    }
+    const avg = (sum / 5).toFixed(1);
+    return avg;
+  }
+
+  addPerformance(msg) {
+    const newData = {
+        campaign_id: this.newRowData['campaign']['brand_campaign_id'],
+        account_id: this.newRowData['account_id'],
+        ...msg,
+    };
+    this.subscriptions.push(
+        this.internalService.addPerformance(newData).subscribe((result) => {
+        //   console.log(result, 'list');
+          this.newRowData['performance_score'] = msg;
+        }, err => {})
+    );
+  }
+
+  ngOnChanges() {
+    if (this.campaignClosedInfluencer.length !== 0) {
+      this.loading = false;
+    }
+  }
+
+}

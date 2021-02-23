@@ -1,0 +1,449 @@
+.reach-contaioner {
+    padding: 20px 30px;
+    background: #FFFFFF;
+    border-radius: 20px;   
+    >h4 {
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #0D053C;
+        font-size: 20px;
+        a {
+            span {
+                float: right;
+                font-size: 14px;
+            }
+        }
+    }
+    .top, .bottom {
+        margin: 10px 0;
+        .reach-left {
+            float: left;
+            width: 330px;
+            span {
+                font-size: 14px;
+                color: #c7c7c7;
+            }
+            h4 {
+                font-weight: 600;
+                font-size: 16px;
+            }
+        }
+        .reach-content {
+            float: left;
+            width: 170px;
+            span {
+                font-size: 14px;
+                color: #c7c7c7;
+            }
+            h4 {
+                font-weight: 600;
+                font-size: 16px;
+                strong {
+                    font-weight: bold;
+                }
+            }
+        }
+        .productNames {
+            width: 200px;
+        }
+    }
+    .reach-invitation {
+        margin: 40px 0;
+        p {
+            color: rgba(13, 5, 60, 0.5);
+            span {
+                font-weight: 600;
+                color: #0D053C;
+                font-size: 20px;
+                margin-right: 50px;
+            }
+            button {
+                float: right;
+                margin-right: 10px;
+            }
+        }
+    }
+    .label-type {
+        line-height: 35px;
+        .left {
+            float: left;
+            width: 230px;
+            text-align: right;
+            margin-right: 10px;
+            color: #252733;
+        }
+        .right {
+            width: calc(100%-240px);
+            float: left;
+        }
+        nz-tag {
+            background: #ECEDF7;
+            border-radius: 4px;
+            border: 0;
+            padding: 4px 6px;
+            color: #0D053C;
+            font-size: 14px;
+        }
+        .tag-child-margin {
+            margin-left: -14px;
+            margin-right: 10px;
+            .tag-children {
+                margin-right: 0;
+                color: rgba(13, 5, 60, 0.5);
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+.discovery-setting {
+    padding: 20px 30px;
+    background: #FFFFFF;
+    border-radius: 20px;
+    margin-top: 20px;
+    >.title {
+        h4 {
+            font-weight: bold;
+            font-size: 20px;
+            color: #0D053C;
+            margin: 30px 0;
+            span {
+                font-weight: normal;
+                font-size: 16px;
+                color: rgba(13, 5, 60, 0.5);
+                margin-left: 20px;
+            }
+            .status {
+                width: 194px;
+                height: 36px;
+                font-weight: 400;
+                background: #F7F8FC;
+                border-radius: 4px;
+                text-align: center;
+                line-height: 35px;
+                font-size: 16px;
+                float: right;
+                b {
+                    font-weight: bold;
+                    font-size: 20px;
+                    color: #0D053C;
+                }
+            }
+            .setColors {
+                color: #414BB2;
+                b {
+                    color: #414BB2;
+                }
+            }
+        }
+    }
+    >.container {
+        h4 {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #0D053C;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+
+        .product-item {
+            background: rgba(234, 239, 244, 0.8);
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            .image {
+                width: 60px;
+            }
+            .item-right {
+                display: inline-block;
+                vertical-align: top;
+                margin-left: 20px;
+                .product-title {
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+                .variant-item {
+                    display: inline-block;
+                    vertical-align: top;
+                    margin: 10px 10px 10px 0px;
+                    padding: 5px 10px;
+                    background: #FFFFFF;
+                    border-radius: 3px;
+                }
+            }
+        }
+
+        .add-product-list {
+            button {
+                margin-left: 20px;
+            }
+        }
+
+        .input-list {
+            margin: 15px 0;
+            display: inline-block;
+            >label {
+                width: 300px;
+                display: inline-block;
+                text-align: right;
+                font-size: 16px;
+                margin-right: 20px;
+                font-weight: 600;
+            }
+            nz-input-group, input, nz-date-picker, nz-radio-group {
+                width: 200px;
+            }
+        }
+        .radioGroup {
+            nz-radio-group {
+                label {
+                    width: 80px;
+                    text-align: center;                    
+                }
+            }
+            .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+                background: #414BB2;
+                border-color: #414BB2;
+            }
+        }
+        .input-setWidth {
+            display: block;
+            input {
+                width: 500px;
+            }
+        }
+    }
+    >.footerBtn {
+        button {
+            width: 200px;
+            text-align: center;
+        }
+    }
+}
+.mat-divider {
+    margin: 20px;
+    width: calc(100% - 80px);
+}
+
+.recurit-detail {
+    padding: 20px 30px;
+    margin-top: 20px;
+    background: #FFFFFF;
+    border-radius: 20px;   
+    >h4 {
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #0D053C;
+        font-size: 20px;
+    }
+
+    li {
+        line-height: 30px;
+    }
+}
+
+.list-pool {
+    padding: 20px 30px;
+    margin-top: 20px;
+    background: #FFFFFF;
+    border-radius: 20px;   
+    >h4 {
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #0D053C;
+        font-size: 20px;
+    }
+    .list-container {
+        border: 1px solid #ddd;
+        .list-header {
+            padding: 10px 20px;
+            height: 45px;
+            background: #F7F8FC;
+            font-weight: 600;
+            >span {
+                float: left;
+            }
+            .list-header-right {
+                float: right;
+                button {
+                    font-size: 12px;
+                    font-weight: normal;
+                    margin: 0 20px;
+                    font-weight: 600;
+                }
+                button:first-child {
+                    color: #414BB2;
+                    border-color: #414bb2;
+                }
+                .selectBtn:first-child {
+                    color: #fff;
+                    background: #414BB2;
+                    border-color: #414bb2;
+                }
+            }
+        }
+
+        .all-list {
+            td {
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.parameters {
+    padding: 20px 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #FFFFFF;
+    border-radius: 20px;   
+    >h4 {
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #0D053C;
+        font-size: 20px;
+    }
+    .para-list {
+        margin: 15px 0;
+        >label {
+            width: 250px;
+            display: inline-block;
+            text-align: right;
+            margin-right: 20px;
+            font-weight: 600;
+        }
+        input, nz-input-group {
+            width: 300px;
+        }
+        >span {
+            color: rgba(13, 5, 60, 0.5);
+            font-weight: 400;
+            font-size: 12px;
+        }
+    }
+}
+.footerBtn {
+    text-align: center;
+    margin: 30px 0 10px 0;
+}
+.clearfix:after { content:"."; clear: both; height: 0; overflow: hidden; visibility: hidden; display: block; }
+.clearfix { zoom: 1;}
+
+.discovery-table {
+    .filter {
+        margin-bottom: 10px;
+        .filter-title {
+            font-size: 16px;
+            font-weight: 600;
+            height: 40px;
+            .filter-buttons {
+                float: right;
+                margin-right: 20px;
+                button {
+                    margin-left: 10px;
+                }
+            }
+        }
+        .filter-item {
+            display: inline-block;
+            vertical-align: top;
+            width: 180px;
+            margin-right: 10px;
+        }
+    }
+
+    td {
+        font-weight: 600;
+    }
+
+    .buttons {
+        text-align: center;
+    }
+    
+    .image-holder {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+        border-radius: 50%;
+        display: inline-block;
+    
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 50%;
+        }
+    
+        .like-icon {
+            color: #F2994A;
+            position: absolute;
+            bottom: 14px;
+            left: 50px;
+            background: #fff;
+            padding: 4px;
+            border-radius: 50%;
+        }
+    }
+
+    .user-profile {
+        width: 240px;
+        vertical-align: top;
+        display: inline-block;
+    
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height: 50px;
+        }
+    
+        .user-name {
+            font-weight: 600;
+            color: black;
+            img {
+                width: 18px;
+                height: 18px;
+                margin-left: 4px;
+            }
+        }
+        .user-name-link {
+            margin-bottom: 5px;
+            cursor: pointer;
+            // text-decoration: underline;
+            span {
+                font-weight: 300;
+                font-size: 14px;
+                line-height: 17px;
+                color: #0071FF;
+            }
+        }
+        .enable {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+
+    .material-icons {
+        vertical-align: bottom;
+        font-size: 19px;
+    }
+    .person-icon {
+        color: #414BB2;
+    }
+    .favorite-icon {
+        color: #FF759E;
+    }
+}   
+
+.discovery-profile {
+    .buttons {
+        button {
+            width: 150px;
+            font-weight: normal;
+            margin-top: 30px;
+            margin-right: 20px;
+        }
+    }
+    .person-icon {
+        color: #0D053C;
+        vertical-align: text-bottom;
+    }
+}

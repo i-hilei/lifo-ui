@@ -1,0 +1,106 @@
+.ant-row {
+    width: 100%;
+    height: 400px;
+    overflow: auto;
+    .gutter-row {
+        padding-bottom: 16px;
+        .template-infos {
+            margin-top: 14px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            padding: 30px 20px 10px 20px;
+            color: #0D053C;
+            font-size: 18px;
+        }
+        .inner-box {
+            width: 100%;
+            height: 100%;
+            transition: all .3s linear;
+            background: #fff;
+            box-shadow: 0px 4px 10px rgba(65, 75, 178, 0.15);
+            // border: 1px solid #DFE0EB;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            .box_text {
+                box-sizing: border-box;            
+                height: 350px;
+                width: 100%;
+                overflow:auto;
+                padding: 10px 20px;
+            }
+            .box_oper {
+                height: 56px;
+                border-top: 1px solid #DFE0EB;
+                line-height: 56px;
+                .material-icons {
+                    float: left;
+                    margin-top: 15px;
+                    margin-left: 15px;
+                    cursor: pointer;
+                }
+
+                .material-icons:hover {
+                    color : red;
+                }
+                button {
+                    float: right;
+                    margin-top: 11px;
+                    margin-right: 15px;
+                    border-radius: 20px;
+                }
+            }
+            .offer-detail {
+                margin-left: 20px;
+                .chat-add-button {
+                    background: #FFFFFF;
+                    margin-left: 20px;
+                    z-index: 99;
+                    height: 35px;
+                    width: 150px;
+                    box-shadow: 0px 4px 10px rgba(65, 75, 178, 0.15);
+                    border-radius: 12px;
+                    color: #414BB2;
+                    font-weight: bold;
+                    line-height: 20px;
+                    .material-icons {
+                        vertical-align: top;
+                        font-weight: bold;
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+        .template-focus {
+            background: #ddd;
+        }
+        
+    }
+    .mail-list-info:hover {
+        transition: all .3s linear;
+        z-index: 2;
+        -webkit-box-shadow: 0 15px 30px rgba(0,0,0,.1);
+        box-shadow: 0 15px 30px rgba(0,0,0,.1);
+        -webkit-transform: translate3d(0,-10px,0);
+        transform: translate3d(0,-10px,0);
+        .inner-box {
+            .box_text {
+                background: #FBFBFC;
+            }
+        }
+    }
+    
+}
+.butn {
+    padding: 20px 20px 40px 0;
+    >button {
+        width: 200px;
+    }
+    >button:first-child {
+        width: 150px;
+    }
+    .gener-btn {
+        margin-right: 20px;
+        background-color: #414BB2;
+        border-color: #414BB2;
+    }
+}

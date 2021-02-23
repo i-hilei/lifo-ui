@@ -1,0 +1,36 @@
+<div class="posting-container">
+    <div class="title" *ngIf="campaignInfluencer.length > 0 && editable">
+        <button mat-flat-button class="new-button" (click)="createPost()"> 
+            <span class="material-icons"> add </span>
+            New 
+        </button>
+    </div>
+
+    <div class="empty-influencer" *ngIf="campaignInfluencerPerformance.length === 0 && !loading">
+        <div class="empty-container">
+            <mat-icon class="empty" svgIcon="performance-empty"></mat-icon>
+        </div>
+        <div class="description"> {{ 'When influencer have posted content, the post performance will be shown here.' | translate }} </div>
+    </div>
+
+    <div *ngIf="campaignInfluencerPerformance.length > 0">
+        <div class="title"> {{ 'Campaign Overview' | translate }} </div>
+        <button nz-button nzShape="round" nzSize="large" (click)="downloadReport()" > 
+            <i nz-icon nzType="export" nzTheme="outline"></i> {{ 'Export Report' | translate }} </button>
+        <app-campaign-performance-counter [campaignPerformance]="campaignPerformance"></app-campaign-performance-counter>
+    </div>
+
+    <div *ngIf="campaignInfluencerPerformance.length > 0">
+        <div class="title"> {{ 'Campaign Record' | translate }} </div>
+        <!-- <button nz-button nzShape="round" nzSize="large" (click)="downloadAllContent()"> 
+            <i nz-icon nzType="export" nzTheme="outline"></i> {{ 'Export Content' | translate }} </button> -->
+        <div class="postings">
+            <div nz-row>
+                <div nz-col class="gutter-row" [nzSpan]="8" class="post-item" *ngFor="let inf of campaignInfluencerPerformance">
+                    <app-post-detail [influencer]="inf" [editable]="editable"></app-post-detail>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

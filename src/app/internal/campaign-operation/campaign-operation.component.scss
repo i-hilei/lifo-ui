@@ -1,0 +1,115 @@
+@import 'common';
+
+.operation-container {
+    padding: 20px 30px;
+
+    .title {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 24px;
+        text-transform: capitalize;
+        margin-bottom: 10px;
+        color: #0D053C;
+    }
+
+    .execution-status {
+        margin-bottom: 20px;
+        .status-item {
+            padding: 20px;
+            width: 250px;
+            height: 80px;
+            background: #FFFFFF;
+            border-radius: 10px;
+            margin-right: 20px;
+            display: inline-block;
+            vertical-align: top;
+
+            .icon {
+                display: inline-block;
+            }
+            .content {
+                display: inline-block;
+                vertical-align: top;
+                margin-left: 20px;
+            }
+            .number {
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 24px;
+                color: #414BB2;
+            }
+            .item {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 17px;
+                color: #0D053C;
+                display: inline-block;
+            }
+        }
+    }
+}
+
+.discovery-table {
+
+    td {
+        font-weight: 600;
+    }
+
+    .action-link {
+        margin-right: 10px;
+    }
+    
+    .image-holder {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+        border-radius: 50%;
+        // border: 2px solid #207BEC;
+        display: inline-block;
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 50%;
+        }
+
+        .like-icon {
+            color: #F2994A;
+            position: absolute;
+            bottom: 14px;
+            left: 50px;
+            background: #fff;
+            padding: 4px;
+            border-radius: 50%;
+        }
+    }
+
+    .user-profile {
+        width: 240px;
+        vertical-align: top;
+        display: inline-block;
+
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height: 50px;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: black;
+        }
+        .user-name-link {
+            margin-bottom: 5px;
+            cursor: pointer;
+            // text-decoration: underline;
+            span {
+                font-weight: 300;
+                font-size: 14px;
+                line-height: 17px;
+                color: #0071FF;
+            }
+        }
+    }
+}

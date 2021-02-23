@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="title">User Management</div>
+    <div class="input-box">
+        <div class="item-title">Email</div>
+        <mat-form-field floatLabel="never" class="large-input-box">
+            <input matInput placeholder="" [(ngModel)]="newUser.email" autocomplete="off">
+        </mat-form-field>
+    </div>
+    <div class="input-box">
+        <div class="item-title">Brand Name</div>
+        <mat-form-field floatLabel="never" class="large-input-box">
+            <input matInput placeholder="" [(ngModel)]="newUser.brand_name" autocomplete="off">
+        </mat-form-field>
+    </div>
+    <div class="input-box">
+        <div class="item-title">Password</div>
+        <mat-form-field floatLabel="never" class="large-input-box">
+            <input matInput placeholder="" [(ngModel)]="newUser.password" autocomplete="off">
+        </mat-form-field>
+    </div>
+    <div class="input-box">
+        <div class="item-title">First Name</div>
+        <mat-form-field floatLabel="never" class="large-input-box">
+            <input matInput placeholder="" [(ngModel)]="newUser.first_name" autocomplete="off">
+        </mat-form-field>
+    </div>
+    <div class="input-box">
+        <div class="item-title">Last Name</div>
+        <mat-form-field floatLabel="never" class="large-input-box">
+            <input matInput placeholder="" [(ngModel)]="newUser.last_name" autocomplete="off">
+        </mat-form-field>
+    </div>
+    <div class="input-box">
+        <div class="item-title">Domain</div>
+        <mat-form-field floatLabel="never" class="large-input-box">
+            <input matInput placeholder="" [(ngModel)]="newUser.domain" autocomplete="off">
+        </mat-form-field>
+    </div>
+    <div class="input-box">
+        <mat-checkbox [(ngModel)]="newUser.from_amazon"> From Amazon </mat-checkbox>
+    </div>
+    <div class="input-box">
+        <div class="item-title">Address</div>
+        <mat-form-field floatLabel="never" class="large-input-box">
+            <input matInput placeholder="" [(ngModel)]="newUser.address1" autocomplete="off">
+        </mat-form-field>
+        <mat-form-field floatLabel="never" class="large-input-box">
+            <input matInput placeholder="" [(ngModel)]="newUser.address2" autocomplete="off">
+        </mat-form-field>
+    </div>
+    <div class="input-box">
+        <div class="item-title">City</div>
+        <mat-form-field floatLabel="never" class="large-input-box">
+            <input matInput placeholder="" [(ngModel)]="newUser.city" autocomplete="off">
+        </mat-form-field>
+    </div>
+    <div class="input-box">
+        <div class="item-title">State</div>
+        <mat-form-field floatLabel="never" class="large-input-box">
+            <input matInput placeholder="" [(ngModel)]="newUser.province" autocomplete="off">
+        </mat-form-field>
+    </div>
+    <div class="input-box">
+        <div class="item-title">Country</div>
+        <mat-form-field floatLabel="never" class="large-input-box">
+            <input matInput placeholder="" [(ngModel)]="newUser.country" autocomplete="off">
+        </mat-form-field>
+    </div>
+    <div class="input-box">
+        <div class="item-title">Profile Image</div>
+        <app-single-image-uploader
+            [filePrefix]="'brand-profile'"
+            (onUploadSucceed)="setProfileImage($event)"
+        ></app-single-image-uploader>
+    </div>
+    <button mat-flat-button color="primary" class="create-button" (click)="createNewUser()"> Add New Brand Account </button>
+</div>

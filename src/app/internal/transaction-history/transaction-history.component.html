@@ -1,0 +1,105 @@
+<div class="container">
+    <div class="title">Payout History</div>
+
+    <div class="table-container">
+        <nz-table #basicTable [nzData]="payoutTransactions" [nzPageSize]="20">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th [nzFilterFn]="filterByStatus"
+                        [nzFilters]="listOfStatus"
+                        nzWidth="180px">Status</th>
+                    <th nzWidth="180px">Amount</th>
+                    <th [nzSortFn]="sortByTime"
+                        nzWidth="180px">Time</th>
+                    <th nzWidth="180px">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of basicTable.data">
+                    <td> {{ data.influencer_id }} </td>
+                    <td [ngClass]="{'pending': data.status === 'PENDING', 'done': data.status === 'DONE'}">
+                        {{ data.status }}
+                    </td>
+                    <td>
+                        $ {{ data.amount }}
+                    </td>
+                    <td>
+                        {{ data.transaction_time | date: 'MMM d, HH:mm' }}
+                    </td>
+                    <td>
+                        <a nz-button nzType="link" (click)="showPayout(data)" [disabled]="data.status === 'DONE'"> 
+                            Clear Payout </a>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table> 
+    </div>
+    
+</div>
+
+<div class="container">
+    <div class="title">Campaign Payment</div>
+    <div class="table-container">
+        <nz-table #campaignTable [nzData]="campaignTransactions" [nzPageSize]="20">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Campaign</th>
+                    <th [nzFilterFn]="filterByStatus"
+                        [nzFilters]="listOfStatus"
+                        nzWidth="180px">Status</th>
+                    <th nzWidth="180px">Amount</th>
+                    <th [nzSortFn]="sortByTime"
+                        nzWidth="180px">Time</th>
+                    <th nzWidth="180px">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of campaignTable.data">
+                    <td> {{ data.influencer_id }} </td>
+                    <td> {{data.meta_data?.campaign_id}}</td>
+                    <td [ngClass]="{'pending': data.status === 'PENDING', 'done': data.status === 'DONE'}">
+                        {{ data.status }}
+                    </td>
+                    <td>
+                        $ {{ data.amount }}
+                    </td>
+                    <td>
+                        {{ data.transaction_time | date: 'MMM d, HH:mm' }}
+                    </td>
+                    <td>
+                        <a nz-button nzType="link" (click)="showConvertCredit(data)" [disabled]="data.status === 'DONE'"> Convert Credit </a>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>
+
+<nz-modal
+    [(nzVisible)]="shouldShowConvertCredit"
+    nzTitle="Convert Campaign Payment"
+    (nzOnCancel)="cancelConvertCredit()"
+    (nzOnOk)="convertCredit()"
+    nzOkText="Confirm"
+>
+    <div *ngIf="activeTransaction">
+        Are you sure you would like to convert credit for campaign payment ${{activeTransaction.amount}}.
+    </div>
+    
+</nz-modal>
+
+<nz-modal
+    [(nzVisible)]="shouldShowPayout"
+    nzTitle="Payout"
+    (nzOnCancel)="cancelPayout()"
+    (nzOnOk)="payout()"
+    nzOkText="Confirm"
+>
+    <div>
+        <div *ngIf="activeTransaction">
+            Are you sure you would like to clear payout with amount of ${{activeTransaction.amount}}.
+        </div>
+    </div>
+</nz-modal>

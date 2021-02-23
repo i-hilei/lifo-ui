@@ -1,0 +1,253 @@
+.example {
+    padding: 10px 30px;
+}
+.contentInput {
+    margin-bottom: 30px;
+    >span {
+        font-weight: 500;
+        color: #0D053C;
+    }
+    >input {
+        height: 50px;
+        border: 0;
+        outline:medium;
+        border-radius: 10px;
+        font-size: 16px;
+        color: #0D053C;
+    }
+    >input:focus {
+        border-color: none;
+        box-shadow: none;
+    }
+}
+
+.ipt-name {
+    position: relative;
+    border: 1px solid rgba(13, 5, 60, 0.15);
+    border-radius: 8px;
+    padding-left: 10px;
+    >span {
+        position: absolute;
+        top: -11px;
+        left: 10px;
+        background: #fff;
+        font-weight: 500;
+        z-index: 99;
+        padding: 0 15px;
+        font-size: 14px;
+        text-align: center;
+    }
+    >input.cardnames {
+        width: 220px;
+    }
+}
+.cardError {
+    border: 2px solid #EB5757;
+    margin-bottom: 0;
+}
+.errorInfos {
+    color: #EB5757;
+    margin-bottom: 30px;
+}
+.footerBtn {
+    margin-bottom: 40px;
+    .saveBtn {
+        margin-left: 220px;
+        margin-right: 20px;
+        width: 150px;
+        font-weight: 400;
+    }
+    .cancelBtn {
+        width: 100px;
+        color: #414BB2;
+        border-color: #414BB2;
+    }
+}
+.passUpdate {
+    text-align: center;
+    .icsons {
+        font-size: 40px;
+        margin: 20px 0;
+    }
+    .butn {
+        margin: 50px 0;
+        >button {
+            width: 150px;
+            font-weight: 400;
+        }
+    }
+}
+.payInfos {
+    border-radius: 2px;
+    padding-top: 16px;
+    padding-left: 5px;
+    vertical-align: middle;
+    height: 50px;
+    width: 100%;
+    display: inline-block;
+    ngx-stripe-card-number {
+        width: 175px;
+        display: inline-block;
+    }
+    ngx-stripe-card-expiry, ngx-stripe-card-cvc {
+        width: 55px;
+        display: inline-block;
+    }
+    ngx-stripe-card-cvc{
+        width: 65px;
+        margin-left: 8px;
+    }
+    .error {
+        margin-top: 14px;
+        color: #EB5757;
+    }
+}
+
+.paySubmit {
+    display: block;
+    width: 200px;
+    margin: 40px auto;
+}
+.payFails {
+    background: rgba(235, 87, 87, 0.15);
+    width: 100%;
+    height: 46px;
+    line-height: 46px;
+    border-radius: 8px;
+    i{
+        margin: 0 20px;
+        font-size: 18px;
+    }
+    i, span {
+        color: #EB5757;
+    }
+}
+
+.message {
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #0D053C;
+}
+.StripeElement {
+    margin: 1rem 0 1rem;
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+  }
+  
+  .StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+  }
+  
+  .StripeElement--invalid {
+    border-color: #fa755a;
+  }
+  
+  .StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+  }
+
+  .content-tags {
+    padding: 20px 10px;
+    color: #0D053C;
+    .title {
+        margin-bottom: 0;
+    }
+    .description {
+        margin-bottom: 25px;
+        color: #989898;
+    }
+    .tags-lists {
+        nz-tag {
+            background: #ECEDF7;
+            border-radius: 4px;
+            border: 0;
+            padding: 6px 10px;
+        }
+        button {
+            width: 25px;
+            height: 25px;
+            line-height: 20px;
+            i {
+                font-size: 11px;
+                color: #999;
+            }
+        }
+    }
+    .common-submit {
+        background: #fff;
+        margin-top: 20px;
+        color: #0D053C;
+        h4 {
+            font-weight: 600;
+            font-size: 16px;
+            color: #0D053C;
+            span {
+                font-size: 14px;
+                color: rgba(13, 5, 60, 0.5);
+                font-weight: normal;
+                margin-left: 20px;
+            }
+        }
+        .mailStyles {
+            nz-form-item {
+                width: 305px;
+                margin-top: 20px;
+                nz-form-label {
+                    margin-right: 10px;
+                    i {
+                        margin: 0 8px;
+                    }
+                }
+            }
+        }
+        .submit-ul {
+            padding: 0;
+            list-style: none;
+            li {
+                margin-bottom: 20px;
+                >img {
+                    margin-right: 10px;
+                }
+                span.right {
+                    float: right;
+                    .common-search-result {
+                        float: right;
+                        width: auto;
+                        .right {
+                            p {
+                                text-align: right;
+                                span {
+                                    font-size: 14px;
+                                    color: #0D053C;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            li:first-child {
+                margin-top: 20px;
+            }
+            li:last-child {
+                margin-bottom: 0;
+            }
+            li.regionStyle {
+                overflow: hidden;
+                .left {
+                    width: 15%;
+                }
+                .right {
+                    width: 70%;
+                    text-align: right;
+                }
+            }
+        }
+    }
+  }

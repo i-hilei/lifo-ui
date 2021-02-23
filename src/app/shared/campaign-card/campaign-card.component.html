@@ -1,0 +1,62 @@
+<div class="campaign-card-container">
+    <!-- <div class="calendar">
+        <div class="number-days">
+            {{ daysLeft(campaign.end_time) }}
+        </div>
+        <div></div>
+        Days Left
+    </div> -->
+    <div class="preview">
+        <img *ngIf="campaign.product_image" src="{{campaign.product_image}}">
+        <span *ngIf="!campaign.product_image" class="material-icons"> image  </span>
+    </div>
+
+    <div class="name">
+        <div class="title" title="{{ campaign.campaign_name }}" (click)="viewBrandCampaign()"> {{ campaign.campaign_name }} </div>
+        <div class="content end-time">{{ campaign.platform ? campaign.platform : 'Instagram' }} </div>
+    </div>
+
+    <div class="status">
+        <div class="title"> {{ campaign.status }} </div>
+        <div class="content">
+            {{ 'Status' | translate}}
+        </div>
+    </div>
+
+    <div class="type">
+        <div class="title"> {{ campaign.commission_type }} </div>
+        <div class="content"> {{ 'Campaign type' | translate}} </div>
+    </div>
+
+    <div class="commission">
+        <div class="title">{{ campaign.number_of_posts ? campaign.number_of_posts : 0}}</div>
+        <div class="content"> {{ 'Number of Post' | translate}} </div>
+    </div>
+
+    <!-- <div class="commission">
+        <div class="title"> <span class="material-icons"> monetization_on </span> {{ campaign.estimated_total_cost }} </div>
+        <div class="content"> {{ 'Estimated Cost' | translate}} </div>
+    </div> -->
+
+    <div class="switch" *ngIf="isInternal">
+        <div class="title">
+            <nz-switch [(ngModel)]="campaign.active" (ngModelChange)="switchCampaign(campaign)"></nz-switch>
+        </div>
+        <div class="content"> {{ 'Operation' | translate}} </div>
+    </div>
+    <div class="icon" (click)="viewBrandCampaign()" *ngIf="promotionCampaign || brandCampaign">
+        <span class="material-icons">arrow_forward</span>
+    </div>
+    <!-- <div class="icon" (click)="deleteCampaign()" *ngIf="brandCampaign && isInternal">
+        <span class="material-icons">delete</span>
+    </div> -->
+    <!-- <div class="icon" (click)="viewCampaign()" *ngIf="!promotionCampaign && !brandCampaign">
+        <span class="material-icons">arrow_forward</span>
+    </div>
+    <div class="icon" (click)="signupCampaign()" *ngIf="promotionCampaign">
+        <span class="material-icons">check_circle_outline</span>
+    </div> -->
+    <!-- <div class="icon">
+        <span class="material-icons">notifications_none</span>
+    </div> -->
+</div>

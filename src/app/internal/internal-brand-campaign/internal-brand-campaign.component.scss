@@ -1,0 +1,97 @@
+@import 'common';
+
+.query-container {
+    background: #FFFFFF;
+    border: 1px solid #DFE0EB;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px 40px;
+    cursor: pointer;
+
+    .search-icon {
+        text-align: center;
+
+        .material-icons {
+            font-size: 100px;
+            font-weight: 200;
+        }
+    }
+
+    .description {
+        text-align: center;
+    }
+}
+
+.container {
+    width: 100%;
+    padding: 10px 0;
+
+    .selector {
+        height: 40px;
+        padding-left: 20px;
+        .ant-select {
+            width: 300px;
+        }
+    }
+    
+    .influencer-container {
+        background: #FFFFFF;
+        border-radius: 20px;
+        box-sizing: border-box;
+        width: calc(100% - 80px);
+        margin: 20px 40px;
+        padding: 20px;
+
+        .influencer-header {
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 29px;
+            margin-bottom: 20px;
+        }
+    
+        .influencer-list {
+            margin-bottom: 20px;
+            .influencer-item {
+                display: inline-block;
+            }
+        }
+    }
+
+    .pay-commission {
+        background: #FFFFFF;
+        border-radius: 15px;
+        padding: 10px 30px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 30px;
+        margin-bottom: 15px;
+        color: #EB5757;
+        button {
+            float: right;
+        }
+    }
+}
+
+.campaign-details {
+    background: #fff;
+    height: 90px;
+    position: relative;
+    margin-bottom: 60px;
+    padding: 0 20px;
+    border-radius: 10px;
+    .campaign-title {
+        line-height: 90px;
+        color: #252733;
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .campaign-viewBtn {
+        position: absolute;
+        right: 20px;
+        top: 30px;
+        width: 180px;
+        border: 1px solid #414BB2;
+        color: #414BB2;
+    }
+}

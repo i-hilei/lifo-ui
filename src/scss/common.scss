@@ -1,0 +1,80 @@
+@import 'variables';
+
+
+.header-background {
+    height: 260px;
+    background-color: $COLOR_BG;
+    position: absolute;
+    z-index: -1;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    width: 100%;
+}
+.example-sidenav {
+    background: #0D053C;
+}
+
+.campaign-menu {
+    position: relative;
+
+
+    .header {
+        margin: 10px 20px;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 24px;
+        color: #0D053C;
+        display: inline-block;
+    
+        .material-icons {
+            vertical-align: top;
+            margin-right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    }
+    .ant-menu-item {
+        font-weight: bold;
+        font-size: 14px;
+        color: #828282;
+        padding-left: 10px;
+        padding-right: 5px;
+        i {
+            margin-left: 5px;
+        }
+    }
+    .ant-menu-item:hover, .ant-menu-item-selected {
+        color: #414BB2;
+        border-bottom-color: #414BB2;
+    }
+    .menu-set {
+        position: absolute;
+        right: 30px;
+        top: 0;
+        i {
+            cursor: pointer;
+            padding: 5px;
+        }
+    }
+}
+
+
+.ant-table-filter-dropdown {
+    .search-box {
+        padding: 8px;
+    }
+
+    .search-box input {
+        width: 188px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .search-box button {
+        width: 90px;
+    }
+
+    .search-button {
+        margin-right: 8px;
+    }
+}

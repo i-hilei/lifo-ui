@@ -1,0 +1,20 @@
+[
+    {
+        "productDetailHtml": "",
+        "productImageList": ["https://cdn.shopify.com/s/files/1/2061/2703/products/QQ_20200329204503.jpg?v=1585540978","www.shopify.com","www.amazon.com"],
+        "template_name": "001",
+        "template_type": "product"
+    },
+    {
+        "productDetailHtml": "<p>asdvasdva</p>",
+        "productImageList": ["https://cdn.shopify.com/s/files/1/2061/2703/products/QQ_20200329204503.jpg?v=1585540978","123","456"],
+        "template_name": "002",
+        "template_type": "product"
+    },
+    {
+        "productDetailHtml": "<ul class='a-unordered-list a-vertical' style='margin-right: 0px; margin-left: 0px; padding: 0px; list-style-position: inside; list-style-image: initial; color: rgb(0, 0, 0); font-family: Karla; font-size: 13px;'><li style='margin: 0px; font-size: 12pt;'><span class='a-list-item' style='margin: 0px;'><span style='font-size: 12pt;'>1 Second Measurement</span></span></li><li style='margin: 0px; font-size: 12pt;'><span class='a-list-item' style='margin: 0px;'><span style='font-size: 12pt;'>High Accuracy Reading</span></span></li><li style='margin: 0px; font-size: 12pt;'><span class='a-list-item' style='margin: 0px;'><span style='font-size: 12pt;'>Three Modes of measurement</span></span></li><li style='margin: 0px; font-size: 12pt;'><span class='a-list-item' style='margin: 0px;'><span style='font-size: 12pt;'>50&nbsp;Records Storage</span></span></li><li style='margin: 0px; font-size: 12pt;'><span class='a-list-item' style='margin: 0px;'><span style='font-size: 12pt;'>Designed for All Ages</span></span></li></ul>",
+        "productImageList": ["https://cdn.shopify.com/s/files/1/2061/2703/products/9BF288D2-8A09-49A1-8064-49CE34D0_900x.jpg?v=1595368475","https://metene.com/products/non-contact-thermometer",""],
+        "template_name": "Metene v1",
+        "template_type": "product"
+    }
+]

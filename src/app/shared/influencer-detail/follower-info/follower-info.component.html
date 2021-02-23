@@ -1,0 +1,119 @@
+
+<div class="follower-info-container">
+    <div class="title">
+        <span>Follower Info</span> 
+    </div>
+    <div class="row">
+        <div class="block info-left">
+            <div class="content fake-set">
+                <div class="sub-title">Fake Followers 
+                    <span nz-tooltip [nzTooltipTitle]="tooltips.follower">
+                        <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+                    </span>
+                </div>
+                <div class="real-number">
+                    <span class="number"> {{ (1 - influencer?.audience?.credibility) * 100 |  number: '1.0-1'}}% </span>
+                </div>
+            </div>
+            <div class="content stats">
+                <div class="sub-title">Gender Split
+                    <span nz-tooltip [nzTooltipTitle]="tooltips.gender">
+                        <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+                    </span>
+                </div>
+                <div class="stats-table">
+                    <div class="stats-set" *ngFor="let item of influencer?.audience?.genders">
+                      <span class="material-icons maleStyle" *ngIf="item.code==='MALE'"> person </span>
+                      <span class="material-icons femaleStyle" *ngIf="item.code==='FEMALE'"> person </span>
+                          {{item.code}} 
+                      <span class="stats-float">{{item.weight * 100 | number: '1.0-0'}}%</span>
+                      <div class="stats-graph">
+                          <mat-progress-bar
+                              class="example-margin"
+                              [ngClass]="{'sidebarColor': item.code==='FEMALE' }"
+                              color="secondary"
+                              mode="determinate"
+                              [value]="item.weight * 100"
+                          >
+                          </mat-progress-bar>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="block info-middle">
+            <div class="content">
+                <div class="sub-title">
+                    <span>Age & Gender Split</span>&nbsp;
+                    <span nz-tooltip [nzTooltipTitle]="tooltips.ageGender">
+                        <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+                    </span>
+                </div>
+                <div class="bar-chart">
+                    <canvas baseChart
+                        [datasets]="genderAgeChartData"
+                        [labels]="genderAgeChartLabels"
+                        [colors]="genderAgeChartColors"
+                        [options]="genderAgeChartOptions"
+                        [plugins]="barChartPlugins"
+                        [chartType]="genderAgeChartType">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="block info-center">
+          <div class="content">
+            <div class="sub-title">Location by Country
+                <span nz-tooltip [nzTooltipTitle]="tooltips.locationByCountry">
+                    <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+                </span>
+            </div>
+            <div class="country" *ngFor="let city of influencer?.audience?.geoCountries.slice(0, 3)">
+                <div class="country-info">
+                    <span>{{ city.name }}</span>
+                    <span>{{ city.weight * 100 | number: '1.0-0' }} %</span>
+                </div>
+                <div class="country-graph">
+                    <mat-progress-bar
+                        class="example-margin"
+                        color="secondary"
+                        mode="determinate"
+                        [value]="city.weight * 100"
+                    >
+                    </mat-progress-bar>
+                </div>
+            </div>
+            <div class="sub-title cities-title">Location by top 3 Cities
+                <span nz-tooltip [nzTooltipTitle]="tooltips.locationByCity">
+                    <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+                </span>
+            </div>
+            <ol class="cities-ol">
+                <li class="cities-li" *ngFor="let country of influencer?.audience?.geoCities.slice(0, 3)">
+                    {{ country.name }}
+                </li>
+            </ol>
+          </div>
+        </div>
+        <div class="block info-right">
+            <!-- <div class="fake-set" *ngIf="isSetHeight">
+                <div class="sub-title">Sponsored Post Performance
+                    <span nz-tooltip [nzTooltipTitle]="tooltips.sponsoredPost">
+                        <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+                    </span>
+                </div>
+                <div class="real-number">
+                    <span class="number"> {{ (influencer['sponsoredPosts'][0]['comments'] / influencer['sponsoredPosts'][0]['likes']) * 100 |  number: '1.0-1'}}% </span>
+                </div>
+            </div> -->
+          <div class="content" [ngClass]="{'not-post': isSetHeight}">            
+            <div class="sub-title">Popular Tags #
+                <span nz-tooltip [nzTooltipTitle]="tooltips.tags">
+                    <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+                </span>
+            </div>
+            <div class="small-tag" *ngFor="let tag of influencer?.hashtags?.slice(0, 7)"> #{{tag.tag}} </div>
+          </div>
+        </div>
+    </div>
+  </div>

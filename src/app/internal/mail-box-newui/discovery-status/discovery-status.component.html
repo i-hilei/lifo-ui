@@ -1,0 +1,19 @@
+<!-- template-modal -->
+<nz-modal #alltemplates 
+    nzClassName="alltemplates"
+    [(nzVisible)]="isModalVisible" 
+    nzTitle="More Influencers Discovery" 
+    (nzOnCancel)="handleCancel()" 
+    (nzOnOk)="handleOk()" 
+    nzMaskClosable=false
+    [nzFooter]=null
+    nzWidth="100%"
+    [nzStyle]="setModalStyle">
+    <div class="discoveryImg">
+      <img src="assets/svg/undraw_message_discovery.svg" alt="" width="400">
+      <p>Our AI algorithm is matching influencers for you. We will notify you by email if we have updated the new discovery results.</p>
+    </div>
+    <div class="butn">
+        <button nz-button nzType="primary" class="gener-btn" (click)="handleCancel()">Got It</button>
+    </div>
+  </nz-modal>

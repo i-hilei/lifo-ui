@@ -1,0 +1,34 @@
+@import 'common';
+
+.confirm-dialog-container {
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+
+    .title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .form {
+        margin-top: 10px;
+        .example-full-width {
+            width: 420px;
+        } 
+
+        .example-half-width {
+            width: 200px;
+        }
+
+        .mat-radio-button {
+            line-height: 30px;
+        }
+    }
+
+    .btn-group {
+        float: right;
+    }
+
+}

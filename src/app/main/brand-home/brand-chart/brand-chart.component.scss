@@ -1,0 +1,16 @@
+@import 'common';
+
+.chart-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.chart-subtitle {
+    color: $COLOR_GREY;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.chart-container {
+    height: 400px;
+}

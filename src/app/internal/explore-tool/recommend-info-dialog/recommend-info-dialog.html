@@ -1,0 +1,49 @@
+<section class="confirm-dialog-container">
+    <div class="title">
+        You are selecting this influencer. Please fill in more information.
+    </div>
+    <div class="form">
+        <div class="item-title">Reason:</div>
+        <mat-radio-group class="option-group" [(ngModel)]="reason_type" aria-label="Select an option">
+            <mat-radio-button value="high_performance">High performance</mat-radio-button> <br>
+            <mat-radio-button value="style_match">Style match.</mat-radio-button> <br>
+            <mat-radio-button value="past_campaign">Past campaigns</mat-radio-button> <br>
+            <mat-radio-button value="others">Others: 
+                <mat-form-field class="example-half-width">
+                    <input 
+                        matInput 
+                        placeholder="" 
+                        [(ngModel)]="other_reason"
+                        autocomplete="off"
+                    >
+                </mat-form-field>
+            </mat-radio-button>
+        </mat-radio-group>
+    
+        <div class="item-title">Pricing:</div>
+        $ <mat-form-field class="example-half-width">
+            <input 
+                matInput 
+                placeholder="" 
+                [(ngModel)]="minPrice"
+                autocomplete="off"
+            >
+        </mat-form-field> - $ 
+        <mat-form-field class="example-half-width">
+            <input 
+                matInput 
+                placeholder="" 
+                [(ngModel)]="maxPrice"
+                autocomplete="off"
+            >
+        </mat-form-field>
+
+        <mat-checkbox [(ngModel)]="highlyRecommend"> Highly Recommended </mat-checkbox> <br>
+        <mat-checkbox [(ngModel)]="skipBrand"> Skip brand review. </mat-checkbox>
+    </div>
+
+    <section class="btn-group">
+        <button mat-button (click)="onNoClick()"> CANCEL </button>
+        <button mat-raised-button color="primary" class="confirm" (click)="submit()"> SUBMIT </button>
+    </section>
+</section>

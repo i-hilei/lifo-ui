@@ -1,0 +1,153 @@
+<div class="panel" *ngIf="offerDetail && !isMobileView">
+    <div class="title"> Campaign Overview </div>
+
+    <div class="sub-title"> Product Introduction</div>
+    <div class="content">
+        <div class="big-image">
+            <div class="image-holder">
+                <img class="image" *ngIf="offerDetail.product_image_list.length > 0" src="{{ offerDetail.product_image_list[0] }}">
+            </div>
+        </div>
+        <div class="product-content">
+            <app-html-content [htmlContent]="offerDetail.product_message"></app-html-content>
+            <div class="links">
+                <div 
+                    class="link-item" 
+                    *ngIf="offerDetail.product_image_list.length > 2 && offerDetail.product_image_list[1]" 
+                    (click)="open(offerDetail.product_image_list[1])">
+                    <div class="img-holder">
+                        <img src="assets/images/shopify.png">
+                    </div>
+                </div>
+                <div 
+                    class="link-item" 
+                    *ngIf="offerDetail.product_image_list.length > 2 && offerDetail.product_image_list[2]" 
+                    (click)="open(offerDetail.product_image_list[2])">
+                    <div class="img-holder">
+                        <img src="assets/images/amazon.png">
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="small-image-set">
+                <div class="small-image"></div>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="sub-title"> Collaboration Details </div>
+    <div class="content">
+        <li>
+            <b>We are looking for: </b>
+            {{offerDetail.content_format}}
+        </li>
+        <li *ngIf="offerDetail.post_tags">You should tag the following accounts: {{offerDetail.post_tags}}</li>
+        <li>The visual content should follow the following guideline(s): {{offerDetail.visual_content_guideline}}</li>
+        <li>The texts content should follow the following guideline(s): {{offerDetail.text_post_guideline}}</li>
+        <li *ngIf="offerDetail.post_hastags">You should also use the following hashtags: {{offerDetail.post_hastags}}</li>
+    </div>
+
+    <div class="sub-title"> Compensation Details</div>
+    <div class="content">
+        <li>We will pay you: {{offerDetail.compensate_method}}</li>
+        <li>We will pay you through: {{offerDetail.payment_platform}}</li>
+    </div>
+</div>
+
+<div class="mobile-panel" *ngIf="offerDetail && isMobileView">
+    <div class="sub-title"> Product Introduction</div>
+    <div class="content">
+        <div class="big-image">
+            <div class="image-holder">
+                <img class="image" *ngIf="offerDetail.product_image_list.length > 0" src="{{ offerDetail.product_image_list[0] }}">
+            </div>
+        </div>
+        <div class="product-content">
+            <app-html-content [htmlContent]="offerDetail.product_message"></app-html-content>
+            <div class="links">
+                <div 
+                    class="link-item" 
+                    *ngIf="offerDetail.product_image_list.length > 2 && offerDetail.product_image_list[1]" 
+                    (click)="open(offerDetail.product_image_list[1])">
+                    <div class="img-holder">
+                        <img src="assets/images/shopify.png">
+                    </div>
+                </div>
+                <div 
+                    class="link-item" 
+                    *ngIf="offerDetail.product_image_list.length > 2 && offerDetail.product_image_list[2]" 
+                    (click)="open(offerDetail.product_image_list[2])">
+                    <div class="img-holder">
+                        <img src="assets/images/amazon.png">
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="small-image-set">
+                <div class="small-image"></div>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<div class="mobile-panel" *ngIf="offerDetail && isMobileView">
+    <div class="sub-title"> Collaboration Details </div>
+    <div class="content">
+        <li>
+            <b>We are looking for: </b> <br>
+            <span class="detail">{{offerDetail.content_format}}</span>
+        </li>
+        <li *ngIf="isStrings(offerDetail.post_tags)">
+            <b>You should tag the following accounts:</b> <br>
+            <span class="detail">{{offerDetail.post_tags}}</span>
+        </li>
+        <li>
+            <b>The visual content should follow the following guideline(s): </b> <br>
+            <span class="detail">{{offerDetail.visual_content_guideline}}</span>
+        </li>
+        <li>
+            <b>The texts content should follow the following guideline(s): </b> <br>
+            <span class="detail">{{offerDetail.text_post_guideline}}</span>
+        </li>
+        <li *ngIf="isStrings(offerDetail.post_hastags)">
+            <b>You should also use the following hashtags:</b> <br>
+            <span class="detail">{{offerDetail.post_hastags}}</span>
+        </li>
+    </div>
+</div>
+
+<div class="mobile-panel" *ngIf="offerDetail && isMobileView">
+    <div class="sub-title"> Tags Required</div>
+    <div class="content" *ngIf="!isStrings(offerDetail.post_tags)">
+        <ng-container *ngFor="let item of offerDetail.post_tags; let i = index">
+            <nz-tag class="tag-father" nzMode="default">
+              @ {{ item }}
+             </nz-tag> 
+        </ng-container>
+    </div>
+    <div class="content" *ngIf="!isStrings(offerDetail.post_hastags)">
+        <ng-container *ngFor="let item of offerDetail.post_hastags; let i = index">
+            <nz-tag class="tag-father" nzMode="default">
+              # {{ item }}
+             </nz-tag>
+        </ng-container>
+    </div>
+</div>
+<div class="mobile-panel" *ngIf="offerDetail && isMobileView">
+    <div class="sub-title"> Coupon Code</div>
+    <div class="content">
+        <nz-tag *ngIf="offerDefaultDetail['campaign_coupon_code'] !== ''" style="font-weight: 600;">{{ offerDefaultDetail['campaign_coupon_code'] }}</nz-tag>
+        <span> - {{ offerDefaultDetail['coupon_discount_percentage'] }}% off sitewide</span>
+    </div>
+</div>
+<div class="mobile-panel" *ngIf="offerDetail && isMobileView">
+    <div class="sub-title"> Compensation Details</div>
+    <div class="content">
+        <li>
+            <b>We will pay you: </b> <br>
+            <span class="detail">{{offerDetail.compensate_method}}</span>
+        </li>
+        <li>
+            <b>We will pay you through:</b> <br>
+            <span class="detail">{{offerDetail.payment_platform}}</span>
+        </li>
+    </div>
+</div>

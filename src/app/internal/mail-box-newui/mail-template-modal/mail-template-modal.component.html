@@ -1,0 +1,39 @@
+<!-- template-modal -->
+<nz-modal #alltemplates 
+    nzClassName="alltemplate"
+    [(nzVisible)]="isModalVisible" 
+    nzTitle="Template Library" 
+    (nzOnCancel)="handleCancel()" 
+    (nzOnOk)="handleOk()" 
+    nzMaskClosable=false
+    [nzFooter]=null
+    [nzStyle]="setModalStyle">
+    <div nz-row [nzGutter]="16">
+        <div nz-col 
+            class="gutter-row" 
+            [nzSpan]="8" 
+            *ngFor="let item of templateArr; let i = index">
+            <div class="inner-box mail-list-info" [ngClass]="{'template-focus': item.checked}" (click)="clickTemplate(item, i)">
+                <p class="template-infos">{{item.template_name}}</p>
+                <div class="box_text" [innerHTML]="item.body | emailHtml"></div>
+                <div *ngIf="item.require_offer_detail">
+                    <div class="offer-detail" *ngIf="!currentOfferDetail">
+                        <button nz-button nzType="default" class='chat-add-button' (click)="addOfferDetail()"> <span class="material-icons"> add </span> Offer Detail</button>
+                    </div>
+                    <div class="offer-detail" *ngIf="currentOfferDetail"> 
+                        Offer Detail Attached!
+                        <button nz-button nzType="default" class='chat-add-button' (click)="addOfferDetail()"> <span class="material-icons"> add </span> Edit</button>
+                    </div>
+                </div>
+                <!-- <div class="box_oper">
+                    <span class="material-icons" (click)="deleteTemplateInfo(item)">delete</span>
+                    <button nz-button nzType="default" (click)="useTemplateInfo(item)">Use</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="butn">
+        <button nz-button nzType="primary" class="gener-btn" (click)="useTemplateInfo()">Confirm</button>
+        <button nz-button nzType="default" (click)="handleCancel()">Back to Chatbox</button>
+    </div>
+</nz-modal>

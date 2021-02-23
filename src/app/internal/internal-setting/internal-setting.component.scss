@@ -1,0 +1,74 @@
+@import 'common';
+
+.setting-container {
+    padding: 40px;
+    .tab1 {
+        padding: 30px 100px;
+        background: #FFFFFF;
+        border-radius: 20px;
+        h3 {
+            margin: 40px 0;
+            font-weight: bold;
+        }
+        .setting-line {
+            margin: 25px 0;
+            .line-left {
+                width: 300px;
+                display: inline-block;
+                text-align: right;
+                margin-right: 20px;
+                font-weight: 600;
+            }
+            .line-right {
+                display: inline-block;
+                width: 200px;
+            }
+            
+        }
+    }
+    .line-save {
+         button {
+            width: 120px;
+        }
+    }  
+    .tab2 {
+        padding: 40px 60px;
+        background: #FFFFFF;
+        border-radius: 20px;
+        h3 {
+            position: relative;
+            nz-radio-group {
+                position: absolute;
+                right: 0;
+            }
+        }
+        .category_title {
+            margin: 30px 0;
+            span {
+                font-weight: 600;
+                margin-right: 20px;
+            }
+            nz-select {
+                width: 150px;
+            }
+            .category-add {
+                color: #414BB2;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 14px;
+                margin-left: 15px;
+            }
+        }
+        .create_question_box {
+            input {
+                height: 40px;
+                margin-bottom: 10px;
+            }
+        }
+        .create_line_save {
+            margin-top: 30px;
+            margin-bottom: 100px;
+        }
+        
+    }
+}

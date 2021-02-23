@@ -1,0 +1,18 @@
+<div class="mobile-view">
+    <div class="mobile-title">
+        Campaign Details
+    </div>
+    <div class="icon-holder">
+        <mat-icon class="logo" svgIcon="logo"></mat-icon>
+    </div>
+
+    <div class="mobile-container">
+        <div *ngIf="offerDetail">
+            <app-offer-detail-display 
+                [offerDetail]="offerDetail"
+                [offerDefaultDetail]="offerDefaultDetail"
+                [isMobileView]="true"
+            ></app-offer-detail-display>
+        </div>
+    </div>
+</div>

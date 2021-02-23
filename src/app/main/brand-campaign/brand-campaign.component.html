@@ -1,0 +1,33 @@
+<ul class="campaign-menu" nz-menu nzMode="horizontal" *ngIf="campaign">
+    <div class="header" *ngIf="campaign">
+        <a (click)="backToCampaign()">
+            <i nz-icon nzType="double-left" nzTheme="outline"></i>
+            <span>{{ 'Dashboard' | translate }}</span>
+        </a>
+        <strong>{{ campaign.campaign_name }}</strong>
+    </div>
+    <li nz-menu-item [nzSelected]="currentViewCommons === 'overview'" (click)="currentViewCommons = 'overview'">
+        {{ 'Campaign Overview' | translate }}
+        <i nz-icon nzType="file-search" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentViewCommons === 'monitoring'" (click)="currentViewCommons = 'monitoring'">
+        {{ 'Performance Monitoring' | translate }}
+        <i nz-icon nzType="file-search" nzTheme="outline"></i>
+    </li>
+</ul>
+<div class="container currentViewCommons" *ngIf="campaign">
+    <!-- <div class="pay-commission" *ngIf="pendingCampaignPayment">
+        <i nz-icon nzType="info-circle" nzTheme="fill"></i>
+        <span> Complete your payment to collaborate with influencers. </span>
+        <button nz-button nzType="primary" (click)="payCampaign()">Pay Campaign</button>
+    </div> -->
+    
+    <div *ngIf="currentViewCommons === 'overview'">
+        <app-campaign-overview [influencer]="campaign"></app-campaign-overview>
+    </div>
+    <div *ngIf="currentViewCommons === 'monitoring'">
+        <app-campaign-performance></app-campaign-performance>
+    </div>
+</div>
+
+<app-influencer-view-details #influencerView [influencer]="campaign"></app-influencer-view-details>

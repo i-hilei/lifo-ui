@@ -1,0 +1,119 @@
+<div class="discovery-table">
+    <nz-table #nzTable [nzData]="influencerList" nzTableLayout="fixed" nzPageSize="15">
+        <thead>
+            <tr>
+                <th
+                    nzWidth="60px"
+                    [(nzChecked)]="checked"
+                    [nzIndeterminate]="indeterminate"
+                    (nzCheckedChange)="onAllChecked($event)"
+                ></th>
+                <th nzWidth="340px">Influencers</th>
+                <th [nzSortFn]="sortFollower">Follower Range</th>
+                <th [nzSortFn]="sortCredibility">Fake Followers Rate</th>
+                <th [nzSortFn]="sortLikes">Average Likes</th>
+                <th [nzSortFn]="sortEngagement">Engagement Rate</th>
+                <th nzWidth="40px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let influencer of nzTable.data">
+                <tr>
+                    <td
+                        [nzChecked]="setOfCheckedId.has(influencer.profile.username)"
+                        (nzCheckedChange)="onItemChecked(influencer.profile.username, $event)"
+                    ></td>
+                    <td>
+                        <div class="image-holder">
+                            <img src="{{ influencer.profile.picture }}" />
+                        </div>
+                        <div class="user-profile">
+                            <div class="profile-container">
+                                <div class="user-name">
+                                    {{ influencer.profile.fullname }}
+                                    <img *ngIf="influencer.is_registered" src="assets/images/is_registered.png" />
+                                    <img *ngIf="influencer.complete_campaign" src="assets/images/complete_campaign.png" />
+                                    <img *ngIf="influencer.in_campaign" src="assets/images/in_campaign.png" />
+                                    <img *ngIf="influencer.in_list" src="assets/images/in_list.png" />
+                                </div>
+                                <div class="user-name-link">
+                                    <span (click)="openInsPage(influencer)">@{{ influencer.profile.username }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="material-icons person-icon"> person </span>
+                        {{ influencer.profile.followers | number }}
+                    </td>
+                    <td>
+                        <span *ngIf="influencer.audience">
+                            {{ (1 - influencer.audience?.credibility) * 100 | number: '1.0-1' }}%
+                        </span>
+                    </td>
+                    <td>
+                        <span class="material-icons favorite-icon"> favorite </span>
+                        {{ influencer.stats?.avgLikes?.value | number }}
+                    </td>
+                    <td>{{ influencer.profile.engagementRate * 100 | number: '1.0-1' }}%</td>
+
+                    <td>
+                        <i
+                            nz-icon
+                            class="expand-icon"
+                            *ngIf="!influencer.expanded"
+                            nzType="caret-down"
+                            nzTheme="outline"
+                            (click)="fetchDetail(influencer)"
+                        ></i>
+                        <i
+                            nz-icon
+                            class="expand-icon"
+                            *ngIf="influencer.expanded"
+                            nzType="caret-up"
+                            nzTheme="outline"
+                            (click)="influencer.expanded = false"
+                        ></i>
+                    </td>
+                </tr>
+                <tr [nzExpand]="influencer.expanded" class="expandTr">
+                    <h4>Campaigns List</h4>
+                    <div nz-row [nzGutter]="16" class="campaigns-list">
+                        <div nz-col class="gutter-row" [nzSpan]="12">
+                            <div class="inner-box">
+                                <ul class="clearfix">
+                                    <li class="title">🔥  Active campaigns</li>
+                                    <li *ngFor="let i of activeList">
+                                        <span>{{ i.campaign_name }}</span>
+                                        <span>{{  getStatus(i['influencer_info']) }}</span>
+                                        <span>{{ displayTime(i.end_time) }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div nz-col class="gutter-row" [nzSpan]="12">
+                            <div class="inner-box">
+                                <ul class="right clearfix">
+                                    <li class="title">⌛️  passing campaigns</li>
+                                    <li *ngFor="let i of paidList">
+                                        <span>{{ i.campaign_name }}</span>
+                                        <span>{{  getStatus(i['influencer_info']) }}</span>
+                                        <span>{{ displayTime(i.end_time) }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                      </div>
+                    <app-influencer-detail
+                        #listLabel
+                        [influencer]="influencer"
+                        [mode]="'AM'"
+                        [platform]="platform"
+                        (onPullLooklikes)="addLookalikeToList(influencer)"
+                    >
+                    </app-influencer-detail>
+                </tr>
+            </ng-container>
+        </tbody>
+    </nz-table>
+</div>

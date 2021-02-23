@@ -1,0 +1,272 @@
+<div class="filter-container">
+    <div class="filter-header">
+        <h3>Influencer Discovery</h3>
+        <div class="filter-radio">
+            <label *ngFor="let i of platformList" [ngClass]="{ 'select-radio': i.checked }" (click)="isSelecet(i.name)">
+                <img class="logo-image" src="assets/images/{{ i.name }}.jpg" />
+                <span>{{ i.title }}</span>
+            </label>
+        </div>
+    </div>
+    <div class="filter-title">Influencer Info</div>
+    <div class="filter-content">
+        <div class="filter-item">
+            Location
+            <ng-select
+                [items]="influencerLocationOptions"
+                [multiple]="true"
+                [closeOnSelect]="false"
+                [searchable]="true"
+                [clearSearchOnAdd]="true"
+                bindLabel="name"
+                placeholder="Select Location"
+                [(ngModel)]="selectInfluencerLocation"
+                (search)="updataInfluencerLocationOptions($event)"
+            >
+            </ng-select>
+        </div>
+
+        <div class="filter-item filter-item-small set-top3">
+            Followers
+            <!-- <ng-select
+                nzMode="tags"
+                [items]="followerOptions"
+                [closeOnSelect]="true"
+                [searchable]="false"
+                bindLabel="name"
+                placeholder="From"
+                [(ngModel)]="minFollower"
+            >
+            </ng-select> -->
+            <nz-input-number [(ngModel)]="minFollower" [nzMin]="1"[nzStep]="1"></nz-input-number>
+        </div>
+
+        <div class="filter-item filter-item-small set-top3">
+            <!-- <ng-select
+                nzMode="tags"
+                [items]="followerOptions"
+                [closeOnSelect]="true"
+                [searchable]="false"
+                bindLabel="name"
+                placeholder="To"
+                [(ngModel)]="maxFollower"
+            >
+            </ng-select> -->
+            <nz-input-number [(ngModel)]="maxFollower" [nzMin]="1"[nzStep]="1"></nz-input-number>
+        </div>
+
+        <div class="filter-item set-top5">
+            Language
+            <ng-select
+                [items]="languageOptions$ | async"
+                [closeOnSelect]="true"
+                [searchable]="true"
+                [clearSearchOnAdd]="true"
+                bindLabel="name"
+                placeholder="Select Language"
+                [(ngModel)]="selectInfluencerLanguage"
+            >
+            </ng-select>
+        </div>
+
+        <div class="filter-item">
+            Interests
+            <ng-select
+                [items]="interestOptions$ | async"
+                [multiple]="true"
+                [closeOnSelect]="false"
+                [searchable]="true"
+                [clearSearchOnAdd]="true"
+                bindLabel="name"
+                placeholder="Select Interest"
+                [(ngModel)]="selectInfluencerInterest"
+            >
+            </ng-select>
+        </div>
+
+        <div class="filter-item filter-item-small">
+            Engagement
+            <ng-select
+                [items]="engagementRateOptions"
+                [closeOnSelect]="true"
+                [searchable]="false"
+                placeholder="Engagement Rate"
+                bindLabel="label"
+                bindValue="value"
+                [(ngModel)]="selectInfluencerEngagementRate"
+            >
+            </ng-select>
+        </div>
+
+        <div class="filter-item">
+            Hashtag
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="" [(ngModel)]="hashtags" autocomplete="off" />
+            </mat-form-field>
+        </div>
+
+        <div class="filter-item">
+            By Username
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="" [(ngModel)]="usernames" autocomplete="off" />
+            </mat-form-field>
+        </div>
+
+        <button mat-flat-button color="primary" class="searchBtn" (click)="searchInfluencerById()">Search Influencer By Id</button>
+    </div>
+    <div class="filter-title">
+        Target Audience Info
+        <div class="apply-campaign-filter" (click)="selectCustomFilter()" *ngIf="campaign && campaign.audience_detail">
+            Apply Customer Defined Filter
+        </div>
+    </div>
+    <div class="filter-content">
+        <div class="filter-item">
+            Location
+            <ng-select
+                [items]="audienceLocationOptions"
+                [multiple]="true"
+                [closeOnSelect]="false"
+                [searchable]="true"
+                [clearSearchOnAdd]="true"
+                bindLabel="name"
+                placeholder="Select Location"
+                [(ngModel)]="selectAudienceLocation"
+                (search)="updataAudienceLocationOptions($event)"
+            >
+            </ng-select>
+        </div>
+
+        <div class="filter-item filter-item-small">
+            Age
+            <ng-select
+                [items]="ageOptions"
+                [multiple]="true"
+                [closeOnSelect]="true"
+                [searchable]="false"
+                bindLabel="name"
+                placeholder="Age"
+                [(ngModel)]="selectAudienceAge"
+            >
+            </ng-select>
+        </div>
+
+        <div class="filter-item filter-item-small">
+            Gender
+            <ng-select
+                [items]="genderOptions"
+                [closeOnSelect]="true"
+                [searchable]="false"
+                bindLabel="name"
+                placeholder="Gender"
+                [(ngModel)]="selectAudienceGender"
+            >
+            </ng-select>
+        </div>
+
+        <div class="filter-item">
+            Interests
+            <ng-select
+                [items]="interestOptions$ | async"
+                [multiple]="true"
+                [closeOnSelect]="false"
+                [searchable]="true"
+                [clearSearchOnAdd]="true"
+                bindLabel="name"
+                placeholder="Select Interest"
+                [(ngModel)]="selectAudienceInterest"
+            >
+            </ng-select>
+        </div>
+
+        <div class="filter-item">
+            Language
+            <ng-select
+                [items]="languageOptions$ | async"
+                [closeOnSelect]="true"
+                [searchable]="true"
+                [clearSearchOnAdd]="true"
+                bindLabel="name"
+                placeholder="Select Language"
+                [(ngModel)]="selectAudienceLanguage"
+            >
+            </ng-select>
+        </div>
+
+        <div>
+            <mat-checkbox [(ngModel)]="hasContactInfo"> Only search influencer who has contact info </mat-checkbox>
+        </div>
+    </div>
+
+    <div class="filter-button">
+        <ng-select
+            class="template-version-select"
+            [clearable]="false"
+            [items]="templates"
+            [(ngModel)]="selectedTemplate"
+            (change)="selectTempalte($event)"
+        >
+            <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                {{ item.template_name }}
+            </ng-template>
+        </ng-select>
+        <button mat-stroked-button color="primary" (click)="saveFilter()">Save as Template</button>
+        <button mat-button class="resetBtn" (click)="resetFilter()">Reset Filters</button>
+        <button mat-flat-button color="primary" class="searchBtn" (click)="newSearchInfluencer()">Find Influencers</button>
+    </div>
+
+    <div class="filter-title">Import CSV</div>
+    <div class="filter-content">
+        <label class="file-label">
+            Select File
+            <span class="material-icons"> upgrade </span>
+            <input class="file-input" type="file" id="inputFile" (change)="onDrop($event.target.files)" accept=".csv" />
+        </label>
+    </div>
+</div>
+
+<div class="filter-container">
+    <mat-paginator #paginator [length]="totalSize" [pageSize]="15" (page)="pageEvent($event)"> </mat-paginator>
+
+    <div class="filter-title" *ngIf="lookAlike.length > 0">Search Result</div>
+    <div class="filter-content" *ngIf="lookAlike.length > 0">
+        <app-influencer-table 
+            [influencerList]="lookAlike" 
+            [platform]="platformValue" 
+            [setOfCheckedId]="setOfCheckedId"
+            (onPullLookalikes)="addLookalikeToList($event)">
+        </app-influencer-table>
+    </div>
+    <div>
+        <b>{{ setOfCheckedId.size }}</b> influencers selected
+    </div>
+    <div class="buttons" *ngIf="!influencerList">
+        <label nz-checkbox [(ngModel)]="skipBrandReview"> Skip Brand Review</label>
+        <button nz-button nzType="primary" (click)="addInfluencerToList()">Recommend</button>
+    </div>
+    <div class="buttons" *ngIf="influencerList">
+        <button *ngIf="influencerList" nz-button nzType="primary" (click)="addInfluencerToList()">
+            Add To "{{ influencerList.name }}"
+        </button>
+        <button *ngIf="campaign" nz-button nzType="default" (click)="backToCampaign()">Back To Campaign</button>
+    </div>
+</div>
+
+<nz-modal
+    [nzStyle]="{ top: '20px' }"
+    [(nzVisible)]="isShowAddLookalike"
+    nzTitle="Add lookalike to list"
+    nzWidth="1200"
+    (nzOnOk)="addLookalikeToListReal()"
+    (nzOnCancel)="cancelAddLookalikeToList()"
+    nzOkText="Add to List"
+>
+    <div class="popup-table-container">
+        <app-influencer-table 
+            [influencerList]="currentLookalike" 
+            [platform]="platformValue" 
+            [setOfCheckedId]="setOfCheckedCurrentId"
+            (onPullLookalikes)="addLookalikeToList($event)">
+        </app-influencer-table>
+    </div>
+</nz-modal>

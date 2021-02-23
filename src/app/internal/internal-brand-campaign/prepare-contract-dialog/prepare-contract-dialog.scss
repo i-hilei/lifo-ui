@@ -1,0 +1,88 @@
+@import 'common';
+
+.contractPre {
+    h3.page-title {
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 29px;
+    }
+
+    .closed {
+        float: right;
+        cursor: pointer;
+    }
+    .forms {
+        max-width: 1200px;
+        h3.title {
+            margin-left: 43px;
+            margin-bottom: 40px;
+            margin-top: 30px;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 24px;
+        }
+        div {
+            margin-bottom: 20px;
+            label {
+                text-align: right;
+                display: inline-block;
+                padding-right: 20px;
+                line-height: 32px;
+                width: 472px;
+                font-weight: 500;
+            }
+            input, nz-date-picker {
+                width: 400px;
+            }
+            input.addr {
+                display: block;
+                margin-left: 350px;
+                margin-top: 20px;
+            }
+            .pro_img {
+                // filter: drop-shadow(0px 0px 10px rgba(13, 5, 60, 0.15));
+                width: 100px;
+                height: 100px;
+                border-radius: 20px;
+                margin-left: 250px;
+                margin-right: 20px;
+                vertical-align: middle;
+                filter: drop-shadow(0px 0px 10px rgba(13, 5, 60, 0.15));
+                img {
+                    border-radius: 20px;
+                }
+            }
+            .gener-btn {
+                margin-right: 20px;
+            }
+            .product-name {
+                display: inline-block;
+            }
+        }
+        .buttons {
+            margin-left: 40px;
+        }
+
+    }
+    [nz-form] {
+        nz-form-label {
+            width: 350px;
+            font-weight: 600;
+        }
+        nz-form-item {
+            width: 100%;
+        }
+        nz-form-control {
+            input, nz-input-group, nz-input-number {
+                width: 400px;
+            }
+        }
+        .selectList {
+            nz-select {
+                width: 120px;
+                margin-right: 10px;
+            }
+        }
+    }
+    
+}

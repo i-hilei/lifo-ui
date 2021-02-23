@@ -1,0 +1,106 @@
+<div class="user-guide-container" *ngIf="isShowOld">
+    <div class="title">
+        Usage Instructions
+        <span class="material-icons close-icon" (click)="close()"> close </span>
+    </div>
+    <div class="item">
+        <b>
+            For Lifo’s flag-ship offering, click on the “one-time commission“ button. This is Lifo’s fully managed influencer campaigns. You will:
+        </b>
+    </div>
+    <div class="item">
+        1. Choose a budget and object <br>
+        2. Create and pay for the campaign
+    </div>
+    <div class="item">
+        Then Lifo will do the rest for you, with optimized results and fast campaign delivery time.
+    </div>
+    <div class="item">
+        Lifo will take 10% from the campaign commission as a service charge, and the rest of the commission will be paid to influencers. 
+    </div>
+    <div class="item">
+        We are running launch promotions where we can offer discounts to our early adopters. 
+    </div>
+    <div class="item">
+        Feel free to book a time with the link below for detailed demo and introduction: https://calendly.com/kristian-carrillo/lifo-ai-discovery-call
+    </div>
+    <div class="item">
+        <b>For Lifo’s self-service tool, click on the “Product for Post“ button. </b>
+    </div>
+    <div class="item">
+        Lifo provides a series of software tools to facilitate your influencer campaigns. For a limited time, this tool kit is offered to our customers for free trial. 
+    </div>
+    <div class="item">
+        <mat-checkbox [(ngModel)]="skipMessage" (change)="clickCheckbox($event)" > Skip this message when next login. </mat-checkbox>
+    </div>  
+</div>
+
+<div class="new-user-guide-container">
+    <div class="title">
+        <span class="material-icons close-icon" (click)="close()"> close </span>
+    </div>
+    <div class="swiper-container" [swiper]="testSwiper" [(index)]="index">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <p class="guide-welcome">
+                    {{ 'How to Start Lifo Fully-managed Campaign' | translate }}
+                </p>
+                <div class="guide-number">
+                    <span>1</span>
+                </div>
+                <h3 class="guide-step">{{ swiperList[0].step }}</h3>
+                <p class="guide-title" style="margin-bottom: 35px;">{{ swiperList[0].title }}</p>
+                <div class="guide-img">
+                    <img [src]="swiperList[0].imgUrl" alt="">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="guide-number guide-settop">
+                    <span>2</span>
+                </div>
+                <h3 class="guide-step">{{ swiperList[1].step }}</h3>
+                <p class="guide-title">{{ swiperList[1].title }}</p>
+                <div class="guide-img">
+                    <img [src]="swiperList[1].imgUrl" width=400 alt="">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="guide-number guide-settop">
+                    <span>3</span>
+                </div>
+                <h3 class="guide-step">{{ swiperList[2].step }}</h3>
+                <p class="guide-title">{{ swiperList[2].title }}</p>
+                <div class="guide-img">
+                    <img [src]="swiperList[2].imgUrl" alt="">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="guide-number guide-settop">
+                    <span>4</span>
+                </div>
+                <h3 class="guide-step">{{ swiperList[3].step }}</h3>
+                <p class="guide-title">{{ swiperList[3].title }}</p>
+                <div class="guide-img">
+                    <img [src]="swiperList[3].imgUrl" alt="">
+                </div>
+            </div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
+        
+        <!-- 如果需要导航按钮 -->
+        <!-- <div class="swiper-button-prev" ></div>
+        <div class="swiper-button-next"></div> -->
+        
+        <!-- 如果需要滚动条 -->
+        <!-- <div class="swiper-scrollbar"></div> -->
+    </div>
+    <div class="guide-btn">
+        <button nz-button (click)="close()" class="skip-button">
+            {{ 'Skip' | translate }}
+        </button>
+        <button nz-button nzType="primary" (click)="search()" class="next-button">
+            {{ 'Next' | translate }}
+        </button>
+    </div>
+</div>

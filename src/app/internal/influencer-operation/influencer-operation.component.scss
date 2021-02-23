@@ -1,0 +1,212 @@
+.panel-title {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    text-transform: capitalize;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.panel {
+    width: calc(100% - 40px);
+    background: #f5f6fb;
+    border-radius: 5px;
+    margin: 20px;
+    padding: 10px 20px;
+    .panel-content {
+        display: flex;
+        .field-name {
+            width: max-content;
+            margin-right: 10px;
+        }
+        .field-value {
+            flex: 1;
+        }
+    }
+}
+.user-status {
+    position: relative;
+    .status-step {
+        width: calc(100% - 20px);
+        background: #f5f6fb;
+        border-radius: 5px;
+        margin-left: 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+        .buttons {
+            display: inline-block;
+            vertical-align: top;
+            width: 200px;
+        }
+        .infomation {
+            display: inline-block;
+            vertical-align: top;
+            width: calc(100% - 200px);
+        }
+        .ant-btn {
+            width: 180px;
+            font-weight: 600;
+            border: none;
+            margin-bottom: 10px;
+        }
+        .ant-btn:disabled {
+            color: #bdbdbd;
+            background: #ffffff;
+            opacity: 0.66;
+        }
+    }
+
+    .status-step-01:before {
+        content: '';
+        height: 510px;
+        width: 1px;
+        border: 1px dashed rgba(65, 75, 178, 0.3);
+        transform: translateX(-50%);
+        position: absolute;
+        left: 5px;
+        top: 0;
+    }
+    .status-step::after {
+        content: '';
+        height: 10px;
+        width: 10px;
+        border: 1px solid rgba(65, 75, 178, 0.3);
+        border-radius: 50%;
+        background: #fff;
+        position: absolute;
+        left: 0;
+    }
+    .status-step-01::after {
+        top: 5px;
+    }
+    .status-step-02::after {
+        top: 210px;
+    }
+    .status-step-03::after {
+        top: 295px;
+    }
+    .status-step-04::after {
+        top: 375px;
+    }
+    .status-step-05::after {
+        top: 460px;
+    }
+}
+
+.input-item {
+    height: 40px;
+    div {
+        display: inline-block;
+        width: 100px;
+        margin-right: 10px;
+    }
+
+    .ant-input-affix-wrapper,
+    input {
+        width: 250px;
+    }
+
+    .ant-slect {
+        width: 250px;
+    }
+}
+
+.modal-buttons {
+    text-align: center;
+
+    ::ng-deep .ant-alert {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+.clearfix:after { content:"."; clear: both; height: 0; overflow: hidden; visibility: hidden; display: block; }
+.clearfix { zoom: 1;}
+
+.history-container {
+    padding: 20px;
+    padding-top: 0;
+    .left, .top, .bottom {
+        width: 345px;
+        float: left;
+        margin-right: 15px;
+        background: #FBFBFC;
+        border-radius: 10px;
+        overflow: hidden;
+        .left-title{
+            font-size: 18px;
+            color: #000;
+            font-weight: bold;
+            line-height: 50px;
+            height: 50px;
+            padding-left: 15px;
+            border-bottom: 1px solid #EAEFF4;
+        }
+        .left-list {
+            padding: 0;
+            list-style: none;
+            width: 100%;
+            overflow-y: auto;
+            min-height: 350px;
+            max-height: 479px;
+            padding-left: 15px;
+            padding-right: 15px;
+            li {
+                height: 70px;
+                border-bottom: 1px solid #EAEFF4;
+                .li-left {
+                    width: 220px;
+                    float: left;
+                    margin-top: 13px;
+                    p {
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #000;
+                        margin-bottom: 0;
+                        width: 100%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    span {
+                        font-weight: 500;
+                        font-size: 12px;
+                        color: #828282;
+                    }
+                }
+                .showDollar {
+                    float: left;
+                    font-family: SF Pro Display;
+                    font-weight: 600;
+                    font-size: 18px;
+                    color: #3FA451;
+                    line-height: 70px;
+                }
+            }
+            li:last-child {
+                border: 0;
+            }
+        }
+    }
+    .right {
+        width: 345px;
+        float: left;
+        .top {
+            width: 100%;
+            margin-bottom: 15px;
+            margin-right: 0;
+            .left-list {
+                min-height: 100px;
+                max-height: 200px;
+            }
+        }
+        .bottom {
+            width: 100%;
+            margin-right: 0;
+            .left-list {
+                min-height: 100px;
+                max-height: 200px;
+            }
+        }
+    }
+}

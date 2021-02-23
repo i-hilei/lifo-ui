@@ -1,0 +1,108 @@
+<div class="operation-container">
+  <div class="title">Shipping Incident ({{shipIncidentInfluencer.length}})</div>
+  <div class="batch-operations">
+      <span><b>{{incidentChecked}}</b> influencer selected</span>
+      <div class="batch-buttons">
+          <button nz-button nzType="primary">Re-Create Order</button>
+      </div>
+  </div>
+  <div class="operation-table">
+      <nz-table #nzTable [nzData]="shipIncidentInfluencer" [nzLoading]="loading">
+          <thead>
+              <tr>
+                  <th nzWidth="60px" 
+                      [(nzChecked)]="allIncidentChecked"
+                      (nzCheckedChange)="checkAllIncident($event)"></th>
+                  <th nzWidth="80px"></th>
+                  <th nzWidth="250px">Influencer</th>
+                  <th>Campaign</th>
+                  <th>Status</th>
+                  <th>reason</th>
+                  <th>Operation</th>
+              </tr>
+          </thead>
+          <tbody>
+              <ng-container *ngFor="let data of nzTable.data">
+                  <tr>
+                      <td [(nzChecked)]="data.checked"></td>
+                      <td>
+                          <div class="image-holder" (click)="showFullModals(data)">
+                              <img src="{{ data.profile.influencer.profile.picture }}" />
+                          </div>
+                      </td>
+                      <td> 
+                          <div class="user-profile">
+                              <div class="user-name">@{{ data.profile.influencer.profile.username }}</div>
+                              <div class="email"><i nz-icon nzType="mail" nzTheme="outline"></i>{{ data.email }}</div>
+                              <div class="phone"><i nz-icon nzType="phone" nzTheme="outline"></i>{{ data.inf_phone }}</div>
+                          </div>
+                      </td>
+                      <td> 
+                          <div class="campaign">
+                              <div class="link" (click)="showDetailModals(data)">{{ data.campaign.campaign_name }}</div>
+                              <div class="time">{{ data.campaign.end_time }}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="status">
+                              <div class="content">Shipping Incident</div>
+                              <div class="time">Order Created {{ data.order.created_at | date: 'MM/dd, HH:mm' }}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="status">
+                              <div class="content">{{data.shipping_incident.incident_type}}</div>
+                              <div class="time">Order Created {{ data.order.created_at | date: 'MM/dd, HH:mm' }}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <button nz-button nzType="link" (click)="startAddShippingInfo(data)"><i nz-icon nzType="copy" nzTheme="fill"></i>Update Tracking</button>
+                          <button nz-button nzType="link" (click)="startEndCampaign(data)"><i nz-icon nzType="close-circle" nzTheme="outline"></i>End Campaign</button>
+                      </td>
+                  </tr>
+                  <tr [nzExpand]="data.expanded">
+                  </tr>
+              </ng-container>
+          </tbody>
+      </nz-table>
+  </div>
+</div>
+
+<app-influencer-profile-modal #influencerProfile></app-influencer-profile-modal>
+<app-campaign-detail-modal #campaignDetail></app-campaign-detail-modal>
+
+<nz-modal
+    [(nzVisible)]="showShippingModal"
+    nzTitle="Add Shipping Info"
+    (nzOnCancel)="cancelAddShippingInfo()"
+    (nzOnOk)="addShippingInfo(selectedInfluencer)"
+    nzOkText="Confirm"
+>
+    <div *ngIf="shippingInfo">
+        <div class="input-item">
+            <div>Tracking #:</div>
+            <input nz-input [(ngModel)]="shippingInfo.tracking_number" />
+        </div>
+        <div class="input-item">
+            <div>Carrier:</div>
+            <input nz-input [(ngModel)]="shippingInfo.carrier" />
+        </div>
+    </div>
+</nz-modal>
+
+<nz-modal
+    [(nzVisible)]="showEndCampaignModal"
+    nzTitle="Add Reason For Incident"
+    (nzOnCancel)="cancelEndCampaign()"
+    (nzOnOk)="endCampaign(selectedInfluencer)"
+    nzOkText="Confirm"
+>
+    <div>
+        <div class="input-item">
+            <div>Campaign End Reason:</div>
+            <input nz-input [(ngModel)]="campaignEndReason" />
+        </div>
+    </div>
+</nz-modal>
+
+

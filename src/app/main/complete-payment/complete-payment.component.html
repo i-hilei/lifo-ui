@@ -1,0 +1,18 @@
+<nz-modal 
+    [(nzVisible)]="showModal" 
+    nzTitle="Payment Successful"
+    nzWidth="800"
+    [nzFooter]="null"
+>
+
+    <div class="container">
+        <img src="assets/svg/payment-complete.svg" alt="" width="400">
+
+        <div class="message">
+            Your Payment Is Completed
+        </div>
+
+        <button nz-button nzType="primary" nzSize="large" (click)="navigateToCampaign()">Done</button>
+    </div>
+    
+</nz-modal>

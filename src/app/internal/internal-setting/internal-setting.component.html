@@ -1,0 +1,131 @@
+<ul class="campaign-menu" nz-menu nzMode="horizontal">
+    <div class="header">
+        <span class="material-icons" (click)="backToHome()"> arrow_back </span>
+        Settings
+    </div>
+    <li nz-menu-item [nzSelected]="currentView === 'setting'" (click)="currentView = 'setting'">
+        Global Parameters
+        <i nz-icon nzType="file-search" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'faq'"  (click)="currentView = 'faq'">
+        FAQs Setting
+        <i nz-icon nzType="bar-chart" nzTheme="outline"></i>
+    </li>
+</ul>
+
+<div class="setting-container">
+    <nz-spin nzTip="Saving..."  [nzSpinning]="isSpinning">
+        <div class="tab1" *ngIf="defaultSetting && currentView === 'setting'">
+            <h3>Pricing Rules</h3>
+            <div class="setting-line">
+                <span class="line-left"> $ Per 1k Followers </span>
+                <span class="line-right">
+                    <nz-input-group nzPrefix="$">
+                        <input type="text" nz-input [(ngModel)]="defaultSetting.cpm" />
+                    </nz-input-group>
+                </span>
+            </div>
+            <h3>Campaign Configuration</h3>
+            <div class="setting-line">
+                <span class="line-left">Default Offer Expiration Time</span>
+                <span class="line-right">
+                    <nz-input-group nzSuffix="hrs">
+                        <input type="text" nz-input [(ngModel)]="defaultSetting.offer_expiration_time" />
+                    </nz-input-group>
+                </span>
+            </div>
+            <div class="setting-line">
+                <span class="line-left">Default Fast Deliver Window Size</span>
+                <span class="line-right">
+                    <nz-input-group nzSuffix="hrs">
+                        <input type="text" nz-input [(ngModel)]="defaultSetting.fast_deliver_window" />
+                    </nz-input-group>
+                </span>
+            </div>
+            <div class="setting-line">
+                <span class="line-left">Default Delivery Deadline</span>
+                <span class="line-right">
+                    <nz-input-group nzSuffix="hrs">
+                        <input type="text" nz-input [(ngModel)]="defaultSetting.delivery_deadline" />
+                    </nz-input-group>
+                </span>
+            </div>
+            <div class="setting-line">
+                <span class="line-left">Default Fast Delivery Bonus Rate</span>
+                <span class="line-right">
+                    <nz-input-group nzSuffix="%">
+                        <input type="text" nz-input [(ngModel)]="defaultSetting.fast_delivery_bonus" />
+                    </nz-input-group>
+                </span>
+            </div>
+            <div class="setting-line">
+                <span class="line-left">Default Max Base Commission</span>
+                <span class="line-right">
+                    <nz-input-group nzPrefix="$">
+                        <input type="text" nz-input [(ngModel)]="defaultSetting.max_base_commission" />
+                    </nz-input-group>
+                </span>
+            </div>
+            <div class="setting-line">
+                <span class="line-left"></span>
+                <span class="line-right line-save">
+                    <button nz-button nzType="primary" (click)="saveGlobal()">Save</button>
+                </span>
+            </div>
+        </div>
+        <div class="tab2" *ngIf="currentView === 'faq'">
+            <h3>
+                <span>Create New FAQ</span>
+                <nz-radio-group [(ngModel)]="create_radio" nzButtonStyle="solid">
+                    <label nz-radio-button nzValue="BRAND">Brand</label>
+                    <label nz-radio-button nzValue="INFLUENCERS">Influencers</label>
+                </nz-radio-group>
+            </h3>
+            <div class="category_title">
+                <span>Category</span>
+                <nz-select
+                    nzPlaceHolder="Category"
+                    [(ngModel)]="create_category_select"
+                    >
+                    <nz-option *ngFor="let item of getAllCategoryCreate" [nzLabel]="item" [nzValue]="item"></nz-option>
+                </nz-select>
+                <a class="category-add" (click)="isShowCategory()"><i nz-icon nzType="plus" nzTheme="outline"></i> Add Category</a>
+            </div>
+            <div class="create_question_box">
+                <input nz-input placeholder="Question" [(ngModel)]="create_question" />
+                <textarea rows="5" placeholder="Response" nz-input [(ngModel)]="create_response"></textarea>
+            </div>
+            <div class="setting-line create_line_save">
+                <span class="line-save">
+                    <button nz-button nzType="primary" (click)="createFaq()">Save</button>
+                </span>
+            </div>
+            <h3>
+                <span>Current FAQs</span>
+                <nz-radio-group [(ngModel)]="edit_radio" (ngModelChange)="changeList()" nzButtonStyle="solid">
+                    <label nz-radio-button nzValue="BRAND">Brand</label>
+                    <label nz-radio-button nzValue="INFLUENCERS">Influencers</label>
+                </nz-radio-group>
+            </h3>
+            <div class="category_title">
+                <span>Category</span>
+                <nz-select
+                    nzPlaceHolder="Category"
+                    [(ngModel)]="edit_category_select"
+                    (ngModelChange)="changeList()"
+                    >
+                    <nz-option *ngFor="let item of getAllCategoryEdit" [nzLabel]="item" [nzValue]="item"></nz-option>
+                </nz-select>
+            </div>
+            <app-edit-faqs-list
+              #editFaqs
+              [editType]="edit_radio"
+              [editCateGory]="edit_category_select"
+              (defaultList)="getLists($event)"
+            >
+            </app-edit-faqs-list>
+        </div>
+    </nz-spin>
+</div>
+
+<app-add-category #category (childOuter)="addCategory($event)"></app-add-category>

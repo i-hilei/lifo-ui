@@ -1,0 +1,147 @@
+<div class="operation-container">
+  <div class="title">Order Pending ({{orderPendingInfluencers.length}})</div>
+  <div class="batch-operations">
+      <span><b>{{orderPendingChecked}}</b> influencer selected</span>
+      <div class="batch-buttons">
+          <button nz-button nzType="primary" (click)="batchCreateOrder()"><i nz-icon nzType="bell" nzTheme="outline"></i>Re-create Order</button>
+      </div>
+  </div>
+  <div class="operation-table">
+      <nz-table #orderPendingTable [nzData]="orderPendingInfluencers" [nzLoading]="orderPendingTableLoading">
+          <thead>
+              <tr>
+                  <th nzWidth="60px" 
+                      [(nzChecked)]="allOrderPendingChecked"
+                      (nzCheckedChange)="checkAllOrderPending($event)"></th>
+                  <th nzWidth="80px"></th>
+                  <th>Influencer</th>
+                  <th>Campaign</th>
+                  <th>Status</th>
+                  <th>Operation</th>
+              </tr>
+          </thead>
+          <tbody>
+              <ng-container *ngFor="let data of orderPendingTable.data">
+                  <tr>
+                      <td [(nzChecked)]="data.checked"></td>
+                      <td>
+                          <div class="image-holder" (click)="showFullModals(data)">
+                              <img src="{{ data.profile.influencer.profile.picture }}" />
+                          </div>
+                      </td>
+                      <td> 
+                          <div class="user-profile">
+                              <div class="user-name">@{{ data.profile.influencer.profile.username }}</div>
+                              <div class="email"><i nz-icon nzType="mail" nzTheme="outline"></i>{{ data.email }}</div>
+                              <div class="phone"><i nz-icon nzType="phone" nzTheme="outline"></i>{{ data.inf_phone }}</div>
+                          </div>
+                      </td>
+                      <td> 
+                          <div class="campaign">
+                              <div class="link" (click)="showDetailModals(data)">{{ data.campaign.campaign_name }}</div>
+                              <div class="time">{{ data.campaign.end_time }}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="status">
+                              <div class="content">Applied</div>
+                              <div class="time">Campaign Started</div>
+                          </div>
+                      </td>
+                      <td>
+                          <button nz-button nzType="link" (click)="startCreateOrder(data)"><i nz-icon nzType="bell" nzTheme="outline"></i>Re-create Order</button>
+                      </td>
+                  </tr>
+                  <tr [nzExpand]="data.expanded">
+                  </tr>
+              </ng-container>
+          </tbody>
+      </nz-table>
+  </div>
+</div>
+
+<app-influencer-profile-modal #influencerProfile></app-influencer-profile-modal>
+<app-campaign-detail-modal #campaignDetail></app-campaign-detail-modal>
+
+<nz-modal 
+    [nzStyle]="{ top: '20px' }"
+    [(nzVisible)]="showCreateOrderModal" 
+    nzTitle="Confirm Your Order Creation" 
+    (nzOnCancel)="cancelCreateOrder()" 
+    [nzFooter]="null">
+    <div *ngIf="orderInfo">
+        <!-- <div class="input-item">
+            <div>Product:</div>
+            <input nz-input [(ngModel)]="orderInfo.product_name" />
+        </div>
+        <div class="input-item" *ngIf="selectProduct">
+            <div>Type:</div>
+            <nz-select [(ngModel)]="orderInfo.variant_id" nzPlaceHolder="Choose">
+                <nz-option *ngFor="let v of selectProduct.variants" [nzValue]="v.id" [nzLabel]="v.title"></nz-option>
+            </nz-select>
+        </div>
+        <div>
+            For multiple items, seperate by comma
+        </div> -->
+        <div class="input-item">
+            <div>Variant id:</div>
+            <input nz-input [(ngModel)]="orderInfo.variant_id" />
+        </div>
+        <div class="input-item">
+            <div>Price:</div>
+            <nz-input-group nzPrefix="$">
+                <input nz-input [(ngModel)]="orderInfo.product_price" />
+            </nz-input-group>
+        </div>
+        <div class="input-item">
+            <div>Email:</div>
+            <input nz-input [(ngModel)]="orderInfo.email" />
+        </div>
+        <div class="input-item">
+            <div>First Name:</div>
+            <input nz-input [(ngModel)]="orderInfo.first_name" />
+        </div>
+        <div class="input-item">
+            <div>Last Name:</div>
+            <input nz-input [(ngModel)]="orderInfo.last_name" />
+        </div>
+        <div class="input-item">
+            <div>Phone:</div>
+            <input nz-input [(ngModel)]="orderInfo.phone_number" />
+        </div>
+        <div class="input-item">
+            <div>Address:</div>
+            <input nz-input [(ngModel)]="orderInfo.address_line_1" />
+        </div>
+        <div class="input-item">
+            <div></div>
+            <input nz-input [(ngModel)]="orderInfo.address_line_2" />
+        </div>
+        <div class="input-item">
+            <div>City:</div>
+            <input nz-input [(ngModel)]="orderInfo.city" />
+        </div>
+        <div class="input-item">
+            <div>State:</div>
+            <input nz-input [(ngModel)]="orderInfo.province" />
+        </div>
+        <div class="input-item">
+            <div>Zip:</div>
+            <input nz-input [(ngModel)]="orderInfo.zip" />
+        </div>
+        <div class="input-item">
+            <div>Country:</div>
+            <input nz-input [(ngModel)]="orderInfo.country" />
+        </div>
+    </div>
+
+    <div class="modal-buttons" *ngIf="orderInfo">
+        <nz-alert *ngIf="validateOrder()" nzType="error" [nzMessage]="validateOrder()"></nz-alert>
+        <button nz-button nzType="primary" (click)="createOrder(acceptInfluencer)" [nzLoading]="isCreatingOrder" [disabled]="validateOrder() !== ''">
+            Create Order
+        </button>
+    </div>
+</nz-modal>
+
+<!-- Influencer Profile Modal -->
+<!-- <app-mail-full-report #emailFullReport [campaign]="selectedInfluencer['campaign']" [influencer]="selectedInfluencer"></app-mail-full-report> -->

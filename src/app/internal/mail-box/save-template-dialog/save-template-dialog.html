@@ -1,0 +1,17 @@
+<div class="confirm-dialog-container">
+    <h3>Template Name</h3>
+    <div class="desc">
+        <mat-form-field class="example-full-width">
+            <input 
+                matInput 
+                placeholder="" 
+                [(ngModel)]="templateName"
+                autocomplete="off"
+            >
+        </mat-form-field>
+    </div>
+    <div class="btn-group">
+        <button mat-button (click)="onNoClick()"> CANCEL </button>
+        <button mat-raised-button color="primary" class="confirm" (click)="submit()"> SAVE </button>
+    </div>
+</div>

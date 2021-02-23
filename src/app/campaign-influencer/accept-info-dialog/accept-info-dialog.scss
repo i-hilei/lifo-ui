@@ -1,0 +1,56 @@
+@import 'common';
+
+.confirm-dialog-container {
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+
+    .title {
+        font-size: 21px;
+        line-height: 24px;
+        color: $COLOR_PRIMARY;
+        font-weight: 600;
+        margin-bottom: 10px;
+
+        .material-icons {
+            float: right;
+            cursor: pointer;
+        }
+    }
+
+    .description {
+        font-size: 14px;
+        line-height: 17px;
+        color: $COLOR_PRIMARY;
+        margin-bottom: 15px;
+    }
+
+    .input {
+        margin-top: 20px;
+        .example-full-width {
+            width: 420px;
+        } 
+
+        .example-half-width {
+            width: 300px;
+        }
+    }
+
+    .btn-group {
+        float: right;
+        margin-top: 20px;
+
+        button {
+            margin-left: 20px;
+        }
+    }
+
+    .explaination {
+        font-size: 14px;
+        line-height: 17px;
+        color: #0071FF;
+        margin-top: 10px;
+    }
+
+}

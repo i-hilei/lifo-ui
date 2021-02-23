@@ -1,0 +1,117 @@
+<nz-modal
+    [(nzVisible)]="isVisible"
+    [nzTitle]="modalTitle"
+    [nzContent]="modalContent"
+    [nzFooter]="null"
+    nzWidth = 800
+    (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle>
+        <h3>{{ title }}</h3>
+    </ng-template>
+
+    <ng-template #modalContent>
+        <div class="create-container">
+          
+            <div class="interest" *ngIf="pageName !== 'shop_product'">
+              <h4># Influencer Attributes</h4>
+              <app-label-common #labelCommon01 [labelType]="attributesArr"></app-label-common>
+              <!-- <div class="top bottom">
+                <span class="title">Sub-Category:</span>
+                <nz-tag *ngFor="let tag of subCategoryTags; let i = index" [nzMode]="'closeable'" (nzAfterClose)="handleClose('subCategoryTags',tag)">
+                  {{ sliceTagName(tag) }}
+                </nz-tag>
+                <nz-tag *ngIf="!inputSubCateVisible" class="editable-tag" nzNoAnimation (click)="showInput('inputSubCateVisible')"> # <span>Add New Label</span> <i nz-icon nzType="plus"></i></nz-tag>
+                <input
+                  #inputElement
+                  nz-input
+                  nzSize="small"
+                  *ngIf="inputSubCateVisible"
+                  type="text"
+                  [(ngModel)]="inputSubCateValue"
+                  style="width: 78px;"
+                  (blur)="handleInputConfirm('subCategoryTags', 'inputSubCateValue', 'inputSubCateVisible')"
+                  (keydown.enter)="handleInputConfirm('subCategoryTags', 'inputSubCateValue', 'inputSubCateVisible')"
+                />
+              </div> -->
+            </div>
+            <div class="interest" *ngIf="pageName !== 'shop_product'">
+              <h4># Content Type</h4>
+              <app-label-common #labelCommon02 [labelType]="contentArr"></app-label-common>
+            </div>
+            <div class="interest" *ngIf="pageName !== 'shop_product'">
+              <h4># Social Media Platform</h4>
+              <app-label-common #labelCommon03 [labelType]="platformArr"></app-label-common>
+            </div>
+            <div class="interest" *ngIf="pageName === 'shop_product'">
+              <h4># Product Category</h4>
+              <app-label-common #labelCommon04 [labelType]="productArray"></app-label-common>
+            </div>
+
+            <!-- <div class="interest product">
+              <h4># Content Type</h4>
+              <div class="top">
+                <span class="title">Category:</span>
+                <nz-tag *ngFor="let tag of proCategoryTags; let i = index" [nzMode]="'closeable'" (nzAfterClose)="handleClose('proCategoryTags',tag)">
+                  {{ sliceTagName(tag) }}
+                </nz-tag>
+                <nz-tag *ngIf="!inputProCategoryVisible" class="editable-tag" nzNoAnimation (click)="showInput('inputProCategoryVisible')"> # <span>Add New Label</span> <i nz-icon nzType="plus"></i></nz-tag>
+                <input
+                  #inputElement
+                  nz-input
+                  nzSize="small"
+                  *ngIf="inputProCategoryVisible"
+                  type="text"
+                  [(ngModel)]="inputProCategoryValue"
+                  style="width: 100px;"
+                  (blur)="handleInputConfirm('proCategoryTags', 'inputProCategoryValue', 'inputProCategoryVisible')"
+                  (keydown.enter)="handleInputConfirm('proCategoryTags', 'inputProCategoryValue', 'inputProCategoryVisible')"
+                />
+              </div>
+              <div class="top bottom">
+                <span class="title">Sub-Category:</span>
+                <nz-tag *ngFor="let tag of proSubCategoryTags; let i = index" [nzMode]="'closeable'" (nzAfterClose)="handleClose('proSubCategoryTags',tag)">
+                  {{ sliceTagName(tag) }}
+                </nz-tag>
+                <nz-tag *ngIf="!inputProSubCateVisible" class="editable-tag" nzNoAnimation (click)="showInput('inputProSubCateVisible')"> # <span>Add New Label</span> <i nz-icon nzType="plus"></i></nz-tag>
+                <input
+                  #inputElement
+                  nz-input
+                  nzSize="small"
+                  *ngIf="inputProSubCateVisible"
+                  type="text"
+                  [(ngModel)]="inputProSubCateValue"
+                  style="width: 100px;"
+                  (blur)="handleInputConfirm('proSubCategoryTags', 'inputProSubCateValue', 'inputProSubCateVisible')"
+                  (keydown.enter)="handleInputConfirm('proSubCategoryTags', 'inputProSubCateValue', 'inputProSubCateVisible')"
+                />
+              </div>
+            </div>
+
+            <div class="interest product">
+              <h4># Social Media Platform</h4>
+              <div class="top">
+                <nz-tag *ngFor="let tag of contentTags; let i = index" [nzMode]="'closeable'" (nzAfterClose)="handleClose('contentTags',tag)">
+                  {{ sliceTagName(tag) }}
+                </nz-tag>
+                <nz-tag *ngIf="!inputContentVisible" class="editable-tag" nzNoAnimation (click)="showInput('inputContentVisible')"> # <span>Add New Label</span> <i nz-icon nzType="plus"></i></nz-tag>
+                <input
+                  #inputElement
+                  nz-input
+                  nzSize="small"
+                  *ngIf="inputContentVisible"
+                  type="text"
+                  [(ngModel)]="inputContentValue"
+                  style="width: 100px;"
+                  (blur)="handleInputConfirm('contentTags', 'inputContentValue', 'inputContentVisible')"
+                  (keydown.enter)="handleInputConfirm('contentTags', 'inputContentValue', 'inputContentVisible')"
+                />
+              </div>
+            </div> -->
+    
+            <div class="btnGroup">
+              <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">Save</button>
+              <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+            </div>
+        </div>
+    </ng-template>
+</nz-modal>

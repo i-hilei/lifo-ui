@@ -1,0 +1,206 @@
+
+.influencer-tiny-box {
+    margin-left: 10px;
+    display: inline-block;
+
+    .image-holder {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        margin: 12px;
+        display: inline-block;
+        vertical-align: bottom;
+    
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 50%;
+        }
+    }
+    
+    .user-profile {
+        margin-top: 10px;
+        display: inline-block;
+        .user-name {
+            line-height: 20px;
+            b {
+                font-weight: 600;
+                display: inline-block;
+            }
+        }
+    }
+}
+.steps {
+    padding: 20px;
+}
+
+.steps-container {
+    height: 550px;
+    overflow-y: auto;
+}
+
+.email-sender {
+    margin: 20px;
+    border: 2px solid #FAFAFA;
+    border-radius: 5px;
+    .from {
+        border-bottom: 2px solid #FAFAFA;
+        height: 40px;
+        padding: 10px 30px;
+
+        .chat-email-add {
+            margin-left: 8px;
+            text-decoration: underline;
+            color: #2F80ED;
+        }
+        .chat-email-auth {
+            margin-left: 10px;
+            color: #2F80ED;
+            cursor: pointer;
+        }
+
+        .close {
+            float: right;
+            margin-top: -24px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    }
+    .body {
+        padding: 10px 30px;
+    }
+    
+    .action {
+        margin-top: 5px;
+        margin-right: 40px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        color: #414BB2;
+        cursor: pointer;
+        height: 20px;
+        .reply-button {
+            color: #414BB2;
+            float: right;
+        }
+        i {
+            font-size: 20px;
+            margin-left: 5px;
+        }
+    }
+}
+
+
+.step {
+    background: #FAFAFA;
+    margin: 20px;
+    padding: 20px;
+
+
+    .step-title {
+        font-weight: 600;
+        font-size: 16px;
+        text-transform: capitalize;
+        color: #000000;
+        margin-bottom: 10px;
+
+        .step-icon {
+            width: 20px;
+            vertical-align: top;
+            margin-right: 10px;
+        }
+    }
+
+    .step-actions {
+        margin-top: 10px;
+        button {
+            margin-right: 20px;
+        }
+
+        .secondary-button {
+            margin-left: 20px;
+        }
+        .check-icon {
+            color:  #414BB2;
+            font-size: 20px;
+            vertical-align: middle;
+        }
+        .check-message {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 24px;
+            color: #414BB2;
+            margin-left: 10px;
+        }
+
+        .notification {
+            float: right;
+            line-height: 20px;
+            font-weight: 500;
+            i {
+                font-size: 20px;
+                vertical-align: middle;
+            }
+
+            .success-icon {
+                color: green;
+            }
+            .fail-icon {
+                color: red;
+            }
+        }
+    }
+}
+
+.email-thread {
+    margin: 20px;
+
+    .email-thread-item {
+        background: #FAFAFA;
+        padding: 15px;
+    }
+    .image-holder {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+        margin-top: 5px;
+        display: inline-block;
+        vertical-align: top;
+    
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 50%;
+        }
+    }
+    .content {
+        width: calc(100% - 40px);
+        display: inline-block;
+        vertical-align: top;
+    }
+    .time {
+        font-weight: 300;
+        font-size: 12px;
+        line-height: 15px;
+        color: #828282;
+        margin-left: 10px;
+    }
+
+    .reply-button {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 24px;
+        color: #414BB2;
+        margin-left: 20px;
+        .material-icons {
+            vertical-align: top;
+        }
+    }
+}
+
+.person {
+    .user-profile {
+        float: right;
+        margin: 10px;
+    }
+}

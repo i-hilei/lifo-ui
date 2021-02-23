@@ -1,0 +1,207 @@
+<div *ngIf = "this.influencers.length > 0" class="email-containers">
+    <div class="email-row">
+        <div class="inner-box user-list">
+            <div class="contact">
+                <!-- Need to add (Me) -->
+                <!-- <div class="contact-item" (click)="selectSelf()">
+                  <img class="self-image" src="assets/svg/user.svg" alt="" width="40">
+                  <div class="self-name"> Shuo Shan (Me) </div>
+                </div> -->
+                <nz-collapse [nzBordered]="false">
+                    <nz-collapse-panel 
+                        [nzHeader]="countOutreachInfluencer()" 
+                        [nzActive]="true"
+                        *ngIf="view === 'outreach' || view === 'negotiation'">
+                        <div class="check-all" (click)="selectAllInfluencer()">
+                            <mat-icon svgIcon="empty-checkbox" *ngIf="!isSelectAllInfluencer"></mat-icon>
+                            <mat-icon svgIcon="checked-checkbox" *ngIf="isSelectAllInfluencer"></mat-icon>
+                            Check all influencers
+                        </div>
+                        <div 
+                            class="contact-item"  
+                            *ngFor="let inf of influencers" 
+                            (click)="selectOutReachInfluencer(inf)"
+                            [ngClass]="{'selected': inf['selected']}"
+                        >
+                            <ng-container *ngIf="outreachInfluencer(inf)">
+                                <app-tiny-instagram-card 
+                                    [influencer]="inf['profile']['influencer']"
+                                    [allowSelect]="true"
+                                    [isSelected]="inf['selected']"
+                                ></app-tiny-instagram-card>
+                            </ng-container>
+                        </div>
+                    </nz-collapse-panel>
+                    <nz-collapse-panel 
+                        [nzHeader]="countContractSigningInfluencer()" 
+                        [nzActive]="true"
+                        *ngIf="view === 'contract' || view === 'negotiation'">
+                        <div 
+                            class="contact-item"  
+                            *ngFor="let inf of influencers" 
+                            (click)="selectInfluencer(inf)"
+                            [ngClass]="{'selected': inf['selected']}"
+                        >
+                            <ng-container *ngIf="contractSigningInfluencer(inf)">
+                                <app-tiny-instagram-card 
+                                    [influencer]="inf['profile']['influencer']"
+                                ></app-tiny-instagram-card>
+                            </ng-container>
+                        </div>
+                    </nz-collapse-panel>
+                    <nz-collapse-panel 
+                        [nzHeader]="countDeclinedInfluencer()"
+                        *ngIf="view === 'outreach' || view === 'negotiation'">
+                        <div 
+                            class="contact-item"  
+                            *ngFor="let inf of influencers" 
+                            (click)="selectInfluencer(inf)"
+                            [ngClass]="{'selected': inf['selected']}"
+                        >
+                            <ng-container *ngIf="decliendInfluencer(inf)">
+                                <app-tiny-instagram-card 
+                                    [influencer]="inf['profile']['influencer']"
+                                ></app-tiny-instagram-card>
+                            </ng-container>
+                        </div>
+                    </nz-collapse-panel>
+                </nz-collapse>
+            </div>
+        </div>
+
+        <!-- contract stage -->
+        <div class="inner-box progress-steps" 
+            *ngIf="mode === 'BRAND' && view === 'contract' && selectedGroupInfluencers.length <= 1">
+            <app-negotiation-steps 
+                [campaign]="campaign"
+                [influencer]="selectedInfluencer"
+                [templates]="templates"
+                [emailAuth]="emailAuth"
+                (onClickPrepareContract)="prepareSignRequest(selectedInfluencer)"
+                (onClickReviewContract)="reviewContract(selectedInfluencer)"
+                (onClickSignContract)="signContract(selectedInfluencer)"
+                (onShowFullProfile)="showFullModals()"
+                (onDownloadContract)="downloadContract(selectedInfluencer)"
+                (onSendContract)="sendContract(selectedInfluencer)"
+                (onAuthorizeNylas)="authorizeNylas()"
+                (onContentReview)="influencerContentReview(selectedInfluencer)"
+            ></app-negotiation-steps>
+        </div>
+
+        <!-- outreach stage, only 1 influencer -->
+        <div class="inner-box progress-steps" 
+            *ngIf="mode === 'BRAND' && view === 'outreach' && selectedGroupInfluencers.length <= 1">
+            <app-single-email
+                [campaign]="campaign"
+                [influencer]="selectedInfluencer"
+                [templates]="templates"
+                [emailAuth]="emailAuth"
+                (onAuthorizeNylas)="authorizeNylas()"
+                (onShowFullProfile)="showFullModals()"
+                (onSkipOffer)="skipOffer(selectedInfluencer)"
+            ></app-single-email>
+        </div>
+
+        <!-- outreach stage, more than one influencer -->
+        <div class="inner-box progress-steps" 
+            *ngIf="mode === 'BRAND' && view === 'outreach' && selectedGroupInfluencers.length > 1">
+            <app-group-email
+                [campaign]="campaign"
+                [emailAuth]="emailAuth"
+                [templates]="templates"
+                [selectedInfluencers]="selectedGroupInfluencers"
+                (onAuthorizeNylas)="authorizeNylas()"
+            ></app-group-email>
+        </div>
+
+        <div class="inner-box info-status" *ngIf="mode === 'AM'">
+            <app-mail-status 
+                [mode]="mode"
+                [influencer]="selectedInfluencer"
+                (onClickPrepareContract)="prepareSignRequest(selectedInfluencer)"
+                (onClickSignContract)="signContract(selectedInfluencer)"
+                (showFullModals)="showFullModals()"
+                (onDownloadContract)="downloadContract(selectedInfluencer)"
+                (onSendContract)="sendContract(selectedInfluencer)"
+                (onViewPerformance)="viewPerformance()"
+            ></app-mail-status>
+        </div>
+
+        <div class="inner-box chat-box" *ngIf="mode === 'AM'">
+            <div class="chat-box-header">
+                <div class="header-left" >
+                    <div *ngIf="isAuthorizeNylas"> 
+                        <img src="assets/svg/mailbox.svg" alt="" width="22">
+                        <span class="chat-email-add">{{ emailAuth }}</span>
+                    </div>
+                    <div *ngIf="!isAuthorizeNylas"> 
+                        <img src="assets/svg/mailbox.svg" alt="" width="22">
+                        <span (click)="authorizeNylas()" class="chat-email-auth">Authorize your email account</span> 
+                    </div>
+                </div>
+            </div>
+      
+            <div class="chat-set" [ngClass]="{'autoHeights': isMore}">
+                <as-split direction="vertical" restrictMove="true" (dragEnd)="dragEnd($event)">
+                  <as-split-area [size]="splitTop" minSize="20" maxSize="60">
+                    <div class="chat-box-history">
+                        <app-mail-history-info #mailHistory [historyAllInfo]="historyAllInfo" [authName]="emailAuth"></app-mail-history-info>
+                    </div>
+                  </as-split-area>
+                  <as-split-area [size]="splitBottom" minSize="40" maxSize="80">
+                    <div class="chat-box-edit">
+                        <div class="email-row">
+                            Subject：
+                            <input 
+                                class="email-title-box"
+                                nz-input 
+                                placeholder="" 
+                                [(ngModel)]="emailTitle"
+                                autocomplete="off"
+                            >
+                        </div>
+                        <div class="control-section">
+                          <app-email-editor #emailEditor></app-email-editor>
+                        </div>
+                    </div>
+                  </as-split-area>
+                </as-split>
+            </div>
+            <div class="chat-button">
+                <button nz-button class='chat-send-button' (click)="sendEmailWithTemplate(false)">Send</button>
+                <button nz-button nzType="default" nz-tooltip nzTooltipTitle="Want to preview your emails in action? “Test Send” will allow you to send the email to yourself first." nzTooltipPlacement="top"  class='chat-other-button' (click)="sendEmailWithTemplate(true)">Test Send</button>
+                <button nz-button 
+                    nzType="default"
+                    nz-tooltip 
+                    nzTooltipTitle="To help you break the ice with your favored influencers, Lifo has prepared a series of email templates to help you reach out. " 
+                    nzTooltipPlacement="top" 
+                    class='chat-other-button' 
+                    (click)= "showEmailModals()"><span class="material-icons">
+                  dashboard
+                </span>Email Templates</button>
+              <!-- <button nz-button nzType="default" class='chat-other-button' (click)="saveNewTemplate()">Save as Template</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div *ngIf="this.influencers.length == 0" class="empty-container">
+    <img src="assets/svg/undraw_a_moment_to_relax_bbpa.svg" alt="" width="400">
+    <div class="navigation-button">
+        <button nz-button nzSize="large" nzType="primary" (click)=""> View Discovery Result </button>
+    </div>
+</div> -->
+<app-mail-template-modal #emailModal (checked)="checkedBack($event)"></app-mail-template-modal>
+<div *ngIf="selectedInfluencer">
+    <app-mail-full-report #emailFullReport [campaign]="campaign" [influencer]="selectedInfluencer"></app-mail-full-report>
+</div>
+
+<nz-modal 
+    [(nzVisible)]="showAuthModal" 
+    nzTitle="Authorize Email" 
+    (nzOnCancel)="handleCancel()" 
+    (nzOnOk)="handleOk()" 
+    nzOkText="Complete"
+>
+    Email authorization in progress...
+    You can click Complete when authorize finished.
+</nz-modal>

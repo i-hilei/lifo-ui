@@ -1,0 +1,42 @@
+<div *ngIf="influencer" class="tiny-box">
+    <h3>Control Panel</h3>
+    <div class="image-holder">
+        <img src="{{influencer?.profile?.influencer.profile.picture}}">
+    </div>
+    <div class="user-profile">
+        <div class="user-name">
+            <b>@{{influencer?.profile?.influencer.profile.username}}</b>
+            <p style="margin-top: 5px;">{{ influencer.email }}</p>
+            <p>{{ influencer?.profile?.influencer.status }}</p>
+            <div>{{ influencer['influencer_address1'] }}</div>
+            <div>{{ influencer['influencer_address2'] }}</div>
+            <a nz-button nzSize="default" nzType="link" (click)="showModals()">View Profile</a>
+        </div>
+
+        <!-- <div class="user-name">@{{influencer.profile.username}}</div> -->
+
+        <!-- <nz-badge nzText="{{emailStatus[influencer.status][0]}}"></nz-badge> -->
+    </div>
+    <div class="user-status">
+        <div class="status-step status-step-01">
+            <h3>Collaborator Negotiation</h3>
+        </div>
+        <div class="status-step status-step-02">
+            <h3>Contract Signing</h3>
+            <button nz-button nzType="default" (click)="prepareContract()">Generate Contract</button>
+            <button nz-button nzType="default" (click)="viewContractInfo()" [disabled]="!allowViewContractInfo">View Contract Info</button>
+            <button nz-button nzType="default" (click)="sendContract()" [disabled]="!allowViewContractInfo">Send Contract</button>
+            <button nz-button nzType="default" (click)="signContract()" [disabled]="!allowSignContract">Sign Contract</button>
+            <button nz-button nzType="default" (click)="downloadContract()" [disabled]="!allowDownloadContract">Download Contract</button>
+        </div>
+        <div class="status-step status-step-03">
+            <h3>Content Production</h3>
+            <button *ngIf="mode === 'AM'" nz-button nzType="default" (click)="createContent()" [disabled]="!allowContentReview">Create Content</button> 
+            <button nz-button nzType="default" (click)="reviewContent()" [disabled]="!allowContentReview">Content Review</button>  
+        </div>
+        <div class="status-step status-step-04">
+            <h3>Performance Monitoring</h3>
+            <button nz-button nzType="default" [disabled]="!allowViewPerformance" (click)="viewPerformance()">View Performance</button>
+        </div>
+    </div>
+</div>

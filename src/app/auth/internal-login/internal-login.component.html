@@ -1,0 +1,44 @@
+<div>
+    <div class="left">
+        <div class="image-container">
+            <img class="panel-image" src="assets/images/login.png">
+        </div>
+    </div>
+    <div class="right">
+        <div class="login-box" *ngIf="completeLoading">
+            <div class="title">Sign In</div>
+            <div class="input-box">
+                <div>Email/User Name</div>
+                <mat-form-field floatLabel="never" class="large-input-box">
+                    <input matInput placeholder="Email/Username" [(ngModel)]="email" autocomplete="off">
+                </mat-form-field>
+            </div>
+            <div class="input-box">
+                <div>Password</div>
+                <mat-form-field floatLabel="never" class="large-input-box">
+                    <input matInput placeholder="Enter Your Password" type="password" [(ngModel)]="password">
+                </mat-form-field>
+            </div>
+            <br><br>
+            <!-- <div>
+                <div>Remember Me</div>
+                <div>Forgot Password?</div>
+            </div> -->
+            <div class="button-row">
+                <button mat-flat-button color="primary" class="large-round-button" (click)="loginWithPassword()">Sign In</button>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="social-login">
+                <div 
+                    class="google-login"
+                    (click)="login()">
+                    <img src="assets/images/google_login.png">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

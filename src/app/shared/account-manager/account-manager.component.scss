@@ -1,0 +1,103 @@
+@import 'common';
+
+.user-guide-container {
+    height: 100%;
+    padding: 20px 25px;
+    box-sizing: border-box;
+    position: relative;
+    .close-icon {
+        float: right;
+        font-size: 30px;
+        cursor: pointer;
+        margin-top: -20px;
+        margin-right: -25px;
+    }
+    h3.title {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 29px;
+        margin-bottom: 20px;
+        color: #414BB2;
+        text-align: center;
+        width: 550px;
+        margin: 0 auto;
+    }
+    .subtitle {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 20px;
+    }
+    .name-input {
+        margin-top: 20px;
+        .name-width {
+            width: 200px;
+            float: left;
+            margin-right: 30px;
+            margin-bottom: 10px;
+            nz-form-label {
+                width: 100%;
+                text-align: left;
+            }
+        }
+        .marketing {
+            width: 100%;
+            nz-form-label {
+                width: 100%;
+                text-align: left;
+            }
+            nz-select {
+                width: 320px;
+            }
+        }
+        .checkboxs {
+            nz-checkbox-group {
+                >label {
+                    width: 130px;
+                }
+            }
+        }
+        .footer {
+            width: 300px;
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 50px;
+            button {
+                width: 160px;
+                font-weight: normal;
+            }
+            a {
+                color: #414BB2;
+                font-weight: 500;
+                font-size: 16px;
+            }
+        }
+    }
+
+    .item {
+        margin-bottom: 15px;
+    }
+}
+
+.new-user-guide-container {
+    width: 100%;
+    padding: 20px 40px;
+    .title {
+        text-align: right;
+        span {
+            cursor: pointer;
+        }
+    }
+    .guide-btn {
+        text-align: center;
+        margin-top: 30px;
+        button {
+            width: 120px;
+        }
+        .skip-button {
+            margin-right: 20px;
+            color: #0D053C;
+            border: 1px solid #0D053C;
+        }
+    }
+}

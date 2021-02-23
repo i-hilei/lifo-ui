@@ -1,0 +1,305 @@
+<div class="contractPre">
+    <h3 class="page-title">Contract Preparation
+        <span class="material-icons closed" (click)="onNoClick()"> close </span>
+    </h3>
+    <form class="forms" nz-form [formGroup]="validateForm">
+        <h3 class="title">Campaign Information</h3>
+        
+        <div class="name">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Name 
+                </nz-form-label>
+                <nz-form-control nzErrorTip="Please input Campaign Name!">
+                <input 
+                    nz-input 
+                    placeholder="" 
+                    formControlName="campaign_name"
+                    id="campaign_name"
+                    autocomplete="off"
+                >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="start-date">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Start Date 
+                </nz-form-label>
+                <nz-form-control>
+                    <nz-date-picker formControlName="startDate" id="startDate" (ngModelChange)="onStartChange($event)"></nz-date-picker>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="end-date">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Deadline
+                </nz-form-label>
+                <nz-form-control>
+                    <nz-date-picker  formControlName="endDate" id="endDate" (ngModelChange)="onEndChange($event)"></nz-date-picker>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <h3 class="title">Campaign Deliverable</h3>
+        <div class="post">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    1
+                </nz-form-label>
+                <nz-form-control>
+                    <input 
+                        nz-input 
+                        placeholder="" 
+                        formControlName="deliverable1"
+                        id="deliverable1"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div>
+            <nz-form-item>
+                <nz-form-label>
+                    2
+                </nz-form-label>
+                <nz-form-control>
+                    <input 
+                        nz-input 
+                        placeholder="" 
+                        formControlName="deliverable2"
+                        id="deliverable2"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div>
+            <nz-form-item>
+                <nz-form-label>
+                    3
+                </nz-form-label>
+                <nz-form-control>
+                    <input 
+                        nz-input 
+                        placeholder="" 
+                        formControlName="deliverable3"
+                        id="deliverable3"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <h3 class="title">Product</h3>
+        <div class="product">
+            <label class="pro_img">
+                <img [src]="proImages" width="100" alt="">
+            </label> 
+            <div class="product-name">
+                {{ contractBody['brand'] }} <br>
+                {{ contractBody['product_name1'] }}
+            </div>
+        </div>
+        <h3 class="title">Brand Information</h3>
+        <div class="name">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Name
+                </nz-form-label>
+                <nz-form-control>
+                    <input 
+                        nz-input 
+                        placeholder="" 
+                        formControlName="brand"
+                        id="brand"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="address">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Address
+                </nz-form-label>
+                <nz-form-control>
+                    <input 
+                        nz-input 
+                        placeholder="" 
+                        formControlName="shop_address_line1"
+                        id="shop_address_line1"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+                <nz-form-control>
+                    <input 
+                        class="addr"
+                        nz-input 
+                        placeholder="" 
+                        formControlName="shop_address_line2"
+                        id="shop_address_line2"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="name">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    City
+                </nz-form-label>
+                <nz-form-control>
+                    <input 
+                        nz-input 
+                        placeholder="" 
+                        formControlName="store_county"
+                        id="store_county"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="name">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    State
+                </nz-form-label>
+                <nz-form-control>
+                    <input 
+                        nz-input 
+                        placeholder="" 
+                        formControlName="store_state"
+                        id="store_state"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <h3 class="title">Influencer Information</h3>
+        <div class="name">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Name
+                </nz-form-label>
+                <nz-form-control>
+                    <input 
+                        nz-input 
+                        placeholder="" 
+                        formControlName="inf_name"
+                        id="inf_name"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="address">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Address
+                </nz-form-label>
+                <nz-form-control>
+                    <input 
+                        nz-input 
+                        placeholder="" 
+                        formControlName="influencer_address1"
+                        id="influencer_address1"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+                <nz-form-control>
+                    <input 
+                        class="addr"
+                        nz-input 
+                        placeholder="" 
+                        formControlName="influencer_address2"
+                        id="influencer_address2"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="platform">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Platform
+                </nz-form-label>
+                <nz-form-control>
+                    <input 
+                        nz-input 
+                        placeholder="" 
+                        formControlName="platform"
+                        id="platform"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="account">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Account ID
+                </nz-form-label>
+                <nz-form-control>
+                    <input 
+                        nz-input 
+                        placeholder="" 
+                        formControlName="account_id"
+                        id="account_id"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <h3 class="title">Payment</h3>
+        <div class="perpost">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Fixed Amount
+                </nz-form-label>
+                <nz-form-control>
+                    <input 
+                        nz-input 
+                        placeholder="" 
+                        formControlName="fixed_commission"
+                        id="fixed_commission"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="percentage">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Percentage of the Sale
+                </nz-form-label>
+                <nz-form-control>
+                    <input 
+                        nz-input 
+                        placeholder="" 
+                        formControlName="percentage_commission"
+                        id="percentage_commission"
+                        autocomplete="off"
+                    >
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="test-mode" *ngIf="!viewOnly">
+            <nz-form-item>
+                <nz-form-control>
+                    <label nz-checkbox formControlName="test_mode">Test Mode</label>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <!-- <div class="test-mode" *ngIf="!viewOnly">
+            <label nz-checkbox [(ngModel)]="contractBody['test_mode']">Test Mode</label>
+        </div> -->
+        <div class="buttons" *ngIf="!viewOnly">
+            <nz-form-item>
+                <nz-form-control style="margin-left: 200px;margin-top: 50px;">
+                    <button nz-button nzType="primary" class="gener-btn" (click)="submit()">Generate Contract</button>
+                    <button nz-button nzType="default" (click)="onNoClick()">Back</button>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </form>
+</div>

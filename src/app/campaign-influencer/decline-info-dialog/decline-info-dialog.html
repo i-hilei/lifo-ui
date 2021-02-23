@@ -1,0 +1,27 @@
+<section class="confirm-dialog-container">
+    <div class="title">
+        Tell us more about your concerns...
+        <span class="material-icons" (click)="onNoClick()"> close </span>
+    </div>
+    <div class="form">
+        <mat-radio-group class="option-group" [(ngModel)]="decline_type" aria-label="Select an option">
+            <mat-radio-button value="low_commision">The commision is too low.</mat-radio-button> <br>
+            <mat-radio-button value="dislike_product">I don't like this product.</mat-radio-button> <br>
+            <mat-radio-button value="others">Others: 
+                <mat-form-field class="example-half-width">
+                    <input 
+                        matInput 
+                        placeholder="" 
+                        [(ngModel)]="decline_text_reason"
+                        autocomplete="off"
+                    >
+                </mat-form-field>
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <section class="btn-group">
+        <button mat-button (click)="onNoClick()"> CANCEL </button>
+        <button mat-raised-button color="primary" class="confirm" (click)="submit()"> SUBMIT </button>
+    </section>
+</section>

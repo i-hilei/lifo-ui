@@ -1,0 +1,83 @@
+<div *ngIf="isVisible" class="expandTr">
+    <h4>Influencer Labeling <a (click)="isShowListLabel(influencer.profile.username)"><span><i nz-icon nzType="edit" nzTheme="outline"></i> Edit</span></a></h4>
+    <div class="label-type clearfix">
+        <div class="left"># Influencer Attributes</div>
+        <div class="right">
+            <ng-container *ngFor="let item of influencer?.label_list?.attributes; let i = index">
+                <nz-tag class="tag-father" nzMode="default">
+                    {{ item['name'] }}
+                    </nz-tag>
+            
+                    <ng-container *ngFor="let k of item['children']">
+                    <span class="tag-child-margin">
+                    <nz-tag  class="tag-children" nzMode="default">
+                        {{ k['name'] }}</nz-tag>
+                    </span>
+                    </ng-container>                    
+            </ng-container>
+        </div>
+    </div>
+    <div class="label-type clearfix">
+            <div class="left"># Content Types</div>
+        <div class="right">
+            <ng-container *ngFor="let item of influencer?.label_list?.content; let i = index">
+                <nz-tag class="tag-father" nzMode="default">
+                    {{ item['name'] }}
+                </nz-tag>
+                
+                    <ng-container *ngFor="let k of item['children']">
+                    <span class="tag-child-margin">
+                    <nz-tag  class="tag-children" nzMode="default">
+                        {{ k['name'] }}</nz-tag>
+                    </span>
+                    </ng-container>                    
+        </ng-container>
+        </div>
+    </div>
+    <div class="label-type clearfix" style="margin-bottom: 20px;">
+        <div class="left"># Social Platforms</div>
+        <div class="right">
+            <ng-container *ngFor="let item of influencer?.label_list?.platform; let i = index">
+                <nz-tag class="tag-father" nzMode="default">
+                    {{ item['name'] }}
+                </nz-tag>
+                
+                    <ng-container *ngFor="let k of item['children']">
+                    <span class="tag-child-margin">
+                    <nz-tag  class="tag-children" nzMode="default">
+                        {{ k['name'] }}</nz-tag>
+                    </span>
+                    </ng-container>                    
+            </ng-container>
+        </div>
+    </div>
+    <div class="email"> Email: {{getEmailAddress(influencer)}}</div>
+    <div class="follower-info">
+        <app-follower-info #followers [influencer]="influencer"></app-follower-info>
+    </div>
+    <div class="post-container">
+        <div class="title">
+            <span>Post Style</span>
+        </div>
+        <div class="postAll">
+            <div class="posts" *ngFor="let post of influencer.popularPosts?.slice(0, 10)">
+                <app-posts [post]="post" [platform]="platform"></app-posts>
+            </div>
+        </div>
+    </div>
+    <app-edit-notes
+        [displayInfluencer]="displayInfluencer"
+        [campaign]="campaign">
+    </app-edit-notes>
+    <div class="looklikes-info" *ngIf="mode === 'AM' || mode === 'DISCOVER'">
+        <app-lookalikes 
+            [influencer]="influencer"
+            (onPullLooklikes)="addLookalikeToList()"></app-lookalikes>
+    </div>
+</div>
+
+<app-influencer-list-labeling 
+    #listLabel 
+    pageName="influencer"
+    [defaultLabelTagList] = "labelTagList"
+    (childOuter)="getData($event)"></app-influencer-list-labeling>

@@ -1,0 +1,123 @@
+<div class="influencer-details">
+    <div class="header">
+        <h4>
+            <a (click)="forBack()"><i nz-icon nzType="double-left" nzTheme="outline"></i> Influencer List </a>&nbsp;&nbsp;<b>
+                <img *ngIf="platform !== 'tiktok'" class="logo-image" width="18" src="assets/images/instagram.jpg">
+                <img *ngIf="platform === 'tiktok'" class="logo-image" width="18" src="assets/images/tiktok.jpg">
+                {{ currentInfluencer.name }} ({{ currentInfluencer?.ins_list?.length || 0 }})
+            </b>
+        </h4>
+    </div>
+    <div class="container-box">
+        <div class="container-list">
+            <h4 class="sub-title">List Details</h4>
+            <button nz-button nzType="primary" (click)="addInfluencer(currentInfluencer.id)">Add more influencers</button>
+            <div class="table-list discovery-table">
+                <nz-table #nzTable [nzData]="displayedDetailList" [nzLoading]="loading" nzTableLayout="fixed">
+                    <thead>
+                        <tr>
+                            <th nzWidth="340px">
+                                Influencers
+                                <nz-filter-trigger [(nzVisible)]="searchVisible" [nzActive]="searchValue" [nzDropdownMenu]="menu">
+                                    <i nz-icon nzType="search" style="font-size: 20px; color: #414bb2;"></i>
+                                </nz-filter-trigger>
+                            </th>
+                            <th *ngFor="let column of listOfColumn" [nzSortFn]="column.sortFn" [(nzSortOrder)]="column.sortOrder">
+                                {{ column.name }}
+                            </th>
+                            <th>Delete</th>
+                            <th nzWidth="40px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let data of nzTable.data; let key = index">
+                            <tr>
+                                <td>
+                                    <div class="image-holder">
+                                        <img src="{{ data.profile.picture }}" />
+                                        <i class="like-icon" nz-icon nzType="like" nzTheme="fill" *ngIf="data.profile.highlyRecommend"></i>
+                                    </div>
+                                    <div class="user-profile">
+                                        <div class="profile-container">
+                                            <div class="user-name">
+                                                <span> {{ data.profile.fullname }}</span>
+                                                <img *ngIf="data.is_registered" src="assets/images/is_registered.png" />
+                                                <img *ngIf="data.complete_campaign" src="assets/images/complete_campaign.png" />
+                                                <img *ngIf="data.in_campaign" src="assets/images/in_campaign.png" />
+                                                <img *ngIf="data.in_list" src="assets/images/in_list.png" />
+                                            </div>
+                                            <div class="user-name-link">
+                                                <span (click)="openInsPage(data)">@{{ data.profile.username }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="material-icons person-icon"> person </span>
+                                    {{ data.profile.followers | number }}
+                                </td>
+                                <td>{{ (1 - data.audience.credibility) * 100 | number: '1.0-1' }}%</td>
+                                <td>
+                                    <span class="material-icons favorite-icon"> favorite </span>
+                                    {{ data.stats?.avgLikes?.value | number }}
+                                </td>
+                                <td>{{ data.profile.engagementRate * 100 | number: '1.0-1' }}%</td>
+                                <td>
+                                    <a (click)="deleteItem(currentInfluencer.id, data.profile.username)"
+                                        ><i nz-icon nzType="delete" nzTheme="outline"></i> Delete</a
+                                    >
+                                </td>
+                                <td>
+                                    <i
+                                        nz-icon
+                                        class="expand-icon"
+                                        *ngIf="!data.expanded"
+                                        nzType="caret-down"
+                                        nzTheme="outline"
+                                        (click)="fetchDetail(data)"
+                                    ></i>
+                                    <i
+                                        nz-icon
+                                        class="expand-icon"
+                                        *ngIf="data.expanded"
+                                        nzType="caret-up"
+                                        nzTheme="outline"
+                                        (click)="data.expanded = false"
+                                    ></i>
+                                </td>
+                            </tr>
+                            <tr [nzExpand]="data.expanded">
+                                <app-influencer-detail
+                                #influencerDetails
+                                *ngIf="data.expanded"
+                                    [influencer]="data"
+                                    [platform]="platform"
+                                >
+                                </app-influencer-detail>
+                                
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </nz-table>
+
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <div class="ant-table-filter-dropdown">
+                        <div class="search-box">
+                            <input
+                                #searchInput
+                                autofocus
+                                nz-input
+                                type="text"
+                                placeholder="Search name"
+                                [(ngModel)]="searchValue"
+                                (keyup.enter)="search()"
+                            />
+                            <button nz-button nzSize="small" nzType="primary" class="search-button" (click)="search()">Search</button>
+                            <button nz-button nzSize="small" (click)="resetSearch()">Reset</button>
+                        </div>
+                    </div>
+                </nz-dropdown-menu>
+            </div>
+        </div>
+    </div>
+</div>

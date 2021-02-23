@@ -1,0 +1,71 @@
+<div class="lottery-box">
+  <div class="header">
+    <div class="welcome-message">
+      <div>Lottery Winner Selection Tool</div>
+    </div>
+  </div>
+  <div class="container">
+    <h4>Lottery Settings</h4>
+    <div class="ticket">
+      <span>Number Of Ticket</span>
+      <input nz-input placeholder="Enter a number" [(ngModel)]="lotteryValue">
+      <button nz-button nzType="primary" (click)="setLottery()">Draw</button>
+    </div>
+    <div class="winner-list">
+      <span>Winner List</span>
+      <nz-table #winnerTable [nzData]="winnerData">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Influencer Name</th>
+            <th>Referee</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Source</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of winnerTable.data; let key = index;">
+            <td>{{ key }}</td>
+            <td>{{data.instagram_id}}</td>
+            <td>{{data.referee}}</td>
+            <td>{{data.status}}</td>
+            <td>{{data.signed_up_at}}</td>
+            <td>{{data.invitation_source}}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div class="referral-list">
+      <h4>Referral List</h4>
+      <nz-table #basicTable 
+      [nzData]="referralData" 
+      [nzLoading]="referralLoading">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Influencer Name</th>
+            <th>Referee</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Source</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data; let key = index;">
+            <td>{{ key }}</td>
+            <td>{{data.instagram_id}}</td>
+            <td>{{data.referee}}</td>
+            <td>{{data.status}}</td>
+            <td>{{data.signed_up_at}}</td>
+            <td>{{data.invitation_source}}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="counters" *ngIf="campaignPerformance">
+    <div nz-row [nzGutter]="20" class="half">
+        <div nz-col class="gutter-row" [nzSpan]="4" class="counter">
+            <div class="inner-box">
+                <div class="icon">
+                    <span class="material-icons  material-icons-outlined">
+                        insert_photo
+                    </span>
+                </div>
+                <div class="name">{{ 'Posts' | translate }} <span class="material-icons"  matTooltip="{{'Total number of posts' | translate}}">error_outline</span></div>
+                <div class="count"> {{ campaignPerformance.posts | number:'1.0-0'}} </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row" [nzSpan]="4" class="counter">
+            <div class="inner-box">
+                <div class="icon">
+                    <span class="material-icons">
+                        favorite_border
+                    </span>
+                </div>
+                <div class="name">{{ 'Likes' | translate }} <span class="material-icons" matTooltip="{{'Likes from all posts' | translate}}">error_outline</span></div>
+                <div class="count"> {{ campaignPerformance.total_likes | number:'1.0-0'}} </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row" [nzSpan]="4" class="counter">
+            <div class="inner-box">
+                <div class="icon">
+                    <span class="material-icons">
+                        chat_bubble_outline
+                    </span>
+                </div>
+                <div class="name">{{ 'Comments' | translate }} <span class="material-icons" matTooltip="{{'Comments from all posts' | translate}}">error_outline</span></div>
+                <div class="count"> {{ campaignPerformance.total_comments | number:'1.0-0'}} </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row" [nzSpan]="4" class="counter">
+            <div class="inner-box">
+                <div class="icon">
+                    <img src="assets/images/ic_followers@2x.png" width="30px">
+                </div>
+                <div class="name">{{ 'Total Reach' | translate }} <span class="material-icons" matTooltip="{{'Total audiences reached in social media platform' | translate}}">error_outline</span></div>
+                <div class="count"> {{ campaignPerformance.total_followers | number:'1.0-0'}} </div>
+            </div>
+        </div>
+        <!-- <div nz-col class="gutter-row" [nzSpan]="4" class="counter">
+            <div class="inner-box">
+                <div class="icon">
+                    <span class="material-icons">
+                        attach_money
+                    </span>
+                </div>
+                <div class="name">{{ 'Amount Spent' | translate }} <span class="material-icons" matTooltip="{{ 'Amount spent is the grand total you paid for the campaign.' | translate }}">error_outline</span></div>
+                <div class="count">$ {{ campaignPerformance.amount_spent | number:'1.0-1'}} </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row" [nzSpan]="4" class="counter">
+            <div class="inner-box">
+                <div class="icon">
+                    <span class="material-icons">
+                        attach_money
+                    </span>
+                    <span class="material-icons">
+                        favorite_border
+                    </span>
+                </div>
+                <div class="name">{{ 'CPL' | translate }} <span class="material-icons" matTooltip="{{'Cost per like' | translate}}">error_outline</span></div>
+                <div class="count">$ {{ campaignPerformance.cost_per_like | number:'1.0-2'}} </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row" [nzSpan]="4" class="counter">
+            <div class="inner-box">
+                <div class="icon">
+                    <span class="material-icons">
+                        attach_money
+                    </span>
+                    <span class="material-icons">
+                        chat_bubble_outline
+                    </span></div>
+                <div class="name">{{ 'CPE' | translate }} <span class="material-icons" [matTooltip]="cpe_tooltip | translate">error_outline</span></div>
+                <div class="count">$ {{ campaignPerformance.cost_per_engagement | number:'1.0-2'}} </div>
+            </div>
+        </div> -->
+    </div>
+</div>

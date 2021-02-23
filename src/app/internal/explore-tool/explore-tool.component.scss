@@ -1,0 +1,142 @@
+@import 'common';
+@import 'global';
+.filter-header {
+    margin-bottom: 30px;
+    h3 {
+        color: #252733;
+        font-weight: bold;
+        font-size: 24px;
+        display: inline-block;
+    }
+    .filter-radio {
+        float: right;
+        margin-top: 10px;
+        >label {
+            padding: 8px 15px;
+            margin-right: 10px;
+            border: 1px solid #fff; 
+            font-weight: bold;
+            font-size: 18px;
+            img {
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+            }
+        }
+        .select-radio {
+            border: 1px solid #0D053B; 
+            border-radius: 6px;           
+        }
+    }
+}
+.filter-container {
+    background: #FFFFFF;
+    border: 1px solid #DFE0EB;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px 40px;
+    width: calc(100% - 80px);
+
+    .filter-title {
+        font-size: large;
+        font-weight: 600;
+        margin-bottom: 10px;
+
+        .apply-campaign-filter {
+            float: right;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    }
+
+    .filter-content {
+        margin-bottom: 10px;
+    }
+
+    .filter-item {
+        width: 300px;
+        display: inline-block;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        font-weight: 500;
+        
+    }
+
+    .filter-item-small {
+        width: 140px;
+        nz-input-number, ng-select {
+            width: 100%;
+        }
+        nz-input-number {
+            height: 36px;
+        }
+    }
+    .set-top3 {
+        position: relative;
+        top: -3px;
+    }
+
+    .set-top5 {
+        position: relative;
+        top: -5px;
+    }
+
+    .filter-button {
+        display: flex;
+        justify-content: flex-end;
+        button {
+            margin-left: 20px;
+        }
+        .searchBtn {
+            background: #0071FF;
+            border-radius: 80px;
+            width: 200px;
+        }
+        .resetBtn {
+            border-radius: 80px;
+            width: 200px;
+            border: 1px solid #0D053B;
+        }
+
+        .template-version-select {
+            width: 200px;
+        }
+    }
+
+    .example-full-width {
+        width: 100%;
+    }
+
+    .file-label {
+        padding: 10px 16px;
+        border-radius: 4px;
+        background-color: white;
+        cursor: pointer;
+        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        .material-icons {
+            vertical-align: middle;
+        }
+    }
+
+    .file-input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .buttons {
+        button {
+            margin-right: 20px;
+        }
+    }
+}
+
+.popup-table-container {
+    max-height: 600px;
+    overflow-y: scroll;
+}

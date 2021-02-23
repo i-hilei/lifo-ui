@@ -1,0 +1,137 @@
+
+<div class="email-container">
+    <div class="header">
+        Mail Box
+
+        <button mat-flat-button class="new-button"> 
+            <span class="material-icons"> add </span>
+            New 
+        </button>
+    </div>
+
+    <div class="authorize">
+        <div *ngIf="isAuthorizeNylas"> Authorized <span (click)="authorizeNylas()">Login</span> </div>
+        <div *ngIf="!isAuthorizeNylas"> Not Authorized <span (click)="authorizeNylas()">Login</span> </div>
+    </div>
+
+    <div>
+        <div class="contact">
+            <div class="contact-summary">
+                Contact List ({{influencers.length}})
+
+                <mat-checkbox class="checkbox" (click)="selectAllInfluencer()" [(ngModel)]="allInfluencerSelected"> Select All </mat-checkbox>
+            </div>
+            <div 
+                class="contact-item"  
+                *ngFor="let inf of influencers" 
+                (click)="selectInfluencer(inf)"
+                [ngClass]="{'selected': inf['selected']}"
+            >
+                <app-tiny-instagram-card 
+                    [influencer]="inf['profile']['influencer']"
+                ></app-tiny-instagram-card>
+            </div>
+        </div>
+
+        <div class="mail">
+            <ng-select 
+                class="template-version-select" 
+                [clearable]="false" 
+                [items]="templates"
+                [(ngModel)]="selectedTemplate"
+                (change)="selectTempalte($event)"
+            >
+                <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                    <a (click)="showModal()" *ngIf="item.template_name == 'alltemplate'">View All Template</a>
+                    <span *ngIf="item.template_name != 'alltemplate'">{{ item.template_name }}</span>
+                </ng-template>
+            </ng-select>
+            <div>
+                Send To: 
+                <mat-form-field class="example-full-width">
+                    <mat-chip-list #chipList aria-label="to email">
+                        <mat-chip *ngFor="let email of toEmail"
+                                 [removable]="true" (removed)="removeToEmail(email)">
+                          {{email}}
+                          <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+                        <input
+                            placeholder="" 
+                            [matChipInputFor]="chipList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            autocomplete="off"
+                            (matChipInputTokenEnd)="addToEmail($event)">
+                    </mat-chip-list>
+                    
+                </mat-form-field>
+            </div>
+            <div>
+                Subject: 
+                <mat-form-field class="example-full-width">
+                    <input 
+                        matInput 
+                        placeholder="" 
+                        [(ngModel)]="emailTitle"
+                        autocomplete="off"
+                    >
+                </mat-form-field>
+            </div>
+            <div class="control-section">
+                <app-email-editor #emailEditor></app-email-editor>
+            </div>
+
+            <div class="order-detail" *ngIf="!currentOfferDetail">
+                <button mat-raised-button (click)="addOfferDetail()">Offer Detail <span class="material-icons"> add </span> </button>
+            </div>
+
+
+            <div class="order-detail" *ngIf="currentOfferDetail"> Offer Detail Attached!
+                <button mat-raised-button (click)="addOfferDetail()">Edit <span class="material-icons"> add </span> </button>
+            </div>
+        
+            <div class="button-container">
+                <!-- <mat-form-field class="example-full-width">
+                    <input 
+                        matInput 
+                        placeholder="" 
+                        [(ngModel)]="templateName"
+                        autocomplete="off"
+                    >
+                </mat-form-field> -->
+                <button mat-button (click)="saveNewTemplate()">Save as Template</button>
+                <button mat-stroked-button (click)="sendEmailWithTemplate(false)">Send Email</button>
+                <button mat-flat-button color="primary" (click)="sendEmailWithTemplate(true)">Test Send</button>
+            </div>
+        </div>
+    </div>
+ 
+
+</div>
+
+<!-- template-modal -->
+<nz-modal #alltemplates 
+    nzClassName="alltemplate"
+    [(nzVisible)]="isModalVisible" 
+    nzTitle="Template Library" 
+    (nzOnCancel)="handleCancel()" 
+    (nzOnOk)="handleOk()" 
+    nzMaskClosable=false
+    [nzFooter]=null
+    nzWidth=900>
+    <div nz-row [nzGutter]="16">
+        <div nz-col class="gutter-row" [nzSpan]="8" 
+        *ngFor="let item of templateArr; let i = index">
+            <p class="template-infos">{{item.template_name}}</p>
+            <div class="inner-box">
+                <div class="box_text" [innerHTML]="item.body | emailHtml">
+                </div>
+                <div class="box_oper">
+                    <span class="material-icons" (click)="deleteTemplateInfo(item)">delete</span>
+                    <button nz-button nzType="default" (click)="useTemplateInfo(item)">Use</button>
+                </div>
+            </div>
+        </div>
+        <!-- <div nz-col class="gutter-row" [nzSpan]="8"><div class="inner-box">col-8</div></div>
+        <div nz-col class="gutter-row" [nzSpan]="8"><div class="inner-box">col-8</div></div> -->
+    </div>
+</nz-modal>

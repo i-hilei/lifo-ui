@@ -1,0 +1,22 @@
+
+.container {
+    padding: 30px;
+
+    .title {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .table-container {
+        td {    
+            font-weight: 600;
+        }
+        td.done {
+            color: green;
+        }
+        td.pending {
+            color: red;
+        }
+    }
+    
+}

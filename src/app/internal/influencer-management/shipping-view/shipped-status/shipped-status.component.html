@@ -1,0 +1,80 @@
+<div class="operation-container">
+  <div class="title">Shipped ({{shippedInfluencer.length}})</div>
+  <div class="batch-operations">
+      <span><b>{{shippedChecked}}</b> influencer selected</span>
+      <div class="batch-buttons">
+          <button nz-button nzType="primary" (click)="batchMarkShippedArrived()"><i nz-icon nzType="tag" nzTheme="outline"></i>Mark As Delivered</button>
+      </div>
+  </div>
+  <div class="operation-table">
+      <nz-table #shippedTable [nzData]="shippedInfluencer" [nzLoading]="loading">
+          <thead>
+              <tr>
+                  <th nzWidth="60px" 
+                      [(nzChecked)]="allShippedChecked"
+                      (nzCheckedChange)="checkAllShipped($event)"></th>
+                  <th nzWidth="80px"></th>
+                  <th nzWidth="250px">Influencer</th>
+                  <th>Campaign</th>
+                  <th>Status</th>
+                  <th>Operation</th>
+              </tr>
+          </thead>
+          <tbody>
+              <ng-container *ngFor="let data of shippedTable.data">
+                  <tr>
+                      <td [(nzChecked)]="data.checked"></td>
+                      <td>
+                          <div class="image-holder" (click)="showFullModals(data)">
+                              <img src="{{ data.profile.influencer.profile.picture }}" />
+                          </div>
+                      </td>
+                      <td> 
+                          <div class="user-profile">
+                              <div class="user-name">@{{ data.profile.influencer.profile.username }}</div>
+                              <div class="email"><i nz-icon nzType="mail" nzTheme="outline"></i>{{ data.email }}</div>
+                              <div class="phone"><i nz-icon nzType="phone" nzTheme="outline"></i>{{ data.inf_phone }}</div>
+                          </div>
+                      </td>
+                      <td> 
+                          <div class="campaign">
+                              <div class="link" (click)="showDetailModals(data)">{{ data.campaign.campaign_name }}</div>
+                              <div class="time">{{ data.campaign.end_time }}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="status">
+                              <div class="content">Shipped</div>
+                              <div class="time">Shipped At {{ data.product_ship_time* 1000 | date: 'MM/dd, HH:mm'}}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <button nz-button nzType="link" (click)="startAddShippingIncident(data)"><i nz-icon nzType="bell" nzTheme="fill"></i>Mark Shipping Incident</button>
+                          <button nz-button nzType="link" (click)="markShippedAsShppingArrived(data)"><i nz-icon nzType="tag" nzTheme="outline"></i>Mark As Delivered</button>
+                      </td>
+                  </tr>
+                  <tr [nzExpand]="data.expanded">
+                  </tr>
+              </ng-container>
+          </tbody>
+      </nz-table>
+  </div>
+</div>
+
+<app-influencer-profile-modal #influencerProfile></app-influencer-profile-modal>
+<app-campaign-detail-modal #campaignDetail></app-campaign-detail-modal>
+
+<nz-modal
+    [(nzVisible)]="showAddShippingIncident"
+    nzTitle="Add Reason For Incident"
+    (nzOnCancel)="cancelAddShippingIncident()"
+    (nzOnOk)="addShippingIncident(selectedInfluencer)"
+    nzOkText="Confirm"
+>
+    <div *ngIf="shippingIncident">
+        <div class="input-item">
+            <div>Incident Type:</div>
+            <input nz-input [(ngModel)]="shippingIncident.incident_type" />
+        </div>
+    </div>
+</nz-modal>

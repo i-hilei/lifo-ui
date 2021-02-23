@@ -1,0 +1,213 @@
+<ul class="campaign-menu" nz-menu nzMode="horizontal">
+    <div class="header">
+        KPI Dashboard
+    </div>
+    <li nz-menu-item [nzSelected]="currentView === 'platform'" (click)="currentView = 'platform'">
+        Platform
+        <i nz-icon nzType="fund-projection-screen" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'lifo_shop'" (click)="currentView = 'lifo_shop'">
+        Lifo Shop
+        <i nz-icon nzType="shop" nzTheme="outline"></i>
+    </li>
+    <li nz-menu-item [nzSelected]="currentView === 'refferal'" (click)="currentView = 'refferal'">
+        Refferal
+        <i nz-icon nzType="shop" nzTheme="outline"></i>
+    </li>
+</ul>
+<div *ngIf="currentView === 'platform'">
+    <div class="counters">
+        <div class="counter-item" *ngIf="totalInfluencers">
+            <div class="name">Total Registered Influencer</div>
+            <div class="value">{{ totalInfluencers[totalInfluencers.length - 1] | number }}</div>
+        </div>
+        <div class="counter-item" *ngIf="totalFollowers">
+            <div class="name">Total Influencer Followers</div>
+            <div class="value">{{ totalFollowers[totalFollowers.length - 1] | number }}</div>
+        </div>
+        <div class="counter-item">
+            <div class="name">Total Brands</div>
+            <div class="value">{{ 114 | number }}</div>
+        </div>
+    </div>
+    <div class="charts">
+        <div class="chart-item" *ngIf="dailyInfluencers">
+            <app-line-chart [legend]="'Daily registered Influencer'" [data]="dailyInfluencers" [labels]="dateList"> </app-line-chart>
+        </div>
+
+        <div class="chart-item" *ngIf="totalInfluencers">
+            <app-line-chart [legend]="'Total Registered Influencers'" [data]="totalInfluencers" [labels]="dateList"> </app-line-chart>
+        </div>
+
+        <div class="chart-item" *ngIf="dailyFollowers">
+            <app-line-chart [legend]="'Daily Registered Followers'" [data]="dailyFollowers" [labels]="dateList"> </app-line-chart>
+        </div>
+
+        <div class="chart-item" *ngIf="totalFollowers">
+            <app-line-chart [legend]="'Total Registered Followers'" [data]="totalFollowers" [labels]="dateList"> </app-line-chart>
+        </div>
+
+        <div class="chart-item">
+            <app-line-chart [legend]="'Daily Transaction Volumn'" [data]="dailyTransaction" [labels]="dateList"> </app-line-chart>
+        </div>
+
+        <div class="chart-item">
+            <app-line-chart [legend]="'Daily Campaign'" [data]="dailyCampaign" [labels]="dateList"> </app-line-chart>
+        </div>
+
+        <div class="chart-item">
+            <app-line-chart [legend]="'Daily GMV'" [data]="dailyGMV" [labels]="dateList"> </app-line-chart>
+        </div>
+
+        <div class="chart-item">
+            <app-line-chart [legend]="'Brand Registered'" [data]="totalBrands" [labels]="dateList"> </app-line-chart>
+        </div>
+    </div>
+</div>
+<div *ngIf="currentView === 'lifo_shop' && datas">
+    <div nz-row class="counters lifo-shop" [nzGutter]="16">
+        <div nz-col class="gutter-row" [nzSpan]="6">
+            <div class="inner-box">
+                <div class="counter-items">
+                    <div class="name">Total Visits</div>
+                    <div class="value">{{ datas['total_visits'] | number }}</div>
+                </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row" [nzSpan]="6">
+            <div class="inner-box">
+                <div class="counter-items">
+                    <div class="name">Unique Visits</div>
+                    <div class="value">{{ datas['total_unique_visitors'] | number }}</div>
+                </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row" [nzSpan]="6">
+            <div class="inner-box">
+                <div class="counter-items">
+                    <div class="name">Total Shop Created</div>
+                    <div class="value">{{ datas['number_of_shops'] | number }}</div>
+                </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row" [nzSpan]="6">
+            <div class="inner-box">
+                <div class="counter-items">
+                    <div class="name">Total Link Shared</div>
+                    <div class="value">{{ datas['number_of_shares'] | number }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="charts">
+        <div class="chart-item chart-item-large">
+            <div class="title">
+                <b>Daily Visits</b>
+                <div class="toggleCharts">
+                    <span (click)="checkoutVisit('all')" [ngClass]="{ selects: isChecked }">All</span>
+                    <span (click)="checkoutVisit('by_store')" [ngClass]="{ selects: isByChecked }">By Store</span>
+                </div>
+            </div>
+            <div>
+                <div class="search" *ngIf="isChartSearch">
+                    <nz-input-group [nzPrefix]="suffixIconSearch">
+                        <input type="text" nz-input style="background: #eaeff4;" [(ngModel)]="searchIds" placeholder="Search by store id" />
+                    </nz-input-group>
+                    <ng-template #suffixIconSearch>
+                        <i nz-icon nzType="search"></i>
+                    </ng-template>
+                    <button nz-button nzType="default" [nzLoading]="isShowLoading" (click)="searchByStore()">Find</button>
+                </div>
+                <nz-spin nzSimple *ngIf="isShowLoading"></nz-spin>
+                <div>
+                    <app-line-chart *ngIf="chartView === 'all'" [legend]="" [data]="shopAllTotalVisits" [labels]="shopAllDateList">
+                    </app-line-chart>
+                    <app-line-chart *ngIf="ischartView" [legend]="" [data]="shopByTotalVisits" [labels]="shopByDateList"> </app-line-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="stores">
+        <div class="header">
+            <h4>TOP Visited Stores</h4>
+            <nz-radio-group [(ngModel)]="radioValue" nzButtonStyle="solid">
+                <label nz-radio-button nzValue="100">TOP 100</label>
+                <!-- <label nz-radio-button nzValue="50">TOP 50</label>
+                <label nz-radio-button nzValue="30">TOP 30</label> -->
+            </nz-radio-group>
+        </div>
+        <ul class="content">
+            <li>
+                <div class="left"></div>
+                <div class="right">
+                    <!-- <nz-progress [nzPercent]="i['total_visits']" nzStatus="active" [nzShowInfo]="false"></nz-progress>
+                    {{ i['total_visits'] }} -->
+                    <div class="container">
+                        <ng-container *ngFor="let i of this.scale; let key = index">
+                            <div class="scale-box" *ngIf="key === 0" [ngStyle]="{ width: 0 }">
+                                {{ i }}
+                            </div>
+                            <div class="scale-box child-scale" *ngIf="key !== 0" [ngStyle]="{ width: '20%' }">
+                                {{ i }}
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </li>
+            <li *ngFor="let i of datas.top_shop_visits; let key = index">
+                <div class="left">
+                    <span>{{ key + 1 }}</span>
+                    <img src="{{ i.shop_image_url || 'assets/images/pets.png' }}" alt="" width="30" height="30" />
+                    <span>@{{ i.instagram_id || i.tiktok_id }}</span>
+                </div>
+                <div class="right">
+                    <!-- <nz-progress [nzPercent]="i['total_visits']" nzStatus="active" [nzShowInfo]="false"></nz-progress>
+                    {{ i['total_visits'] }} -->
+                    <div class="container">
+                        <div class="skills html" [ngStyle]="{ width: calPercent(i) }"></div>
+                        <span class="numbers">
+                            {{ i.total_visits }}
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div *ngIf="currentView === 'refferal'">
+    <div nz-row class="counters lifo-shop" [nzGutter]="16">
+        <div nz-col class="gutter-row" [nzSpan]="6">
+            <div class="inner-box">
+                <div class="counter-items">
+                    <div class="name">Total Refferal Invitation Sent</div>
+                    <div class="value">{{ getReferralLength | number }}</div>
+                </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row" [nzSpan]="8">
+            <div class="inner-box">
+                <div class="counter-items">
+                    <div class="name">Average Conversion Rate</div>
+                    <div class="value">{{ (totalInvitation / signUp) * 100 }}%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="charts">
+        <div class="chart-item">
+            <app-line-chart-friend-referral></app-line-chart-friend-referral>
+        </div>
+        <div class="chart-item">
+            <app-line-chart [legend]="'Daily Refferal Invitation Sent'" [data]="dailyReffraldata" [labels]="getrefDailyCount">
+            </app-line-chart>
+        </div>
+        <div class="chart-item">
+            <app-line-chart [legend]="'Total Refferal Invitation Sent'" [data]="totalReffraldata" [labels]="getrefTotalDate">
+            </app-line-chart>
+        </div>
+        <div class="chart-item">
+            <app-line-chart [legend]="'Avg Conversion Rate'" [data]="" [labels]=""> </app-line-chart>
+        </div>
+    </div>
+</div>

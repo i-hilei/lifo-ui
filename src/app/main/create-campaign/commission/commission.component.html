@@ -1,0 +1,629 @@
+<div class="header">
+    <a (click)="backToCampaign()">
+        <i nz-icon nzType="double-left" nzTheme="outline"></i>
+        <span>{{ 'Dashboard' | translate }}</span>
+    </a>
+    <div class="title-message">{{ 'Create New Campaign' | translate }}</div> 
+</div>
+<div class="progress">
+    <nz-progress [nzPercent]="viewPage*25+25" [nzSuccessPercent]="viewPage*25" [nzShowInfo]="false"></nz-progress>
+</div>
+<!-- <app-stripe-payment></app-stripe-payment> -->
+
+<div class="container">
+  <div class="create-container" *ngIf="viewPage === 0">
+    <h4>
+      {{ 'Launch an influencer marketing campaign in a few steps. Lifo will fully manage the campaign for you, with optimal results and fast turnover time.' | translate }}
+    </h4>
+    <!-- <button class="next-button" nz-button nzType="primary"
+      (click)="payCards()" >
+        {{ 'Create & Pay' | translate }}
+      </button> -->
+    <div class="common-subtitle">
+      {{ 'Product Information' | translate }}
+    </div>
+    <!-- shopify -->
+    <div class="typeShopify" *ngIf="isTypeShopify && accountType === 'Shopify'">
+      <div class="common-search">
+        <span>{{ 'Search By Id' | translate }}</span>
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+          <input type="text" nz-input [(ngModel)]="searchShopifyValue" (keyup.enter)="searchProduct()" placeholder="Search by product id" />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button nz-button nzType="primary" nzSearch (click)="searchProduct()"><i nz-icon nzType="search"></i></button>
+        </ng-template>
+      </div>
+      <p class="common-subtips">
+        {{ 'Or choose the product you want to promote below:' | translate }}<i nz-icon nzTooltipTitle="{{ 'For products with a sales price lower than $100, influencers will most likely require additional commissions.' | translate}}" nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i>
+      </p>
+      <div class="common-show-product">
+        <!-- <nz-select
+              nzPlaceHolder=""
+              nzShowSearch
+              [(ngModel)] = "productListOptions"
+              (ngModelChange)="onSearch($event)"
+              >
+              <nz-option *ngFor="let item of productList" [nzLabel]="item.title" [nzValue]="item"></nz-option>
+          </nz-select>
+        
+        <p class="common-explain">
+          For products with a sales price lower than $100, influencers will most likely require additional commissions. 
+        </p> -->
+        <div class="allListProli" *ngIf="isShowProductViewList">
+          <div class="common-select-product" [ngClass]="{'select_products': item['checked']}" *ngFor="let item of productList" (click)="onSearch(item)">
+            <img [src]="item.image?.src" width="160" height="140" alt="">
+            <div>
+              <p class="common-img-top">
+                {{ item.title }}
+              </p>
+              <p class="common-img-bottom">
+                <span class="right2">$ {{ item['variants'][0]['price'] }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="no-results" *ngIf="isNoResult">
+          <img class="logo-image" src="assets/svg/Group 3186.svg">
+        </div>
+      </div>
+    </div>
+    <!-- Amazon -->
+    <div class="typeAmazon" *ngIf="isTypeShopify && accountType === 'Amazon'">
+      <p class="common-subtips">
+        {{ 'Please paste Amazon product URL' | translate }} <i nz-icon nzTooltipTitle="For products with a sales price lower than $100, influencers will most likely require additional commissions. " nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i>
+      </p>
+      <div class="common-search">
+        <nz-input-group nzSearch [nzPrefix]="prefixTemplateUser">
+          <input type="text" nz-input [(ngModel)]="searchValue" (keyup.enter)="searchAmazon()" placeholder="{{'Paste Amazon URL here' | translate}}" />
+        </nz-input-group>
+        <ng-template #prefixTemplateUser><i class="prefixIcon" style="font-size: 16px;" nz-icon nzType="link" nzTheme="outline"></i></ng-template>
+        <button nz-button nzType="primary" class="suffixIcon" nzSearch (click)="searchAmazon()">
+          <img class="logo-image" src="assets/images/vector.png" width="20">
+        </button>
+      </div>
+      <div class="common-search-result clearfix" *ngIf="isShowAmazonSearch" [ngClass]="{'select_amazon': isSelectAmazon}" (click)="onSelectAmazon()">
+        <div class="left">
+          <img class="logo-image" [src]="productImage" width="100" height="100">
+        </div>
+        <div class="right">
+          <p class="name">
+            <!-- <span>Product Name</span> -->
+            <span>{{ productTitle }}</span>
+          </p>
+          <p class="price">
+            <!-- <span>Product Price</span> -->
+            <span>$ {{ productPrices }}</span>
+          </p>
+        </div>
+      </div>
+      <!-- no-results -->
+      <div class="no-results" *ngIf="isNoResult">
+        <img class="logo-image" src="assets/svg/Group 3186.svg">
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="next-button" nz-button nzType="primary" [disabled]="isViewList" (click)="nextClick(1)">
+          {{ 'Next' | translate }}
+          <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+      </button>
+    </div>
+  </div>
+  <div class="create-container" *ngIf="viewPage === 1">
+    <div class="common-subtitle">
+      {{ 'Campaign Budget Details' | translate }}
+    </div>
+    <p class="common-subtips common1-subtips">
+      {{ 'What is your campaign budget?' | translate }}
+    </p>
+    <p class="common-explain">
+      {{ 'How much would you like to offer to influencers for commission, in addition to free products' | translate }}
+    </p>
+    <div class="common-slider1">
+      <!-- <span>500</span>
+      <nz-slider 
+        [(ngModel)]="sliderBudgetValue"
+        [nzDisabled]="sliderDisabled"
+        (nzOnAfterChange)="sliderBudgetValueChange()"
+        [nzMin]="100"
+        [nzMax]="5000"
+        [nzStep]="100"
+        >
+      </nz-slider>
+      <span>5000</span> -->
+      <nz-select
+          nzPlaceHolder="Budget (in $100 increments)"
+          [(ngModel)] = "chooseBudgetValue"
+          (ngModelChange)="sliderBudgetValueChange($event)"
+          >
+          <nz-option *ngFor="let item of budgetList" [nzLabel]="item" [nzValue]="item"></nz-option>
+      </nz-select>
+      <i nz-icon nzTooltipTitle="{{ 'The more commission you spend, the more influencers you can collaborate with, and the more audience will be able to see your product.' | translate }}" nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i> 
+    </div>
+    <div class="common-slider1 common-campaing-free-only" *ngIf="isShowFreeProduct">
+      <p class="common-subtips">
+        {{ 'Target number of influencers (free products to give away)' | translate }}
+      </p>
+      <p class="common-explain">
+        {{ 'For optimal results, we recommend 5-10 influencers per campaign' | translate }}
+      </p>
+      <nz-select
+          nzPlaceHolder="{{ 'Target number of influencers' | translate }}"
+          [(ngModel)] = "chooseProductValue"
+          (ngModelChange)="productValueChange($event)"
+          >
+          <nz-option *ngFor="let item of productsList" [nzLabel]="item" [nzValue]="item"></nz-option>
+      </nz-select>
+    </div>
+    
+    <p class="common-subtips common1-subtips">
+      {{ 'Which platform are you targeting?' | translate }}
+    </p>
+    <div class="filter-radio common2-media">
+      <label *ngFor="let i of mediaList" [ngClass]="{'select-radio': i.checked}" (click)="isChooseMedia(i.src, 'meida')">
+          <img class="logo-image" src="assets/images/{{ i.src }}.jpg">
+          <span>{{ i.title }}</span>
+      </label>
+    </div>
+    <p class="common-subtips common1-subtips">
+      {{ 'Which content type are you targeting?' | translate }}
+    </p>
+    <div class="filter-radio common2-media common2-content">
+      <label *ngFor="let i of contentList[mediaSrc]" [ngClass]="{'select-radio': i.checked}" (click)="isChooseMedia(i.src, 'content')">
+          <img class="logo-image" src="assets/images/{{ i.src }}.png">
+          <span>{{ i.title | translate }}</span>
+      </label>
+    </div>
+    <!-- Preferred Influencer Style (Optional) -->
+    <app-preffered-influencer #preffered></app-preffered-influencer>
+    
+    <div *ngIf="chooseBudgetValue">
+        <p class="common-subtips common1-subtips">
+          {{ 'Estimated Campaign Results' | translate }}
+        </p>
+        <div class="common-campaign-results"  *ngIf="sliderBudgetValue !== 0">
+            <ul class="results-list clearfix">
+              <li>
+                <span class="left">
+                  <span class="left-name">{{ 'Estimated Collaborating Influencers' | translate }}</span>
+                  <span class="right-value">{{ estimatedContents }}</span>
+                </span>
+                <span class="right">
+                  <i nz-icon nzTooltipTitle="{{ 'We will optimize your campaign results by choosing the best influencers for you. The final number of influencers will depend on our matching results.' | translate }}" nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i> 
+                </span>
+              </li>
+              <li>
+                <span class="left">
+                  <span class="left-name">{{ 'Free Products To Be Provided' | translate }}</span>
+                  <span class="right-value">{{ estimatedContents }}</span>
+                </span>
+                <span class="right">
+                  <i nz-icon nzTooltipTitle="{{ 'Each influencer will be getting a free product for content creation. You will be providing them with the free product in addition to the cash budget here.' | translate }} " nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i> 
+                </span>
+              </li>
+              <li>
+                <span class="left">
+                  <span class="left-name">{{ 'Estimated Reach Of Audience' | translate }}</span>
+                  <span class="right-value">{{ estimatedReach }}</span>
+                </span>
+                <span class="right">
+                  <i nz-icon nzTooltipTitle="{{ 'The audience reach is estimated. The more commissions you are willing to pay, the larger audience reach you are able to achieve.' | translate }}" nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i> 
+                </span>
+              </li>
+              <li>
+                <span class="left">
+                  <span class="left-name">{{ 'Delivery Date' | translate }}</span>
+                  <span class="right-value">{{ setDates | date:'MM/dd/yyyy' }}</span>
+                </span>
+                <span class="right">
+                </span>
+              </li>
+            </ul>
+        </div>
+        <div class="common-campaign-results common4-budget" *ngIf="sliderBudgetValue === 0">
+            <ul class="results-list clearfix">
+              <li>
+                <span class="left">
+                  <span class="left-name">{{ 'Number Of Influencers' | translate }}<span>{{ '(free products)' | translate }}</span></span>
+                  <span class="right-value influencers">
+                    {{ chooseProductValue }}
+                  </span>
+                </span>
+              </li>
+              <!-- <li *ngIf="preffered.selectAudienceAge.length !== 0 || preffered.selectAudienceInterest !== '' || preffered.selectAudienceLanguage !== ''">
+                <span class="left">
+                  <span class="left-name">Target Customers</span>
+                  <span class="right-value influencers">
+                    <span *ngIf="preffered.selectAudienceAge.length !== 0">{{ preffered.selectAudienceAge }} </span>
+                    <span *ngIf="preffered.selectAudienceInterest">, {{ preffered.selectAudienceInterest }}</span>
+                    <span *ngIf="preffered.selectAudienceLanguage">, {{ preffered.selectAudienceLanguage['name'] }}</span>
+                  </span>
+                </span>
+              </li> -->
+            </ul>
+        </div>
+    </div>
+    <!-- <p class="common-subtips common1-subtips">
+      Estimated Campaign Results
+    </p>
+    <ul class="results-list common4-list">
+      <li>
+        <span class="left">
+          <span class="left-name">Delivery Date: </span>
+          <span class="right-value"> {{ setDates | date:'MM/dd/yyyy' }}</span>
+        </span>
+      </li>
+      <li>
+        <span class="left">
+          <span class="left-name">Estimated Reach Of Audience: </span>
+          <span class="right-value"> {{ estimatedReach }}</span>
+        </span>
+      </li>
+      <li>
+        <span class="left">
+          <span class="left-name">Free Products To Be Provided: </span>
+          <span class="right-value"> {{ estimatedContents }}</span>
+        </span>
+      </li>
+    </ul> -->
+    <div *ngIf="chooseBudgetValue">
+      <p class="common-subtips common1-subtips">
+        {{ 'Estimated Price' | translate }}
+      </p>
+      <div class="common-campaign-results">
+        <ul class="results-list estimated-price clearfix">
+          <li>
+            <span class="left">
+              <span class="left-name">{{ 'Campaign Budget' | translate }}</span>
+              <span class="right-value">
+                <span *ngIf="sliderBudgetValue !== 0">$</span> {{ sliderBudgetValue !== 0 ? sliderBudgetValue : 'Free products only' | translate}}
+              </span>
+            </span>
+          </li>
+          <li>
+            <span class="left">
+              <span class="left-name"><i>{{ 'Platform Service Charge (10%)' | translate }}</i></span>
+              <span class="right-value through">$ {{ estimateAmountDue * 0.1 }} </span>
+            </span>
+          </li>
+          <mat-divider></mat-divider>
+          <li class="li-totals">
+            <span class="left">
+              <span class="left-name totals"><b>{{ 'Estimated Total' | translate }}</b></span>
+              <span class="right-value totals">$ {{ estimateAmountDue }}</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="button-group">
+      <button class="pre-button" nz-button nzType="default" (click)="viewPage = 0">
+        <i nz-icon nzType="arrow-left" nzTheme="outline"></i>
+        {{ 'Back' | translate }}
+    </button>
+      <button class="next-button" nz-button nzType="primary" [disabled]="isNoChoose" (click)="nextClick(2)">
+          {{ 'Next' | translate }}
+          <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+      </button>
+    </div>
+  </div>
+  <!-- <div class="create-container" *ngIf="viewPage === 2">
+    <div class="common-subtitle">
+      Targeting Requirements
+    </div>
+    <p class="common-subtips common1-subtips">
+      Who are your targeted customer?
+    </p>
+    <p class="common-explain">
+      We will match the best influencers to target your customers!
+    </p>
+    <div class="common2-select-target">
+      <nz-select
+          nzMode="multiple"
+          nzPlaceHolder="Age"
+          [(ngModel)]="selectAudienceAge"
+          >
+          <nz-option *ngFor="let item of ageOptions" [nzLabel]="item" [nzValue]="item"></nz-option>
+      </nz-select>
+      <nz-select
+          nzPlaceHolder="Gender"
+          [(ngModel)]="selectAudienceInterest"
+          >
+          <nz-option *ngFor="let item of genderOptions" [nzLabel]="item" [nzValue]="item"></nz-option>
+      </nz-select>
+      <nz-select
+          nzPlaceHolder="Language"
+          [(ngModel)]="selectAudienceLanguage"
+          >
+          <nz-option *ngFor="let item of languageOptions" [nzLabel]="item.name" [nzValue]="item"></nz-option>
+      </nz-select>
+      <i nz-icon nzTooltipTitle="{{ 'Lifo’s algorithm will try to find influencers whose fanbase best matches the criteria here.' | translate }}" nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i>
+    </div>
+    <div class="button-group">
+      <button class="pre-button" nz-button nzType="default" (click)="viewPage = 1">
+        <i nz-icon nzType="arrow-left" nzTheme="outline"></i>
+        Back
+    </button>
+      <button class="next-button" nz-button nzType="primary" (click)="viewPage = 3">
+          Next
+          <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+      </button>
+    </div>
+  </div> -->
+    <div class="create-container" *ngIf="viewPage === 2">
+        <div class="common-subtitle">
+            {{ 'Promotional Discount' | translate }}
+        </div>
+        <p class="common-subtips common1-subtips">
+            {{ 'create-campaign-commission-COUPON_TITLE' | translate }}
+            <i nz-icon nzTooltipTitle="{{ 'Having an optional promotion helps us track the campaign conversion performance and provides insights to future campaigns. We recommend providing a promotion for influencers’ fans.' | translate }}" nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i>
+        </p>
+        <p class="common-explain">
+            {{ 'create-campaign-commission-COUPON_DESCRIPTION' | translate }}
+        </p>
+        <div class="common3-choose-Discount clearfix">
+            <div class="left">
+                {{ 'Offer Discount (%)' | translate }}
+            </div>
+            <div class="right">
+                <nz-radio-group [(ngModel)]="radioValue" nzButtonStyle="solid">
+                    <label nz-radio-button nzValue="0">0</label>
+                    <label nz-radio-button nzValue="10">10%</label>
+                    <label nz-radio-button nzValue="15">15%</label>
+                    <label nz-radio-button nzValue="25">25%</label>
+                    <label nz-radio-button nzValue="customizeValue">{{ 'Customize' | translate }}</label>
+                </nz-radio-group>
+            </div>
+            <div class="customize" *ngIf="radioValue === 'customizeValue'">
+                <span>{{ 'Enter Your Custom Discounts' | translate }}</span>
+                <nz-input-group nzSuffix="%">
+                    <input type="number" nz-input [(ngModel)]="customizeValue" (ngModelChange)="isSetCustomizeValue($event)" />
+                </nz-input-group>
+                <div class="isShowErrorStyle" *ngIf="errorCouonCodeValue">
+                    {{ 'Please enter any integer between 0 ~ 100' | translate }}
+                </div>
+            </div>
+            <div class="promo-code" *ngIf="accountType === 'Amazon'">
+                <p class="common-subtips common1-subtips">
+                    {{ 'Please provide the promo code:' | translate }}
+                </p>
+                <p class="common-explain">
+                    {{ 'The promo code that influencers can share to their followers' | translate }}
+                </p>
+                <input type="text" nz-input placeholder="Promo code" [(ngModel)]="promoCodeValue" />
+            </div>
+            <div class="eligible">{{ 'create-campaign-commission-COUPON_ELIGIBLE' | translate }}</div>
+        </div>
+
+        <div class="button-group">
+            <button class="pre-button" nz-button nzType="default" (click)="viewPage = 1">
+                <i nz-icon nzType="arrow-left" nzTheme="outline"></i>
+                {{ 'Back' | translate }}
+            </button>
+            <button class="next-button" nz-button nzType="primary" [disabled]="errorCouonCodeValue" (click)="nextClick(3)">
+                {{ 'Submit' | translate }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Campaign Summary -->
+    <div class="create-container" *ngIf="viewPage === 3">
+        <div class="common-submit">
+            <h4>{{ 'Basic Information' | translate }}</h4>
+            <mat-divider></mat-divider>
+            <ul class="submit-ul">
+                <li>
+                    <span class="left">{{ 'Campaign Name' | translate }}</span>
+                    <span class="right">{{ campaignName }}</span>
+                </li>
+                <li style="height: 50px;">
+                    <span class="left">{{ 'Product Information' | translate }}</span>
+                    <span class="right">
+                        <div class="common-search-result submit-info-results clearfix" style="padding: 0;" >
+                            <div class="left">
+                                <img class="logo-image" [src]="productImage" width="50" height="50">
+                            </div>
+                            <div class="right">
+                                <p class="name">
+                                    <span>{{ productTitle }}</span>
+                                </p>
+                                <p class="price">
+                                    <span>$ {{ productPrices }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </span>
+                </li>
+                <li>
+                    <span class="left">{{ 'Campaign Budget' | translate }}</span>
+                    <span class="right"><span *ngIf="sliderBudgetValue !== 0">$</span> {{ sliderBudgetValue !== 0 ? sliderBudgetValue : 'Free products only'}}</span>
+                </li>
+                <li *ngIf="sliderBudgetValue != 0">
+                    <span class="left">{{ 'Free Products To Be Provided' | translate }}</span>
+                    <span class="right">{{ estimatedContents }}</span>
+                </li>
+                <li *ngIf="sliderBudgetValue != 0">
+                    <span class="left">{{ 'Estimated Reach Of Audience' | translate }}</span>
+                    <span class="right">{{ estimatedReach }}</span>
+                </li>
+                <li>
+                    <span class="left">{{ 'Delivery Date' | translate }}</span>
+                    <span class="right">{{ setDates | date:'MM/dd/yyyy' }}</span>
+                </li>
+                <li>
+                    <span class="left">{{ 'Promotional Discount' | translate }}</span>
+                    <span class="right">
+                        <b class="coupon-code">{{promoCodeValue}}</b>
+                        {{ radioValue === 'customizeValue' ? customizeValue : radioValue }} % {{ 'Off Sitewide' | translate }}
+                    </span>
+                </li>
+                <li>
+                    <span class="left">{{ 'Platform' | translate }}</span>
+                    <span class="right">
+                        <img class="logo-image" width="18" style="margin-right: 10px;" src="assets/images/{{ mediaSrc }}.jpg">
+                        <span>{{ mediaValue }}</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="common-submit">
+            <h4>{{ 'Preferred Influencer Style' | translate }}</h4>
+            <mat-divider></mat-divider>
+            <ul class="submit-ul">
+                <li>
+                    <span class="left">{{ 'Age' | translate }}</span>
+                    <span class="right" *ngIf="selectAudienceAge.length > 0">{{ selectAudienceAge }}</span>
+                    <span class="right" *ngIf="selectAudienceAge.length === 0">{{ 'All' | translate }}</span>
+                </li>
+                <li>
+                    <span class="left">{{ 'Gender' | translate }}</span>
+                    <span class="right" *ngIf="selectAudienceInterest">{{ selectAudienceInterest }}</span>
+                    <span class="right" *ngIf="!selectAudienceInterest">{{ 'All' | translate }}</span>
+                </li>
+                <li>
+                    <span class="left">{{ 'Language' | translate }}</span>
+                    <span class="right" *ngIf="selectAudienceLanguage">{{ selectAudienceLanguage }}</span>
+                    <span class="right" *ngIf="!selectAudienceLanguage">{{ 'All' | translate }}</span>
+                </li>
+                <li>
+                    <span class="left">{{ 'Min Follower Base' | translate }}</span>
+                    <span class="right" *ngIf="selectAudienceFollower">{{ selectAudienceFollower }}</span>
+                    <span class="right" *ngIf="!selectAudienceFollower">{{ 'All' | translate }}</span>
+                </li>
+                <li class="regionStyle">
+                    <span class="left">{{ 'Region' | translate }}</span>
+                    <span class="right" *ngIf="selectInfluencerLocation.length != 0">
+                        <span class="showSelectValue" *ngFor="let item of selectInfluencerLocation">
+                          {{ item.name }},
+                        </span>
+                    </span>
+                    <span class="right" *ngIf="selectInfluencerLocation.length == 0">
+                        {{ 'All' | translate }}
+                    </span>
+                </li>
+                <li class="regionStyle">
+                    <span class="left">{{ 'Influencer Tags' | translate }}</span>
+                    <span class="right" *ngIf="influencerSelectValue.length != 0">
+                        <span class="showSelectValue" *ngFor="let item of influencerSelectValue">
+                            {{ item.value }},
+                        </span>
+                    </span>
+                    <span class="right" *ngIf="influencerSelectValue.length == 0">
+                        {{ 'All' | translate }}
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="common-submit">
+            <h4>{{ 'Contact Information Confirmation' | translate }}
+                <span>{{ 'We may contact you for additional questions if needed' | translate }}</span>
+            </h4>
+            <mat-divider></mat-divider>
+            <form nz-form [nzLayout]="'inline'" class="mailStyles" [formGroup]="validateForm" >
+                <nz-form-item>
+                    <nz-form-label nzRequired nzFor="store_email">
+                      <i nz-icon nzType="mail" nzTheme="outline" style="color: #000"></i> {{ 'Email' | translate }}
+                    </nz-form-label>
+                    <nz-form-control nzErrorTip="Please provide a valid email">
+                      <input nz-input formControlName="store_email" id="store_email" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired nzFor="store_phone">
+                      <i nz-icon nzType="phone" nzTheme="outline"></i> {{ 'Phone' | translate }}
+                    </nz-form-label>
+                    <nz-form-control
+                      [nzValidateStatus]="isStatus"
+                      nzErrorTip="Please provide a valid phone number"
+                    >
+                      <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+                        <ng-template #addOnBeforeTemplate>
+                          <nz-select formControlName="store_phone_prefix" class="phone-select">
+                            <nz-option nzLabel="+1" nzValue="+1"></nz-option>
+                            <nz-option nzLabel="+86" nzValue="+86"></nz-option>
+                          </nz-select>
+                        </ng-template>
+                        <input formControlName="store_phone" id="'store_phone'" nz-input />
+                      </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+
+        <!-- Payment -->
+        <div class="common4-payStyle">
+            <h4>
+                {{ 'Payment Details' | translate }}
+                <button class="pre-button" nzSize="small" nz-button nzType="default" [disabled]="isShowUnpaid">
+                    {{ 'Unpaid' | translate }}
+                </button>
+            </h4>
+            <mat-divider></mat-divider>
+            <ul class="results-list estimated-price payStyle-ul clearfix">
+                <li>
+                    <span class="left">
+                        <span class="left-name">{{ 'Campaign Budget' | translate }}</span>
+                        <span class="right-value">
+                            <span *ngIf="sliderBudgetValue !== 0">$</span> {{ sliderBudgetValue !== 0 ? sliderBudgetValue : 'Free products only'}}
+                        </span>
+                    </span>
+                </li>
+                <li>
+                    <span class="left">
+                        <span class="left-name through"><i>{{ 'Platform Service Charge (10%)' | translate }}</i></span>
+                        <span class="right-value through">$ {{ estimateAmountDue * 0.1 }} </span>
+                    </span>
+                </li>
+                <li>
+                    <span class="left">
+                        <h3>{{ 'Payment Mode' | translate }}</h3>
+                        <div class="filter-radio">
+                            <label *ngFor="let i of paymentList" [ngClass]="{'select-radio': i.checked}" (click)="isSelecet(i.name)">
+                                <img class="logo-image" src="assets/images/{{ i.name }}.png">
+                                <span class="payment-method" *ngIf="i.title">{{ i.title }}</span>
+                            </label>
+                        </div>
+                        <p class="common-explain">
+                            {{ 'Note: The final spending will be depending on the actual commissions paid to influencers. If we charged more than needed now, we will refund the difference once campaign finishes.' | translate }}
+                        </p>
+                    </span>
+                </li>
+                <mat-divider></mat-divider>
+                <li class="li-totals">
+                    <span class="left">
+                        <span class="left-name totals"><b>{{ 'Total Price' | translate }}</b></span>
+                        <span class="right-value totals">${{ estimateAmountDue }}</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="checkboxSlect">
+            <label nz-checkbox [(ngModel)]="checked"></label>
+            <a href="https://www.lifo.ai/terms-of-use" target="_blank">
+                {{ 'By checking here, I agree with the terms and conditions of using Lifo' | translate }}
+            </a>
+        </div>
+      
+        <div class="button-group common4-button">
+            <button 
+                class="next-button" nz-button nzType="primary"
+                (click)="createProductOnlyCampaign()" 
+                [disabled]="!checked || !validateForm.value.store_email || !validateForm.value.store_phone">
+                {{ 'Create & Pay' | translate }}
+            </button>
+            <button 
+                class="pre-button" nz-button nzType="default"
+                (click)="backToCampaign()">
+                {{ 'Cancel' | translate }}
+            </button>
+        </div>
+    </div>
+</div>
+
+<app-stripe-payment 
+    #payCard 
+    [campaignPrice]="campaignPrice"
+    (onCompletePayment)="completePayment()"
+    (onCancelPayment)="cancelPayment()"></app-stripe-payment>

@@ -1,0 +1,737 @@
+<div class="header">
+    <a (click)="backToCampaign()">
+        <i nz-icon nzType="double-left" nzTheme="outline"></i>
+        <span>Dashboard</span>
+    </a>
+    <div class="title-message">Create New Campaign</div> 
+</div>
+<nz-progress [nzPercent]="viewPage*25+25" [nzSuccessPercent]="viewPage*25" [nzShowInfo]="false"></nz-progress>
+<div class="container">
+    <!-- Type 1 Free Product Only -->
+    <div class="create-container" *ngIf="viewPage === 0">
+        <div class="title">
+            Free Product Only Campaign
+        </div>
+    
+        <div class="message">
+            <div class="message-content"> For optimal effects, we recommend product with a market price of $50 and above.  You will trade a free product 
+                with influencer for a permanent,  high quality, social proof image content. </div>
+            <!-- <span class="material-icons"> close </span> -->
+        </div><br>
+
+        <div class="sub-title">
+            Campaign Information
+        </div>
+        <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm">
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Campaign Name
+                </nz-form-label>
+                <nz-form-control nzErrorTip="Please input Campaign Name!">
+                    <input 
+                        nz-input 
+                        placeholder="Default: Brandname_mm/dd/yyyy" 
+                        formControlName="campaign_name" 
+                        id="campaign_name"
+                        autocomplete="off" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Campaign Launch Date
+                </nz-form-label>
+                <nz-form-control nzErrorTip="Please input Campaign Launch Date!">
+                    <nz-date-picker 
+                        formControlName="end_time" 
+                        id="end_time" 
+                        [nzFormat]="dateFormat" >
+                    </nz-date-picker>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="selectList">
+                <nz-form-label nzRequired>
+                    Targeted Customers
+                </nz-form-label>
+                <nz-form-control>
+                    <nz-select
+                        style="margin-left: 0;"
+                        nzMode="multiple"
+                        nzShowSearch
+                        nzPlaceHolder="Enter country or city"
+                        formControlName="selectAudienceLocation" 
+                        >
+                        <nz-option *ngFor="let item of audienceLocationOptions" [nzLabel]="item.name" [nzValue]="item"></nz-option>
+                    </nz-select>
+                    <nz-select
+                        nzMode="multiple"
+                        nzPlaceHolder="Age"
+                        formControlName="selectAudienceAge"
+                        >
+                        <nz-option *ngFor="let item of ageOptions" [nzLabel]="item" [nzValue]="item"></nz-option>
+                    </nz-select>
+                    <nz-select
+                        nzPlaceHolder="Gender"
+                        formControlName="selectAudienceGender"
+                        >
+                        <nz-option *ngFor="let item of genderOptions" [nzLabel]="item" [nzValue]="item"></nz-option>
+                    </nz-select>
+                    <nz-select
+                        nzPlaceHolder="Language"
+                        formControlName="selectAudienceLanguage"
+                        >
+                        <nz-option *ngFor="let item of languageOptions" [nzLabel]="item.name" [nzValue]="item"></nz-option>
+                    </nz-select>
+                    <i nz-icon nzTooltipTitle="Lifo’s algorithm will try to find influencers whose fanbase best matches the criteria here. " nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label>
+                    Social Media
+                </nz-form-label>
+                <nz-form-control>
+                    <nz-radio-group formControlName="platform" nzButtonStyle="solid">
+                        <label nz-radio-button nzValue="Instagram">
+                            <img class="logo-image" src="assets/images/instagram.jpg">
+                            <span>Instagram</span>
+                        </label>
+                        <label nz-radio-button nzValue="Youtube">
+                            <img class="logo-image" src="assets/images/youtube.jpg">
+                            <span>Youtube</span>
+                        </label>
+                        <label nz-radio-button nzValue="Tik Tok">
+                            <img class="logo-image" src="assets/images/tiktok.jpg">
+                            <span>Tik Tok</span>
+                        </label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+
+        <div class="button-group">
+            <button class="next-button" nz-button nzType="primary" (click)="viewPage = 1">
+                Next
+            </button>
+        </div>
+    </div>
+
+    <div class="create-container" *ngIf="viewPage === 1">
+        <form nz-form [nzLayout]="'inline'" [formGroup]="productDetailForm" (ngSubmit)="submitForm()">
+            <!-- <nz-form-item>
+                <nz-form-label nzRequired>
+                    Additional Targeting Requriements
+                </nz-form-label>
+                <nz-form-control nzErrorTip="Please input Targeted!">
+                    <div class="list-input">
+                        <div class="list-item" *ngFor="let requirement of campaignData.requirements; index as i">
+                            <mat-checkbox> {{ requirement }}</mat-checkbox>
+                            <span class="material-icons remove-icon" (click)="removeFromList(campaignData.requirements, i)">
+                                remove_circle_outline
+                            </span>
+                        </div>
+                        <div class="requirementsListIpt">
+                            <input 
+                                nz-input 
+                                placeholder="Other requirements" 
+                                formControlName="newRequirement"
+                                (ngModelChange)="requirementChange($event)"
+                                autocomplete="off"
+                            >
+                            <button mat-button (click)="addRequirement()" [disabled]="!newRequirement">
+                                <span class="material-icons add-icon">
+                                    playlist_add
+                                </span>
+                            </button>
+                            <i nz-icon [nzTooltipTitle]="tooltip.requirement" nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i>
+                        </div>
+                    </div>
+                </nz-form-control>
+            </nz-form-item> -->
+            <div class="sub-title">
+                Product Details Information
+            </div>
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Product Name
+                </nz-form-label>
+                <nz-form-control nzErrorTip="Please input Product Name!">
+                    <input 
+                        nz-input 
+                        placeholder="Product Name"  
+                        formControlName="product_name" 
+                        id="product_name"
+                        autocomplete="off" 
+                        *ngIf="productList.length <= 0"/>
+
+                    <nz-select
+                        nzShowSearch
+                        nzAllowClear
+                        nzPlaceHolder="Product Name"
+                        formControlName="product_name" 
+                        id="product_name"
+                        *ngIf="productList.length > 0"
+                        (ngModelChange)="selectShopifyItem($event)"
+                    >
+                        <nz-option *ngFor="let product of productList" [nzLabel]="product.title" [nzValue]="product.title"> 
+                            {{product.title}}
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Retail Price
+                </nz-form-label>
+                <nz-form-control nzErrorTip="Please input Product Price!">
+                    <nz-input-group>
+                        <nz-input-number 
+                            [nzFormatter]="formatterDollar"
+                            [nzParser]="parserDollar"
+                            formControlName="product_price" 
+                            id="product_price" >
+                        </nz-input-number>
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Product Cost
+                </nz-form-label>
+                <nz-form-control 
+                    nzErrorTip="Please input Product Cost!"
+                    (change)="unitCostChange()">
+                    <nz-input-group>
+                        <nz-input-number 
+                            [nzFormatter]="formatterDollar"
+                            [nzParser]="parserDollar"
+                            formControlName="unit_cost" 
+                            id="unit_cost" >
+                        </nz-input-number>
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Targeted number of inluencers
+                </nz-form-label>
+                <nz-form-control 
+                    nzErrorTip="Please input targeted number!"
+                    (change)="numberPostChange()">
+                    <input 
+                        nz-input 
+                        type="number"
+                        placeholder="default: 5"  
+                        formControlName="number_of_posts" 
+                        id="number_of_posts"  />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label>
+                    Estimated  Total Cost
+                </nz-form-label>
+                <nz-form-control>
+                    $ {{campaignData.estimated_total_cost}}
+                    <i nz-icon nzTooltipTitle="Estimated total cost is based on the total cost of products you are giving away, plus any sales commission you might pay the influencers." nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+        <div class="product-detailsall">
+            <div class="template-selector">
+                <h4 class="detail-title"> Product Introduction </h4>
+                <!-- <ng-select 
+                    class="template-version-select" 
+                    [clearable]="false" 
+                    style="float: right;"
+                    nzPlaceHolder="Example Template"
+                    [items]="productDetailTemplates"
+                    [(ngModel)]="selectedProductDetailTemplate"
+                    (change)="selectProductDetailTemplate($event)"
+                >
+                    <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                        {{item.template_name}}
+                    </ng-template>
+                </ng-select> -->
+                <div class="description"> 
+                    Introduce the highlights of your product to attract influencers. <br>
+                    The better you showcase your product, the more likely influencers will agree to collaborate.  </div>
+                <!-- <ng-select 
+                    class="template-version-select" 
+                    [clearable]="false" 
+                    [items]="productDetailTemplates"
+                    [(ngModel)]="selectedProductDetailTemplate"
+                    (change)="selectProductDetailTemplate($event)"
+                >
+                    <ng-template ng-option-tmp ng-label-tmp let-item="item">
+                        {{item.template_name}}
+                    </ng-template>
+                </ng-select> -->
+            </div>
+            <div class="content-edit">
+                <app-email-editor #productEditor [htmlContent]="productDetailHtml"></app-email-editor>
+                <div nz-row [nzGutter]="16">
+                    <div nz-col class="gutter-row" [nzSpan]="8">
+                        <div class="inner-box">
+                            <div class="image-title detail-title">  Select Image </div>
+                            <div class="select-left">
+                                <label class="upload-section">
+                                    <span class="material-icons" *ngIf = "uploadURL == ''"> add_photo_alternate </span>
+                                    <div *ngIf = "uploadURL == ''">Upload images</div>
+                                    <img [src]="uploadURL" alt="" *ngIf = "uploadURL != ''">
+                                    <input class="file-input" type="file" id="inputFile" (change)="onDrop($event.target.files)" accept=".png,.jpg"> 
+                                </label>
+                                <span *ngIf="(snapshot | async) as snap">
+                                    {{ snap.bytesTransferred }} of {{ snap.totalBytes }} 
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div nz-col class="gutter-row" [nzSpan]="16">
+                        <div class="inner-box">
+                            <div class="link-right">
+                                <div class="image-title detail-title"> URL to your product page </div>
+                                <div class="description">
+                                    Provide the product link for influencers to research on. This will increase the chances for them to accept your offer if they love your proudct!
+                                </div>
+                                <span></span>
+                                <div class="linkDiv">
+                                    <nz-input-group [nzPrefix]="prefixTemplateUser">
+                                    <input 
+                                        nz-input 
+                                        placeholder="Paste Shopify URL here" 
+                                        [(ngModel)]="shopifyLink"
+                                        autocomplete="off"
+                                    >
+                                    </nz-input-group>
+                                    <ng-template #prefixTemplateUser>
+                                        <span class="material-icons link-icons">
+                                        link
+                                        </span>
+                                    </ng-template>
+                                </div>
+                                <div class="linkDiv">
+                                    <nz-input-group [nzPrefix]="amazonTemplateUser">
+                                    <input 
+                                        nz-input 
+                                        placeholder="Paste Amazon URL here" 
+                                        [(ngModel)]="amazonLink"
+                                        autocomplete="off"
+                                    >
+                                    </nz-input-group>
+                                    <ng-template #amazonTemplateUser>
+                                        <span class="material-icons link-icons">
+                                        link
+                                        </span>
+                                    </ng-template>
+                                </div>
+                                <div class="linkDiv">
+                                    <nz-input-group [nzPrefix]="otherTemplateUser">
+                                    <input 
+                                        nz-input 
+                                        placeholder="Others" 
+                                        [(ngModel)]="linkOthers"
+                                        autocomplete="off"
+                                    >
+                                    </nz-input-group>
+                                    <ng-template #otherTemplateUser>
+                                        <span class="material-icons link-icons">
+                                        link
+                                        </span>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="next-button" nz-button nzType="primary" (click)="pageTwoToThree()">
+                Next
+            </button>
+            <button class="close-button" (click)="pageTwoToOne()" nz-button nzType="default">
+                Back
+            </button>
+        </div>
+    </div>
+    <div class="create-container" *ngIf="viewPage === 2">
+        <div class="sub-title">
+            Collaboration Details
+        </div>
+
+        <div class="message">
+            <div class="message-content"> 
+                Think of this as the instructions you’re giving to each influencer!
+            </div>
+            <!-- <span class="material-icons"> close </span> -->
+        </div>
+        <div class="coll-Top">
+            <form nz-form [formGroup]="detailsValidateForm">
+                <nz-form-item>
+                    <nz-form-label nzRequired>
+                        What Instagram contents  are you looking for?
+                    </nz-form-label>
+                    <nz-form-control nzErrorTip="Please input content_format!">
+                        <input nz-input placeholder="e.g. “1 post, 1 story”. If left empty, default: 1 Post."  formControlName="content_format" id="content_format" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>
+                        (Optional) Who should they tag?
+                    </nz-form-label>
+                    <nz-form-control nzErrorTip="Please input post_tags!">
+                        <input nz-input placeholder="e.g. “@Lifoinc"  formControlName="post_tags" id="post_tags" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired>
+                        Visual content guidelines
+                    </nz-form-label>
+                    <nz-form-control nzErrorTip="Please input visual_content_guideline!">
+                        <textarea
+                            nz-input 
+                            placeholder="Describe your vision, or any guidelines, for the visual content generated by the influencer here. If left empty, default: 'Product must be visible'"  
+                            formControlName="visual_content_guideline" 
+                            id="visual_content_guideline">
+                        </textarea> 
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzRequired>
+                        Post caption guidelines
+                    </nz-form-label>
+                    <nz-form-control nzErrorTip="Please input text_post_guideline!">
+                        <textarea 
+                            nz-input 
+                            placeholder="Describe guidelines, if any, for influencers as they write the text post that accompanies the visual content. If left empty, default:  “Must mention brand name”"  
+                            formControlName="text_post_guideline" 
+                            id="text_post_guideline">
+                        </textarea>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>
+                        (Optional) Hashtags, Hashtags, Hashtags!
+                    </nz-form-label>
+                    <nz-form-control nzErrorTip="Please input post_hastags!">
+                        <textarea 
+                            nz-input 
+                            placeholder="List any hashtags you would like the influencer to use in their post here. If you don’t have preference, influencers will pick them at their best judgement."  
+                            formControlName="post_hastags" 
+                            id="post_hastags">
+                        </textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+
+        <div class="button-group">
+            <button class="next-button" nz-button nzType="primary" (click)="viewPage = 3">
+                Next
+            </button>
+            <button class="close-button" (click)="viewPage = 1" nz-button nzType="default">
+                Back
+            </button>
+        </div>
+    </div>
+
+    <div class="create-container" *ngIf="viewPage === 3">
+        <form nz-form [formGroup]="paymentForm" (ngSubmit)="createProductOnlyCampaign()">
+            <div class="sub-title">
+                Compensation
+            </div>
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    How will you compensate your influencer?
+                </nz-form-label>
+                <nz-form-control nzErrorTip="Please input compensate_method!">
+                    <input 
+                        nz-input
+                        placeholder="If left empty, default: “Free product”"  
+                        formControlName="compensate_method" 
+                        id="compensate_method"
+                        autocomplete="off" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label nzRequired>
+                    Payment method
+                </nz-form-label>
+                <nz-form-control nzErrorTip="Please input payment_platform!">
+                    <input 
+                        nz-input 
+                        placeholder="If left empty, default: PayPal, we pay for the PayPal fee"  
+                        formControlName="payment_platform" 
+                        id="payment_platform"
+                        autocomplete="off" />
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+
+        <div class="button-group">
+            <button class="next-button create-button" 
+                (click)="createProductOnlyCampaign()"
+                [disabled]="!detailsValidateForm.valid" nz-button nzType="primary" >
+                Create
+            </button>
+            
+            <button class="close-button" (click)="viewPage = 2" nz-button nzType="default">
+                Back
+            </button>
+        </div>
+    </div>
+</div>
+<!-- 
+    <div class="create-container">
+        <div class="left-block">
+            <div>
+                <div class="item-title">
+                    Campaign Name:
+                    <div class="type-selection">
+                        <span
+                            [ngClass]="{ 'disable-type': campaignType === 'video' }"
+                            class="material-icons campaign-type-selector"
+                            (click)="campaignType = 'image'"
+                        >
+                            image
+                        </span>
+                        <span
+                            [ngClass]="{ 'disable-type': campaignType === 'image' }"
+                            class="material-icons campaign-type-selector"
+                            [matTooltip]="'Coming Soon'"
+                        >
+                            videocam
+                        </span>
+                    </div>
+                </div>
+                <mat-form-field class="example-full-width">
+                    <input
+                        matInput
+                        placeholder=""
+                        [(ngModel)]="campaignName"
+                        (ngModelChange)="campaignNameChange($event)"
+                        autocomplete="off"
+                    />
+                </mat-form-field>
+            </div>
+
+            <div>
+                <div class="item-title">Brand:</div>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="" [(ngModel)]="brand" (ngModelChange)="brandChange($event)" autocomplete="off" />
+                </mat-form-field>
+            </div>
+
+            <div>
+                <div class="item-title">Platform:</div>
+                <mat-form-field class="example-full-width">
+                    <mat-select [formControl]="platform" multiple>
+                        <mat-option *ngFor="let p of platformList" [value]="p">{{ p }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="isBrandView">
+                <div class="item-title">
+                    Product:
+                    <span class="material-icons refresh-icon" (click)="refreshProductList()"> refresh </span>
+                </div>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="" [formControl]="product" autocomplete="off" [matAutocomplete]="auto" />
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of productListOptions | async" [value]="option.title">
+                            {{ option.title }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="isBrandView">
+                <div class="item-title">Total Budget ($)</div>
+                <mat-form-field class="example-full-width">
+                    <span matPrefix>$ &nbsp;</span>
+                    <input
+                        matInput
+                        type="number"
+                        placeholder=""
+                        [(ngModel)]="budget"
+                        (ngModelChange)="budgetChange($event)"
+                        autocomplete="off"
+                    />
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="!isBrandView">
+                <div class="half">
+                    <div class="item-title">Commission Type:</div>
+                    <mat-form-field class="example-half-width">
+                        <mat-select [formControl]="commissionType" (onChange)="commissionTypeChange()">
+                            <mat-option *ngFor="let p of commissionTypeList" [value]="p">{{ p }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="extend-half">
+                    <div class="item-title">Commission:</div>
+                    <mat-form-field class="example-half-width" *ngIf="showCommissionDollar()">
+                        <span matPrefix>$ &nbsp;</span>
+                        <input
+                            matInput
+                            type="number"
+                            placeholder=""
+                            [(ngModel)]="commissionDollar"
+                            (ngModelChange)="commissionDollarChange($event)"
+                            autocomplete="off"
+                        />
+                    </mat-form-field>
+                    <mat-form-field class="example-half-width" *ngIf="showCommissionPercent()">
+                        <span matSuffix>&nbsp; %</span>
+                        <input
+                            matInput
+                            type="number"
+                            placeholder=""
+                            [(ngModel)]="commissionPercent"
+                            (ngModelChange)="commissionPercentChange($event)"
+                            autocomplete="off"
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-block">
+            <div>
+                <div class="half">
+                    <div class="item-title">Contact Name:</div>
+                    <mat-form-field class="example-half-width">
+                        <input
+                            matInput
+                            placeholder=""
+                            [(ngModel)]="contactName"
+                            (ngModelChange)="contactNameChange($event)"
+                            autocomplete="off"
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div class="half">
+                    <div class="item-title">Contact Email:</div>
+                    <mat-form-field class="example-half-width">
+                        <input
+                            matInput
+                            placeholder=""
+                            [(ngModel)]="contactEmail"
+                            (ngModelChange)="contactEmailChange($event)"
+                            autocomplete="off"
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div>
+                <div class="item-title">Review Deadline:</div>
+                <mat-form-field class="date-input">
+                    <input
+                        matInput
+                        [matDatepicker]="endTimePicker"
+                        [(ngModel)]="endDate"
+                        (ngModelChange)="endTimeChange($event)"
+                        autocomplete="off"
+                    />
+                    <mat-datepicker-toggle matSuffix [for]="endTimePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endTimePicker></mat-datepicker>
+                </mat-form-field>
+                <ngx-mat-timepicker
+                    class="time-input"
+                    [(ngModel)]="endTime"
+                    [showSpinners]="false"
+                    [enableMeridian]="false"
+                ></ngx-mat-timepicker>
+            </div>
+
+            <div>
+                <div class="item-title">Post Date:</div>
+                <mat-form-field>
+                    <input
+                        matInput
+                        [matDatepicker]="postTimePicker"
+                        [(ngModel)]="postDate"
+                        (ngModelChange)="endTimeChange($event)"
+                        autocomplete="off"
+                    />
+                    <mat-datepicker-toggle matSuffix [for]="postTimePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #postTimePicker></mat-datepicker>
+                </mat-form-field>
+                <ngx-mat-timepicker
+                    class="time-input"
+                    [(ngModel)]="postTime"
+                    [showSpinners]="false"
+                    [enableMeridian]="false"
+                ></ngx-mat-timepicker>
+            </div>
+
+            <div class="list-input">
+                <div class="item-title">Requirements</div>
+                <div class="list-item" *ngFor="let requirement of campaignData.requirements; index as i">
+                    <mat-checkbox> {{ requirement }}</mat-checkbox>
+                    <span class="material-icons remove-icon" (click)="removeFromList(campaignData.requirements, i)">
+                        remove_circle_outline
+                    </span>
+                </div>
+                <mat-form-field class="example-full-width">
+                    <input
+                        matInput
+                        placeholder=""
+                        [(ngModel)]="newRequirement"
+                        (ngModelChange)="requirementChange($event)"
+                        autocomplete="off"
+                    />
+                </mat-form-field>
+                <button mat-button (click)="addRequirement()" [disabled]="!newRequirement">
+                    <span class="material-icons add-icon">
+                        playlist_add
+                    </span>
+                </button>
+            </div>
+
+            <div class="list-input">
+                <div class="item-title">Don'ts</div>
+                <div class="list-item" *ngFor="let milestone of campaignData.milestones; index as i">
+                    <mat-checkbox> {{ milestone }}</mat-checkbox>
+                    <span class="material-icons remove-icon" (click)="removeFromList(campaignData.milestones, i)">
+                        remove_circle_outline
+                    </span>
+                </div>
+                <mat-form-field class="example-full-width">
+                    <input
+                        matInput
+                        placeholder=""
+                        [(ngModel)]="newMilestone"
+                        (ngModelChange)="milestoneChange($event)"
+                        autocomplete="off"
+                    />
+                </mat-form-field>
+                <button mat-button (click)="addMilestone()" [disabled]="!newMilestone">
+                    <span class="material-icons add-icon">
+                        playlist_add
+                    </span>
+                </button>
+            </div>
+
+            <div>
+                <div class="item-title">Contract</div>
+                <div>
+                    <div class="contract-list-item" *ngFor="let contract of uploadedContract; index as i">
+                        {{ contract }}
+                        <span class="material-icons add-icon" (click)="removeContract(i)">remove</span>
+                    </div>
+                    <button mat-flat-button color="primary" (click)="uploadContract()">Upload Contract</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="create-button" mat-raised-button *ngIf="!isBrandView" color="primary" (click)="createCampaign()">Create Campaign</button>
+<button class="create-button" mat-raised-button *ngIf="isBrandView" color="primary" (click)="createBrandCampaign()">
+    Create Marketing Campaign
+</button> -->

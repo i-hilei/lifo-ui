@@ -1,0 +1,124 @@
+.influencer-list {
+    margin-top: 20px;
+
+    .paginator-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+
+        .count {
+            font-weight: bold;
+        }
+
+        .selected-influencer-count {
+            // margin-right: 20px;
+        }
+
+        .paginator-influencer-found {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            .influencer-found {
+                margin-right: 20px;
+            }
+
+            .influencer-paginator {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+
+                .ant-btn {
+                    cursor: pointer;
+                    margin-left: 15px;
+                    vertical-align: middle;
+                    background-color: #414bb2;
+                    border-radius: 4px;
+                    &:disabled {
+                        cursor: not-allowed;
+                        color: #fff;
+                        opacity: 0.5;
+                    }
+                }
+            }
+        }
+    }
+
+    .influencer-item-list {
+        overflow-x: auto;
+        .all-selected {
+            background-color: teal;
+        }
+        .header-items,
+        .influencer-item {
+            min-width: min-content;
+            display: flex;
+            justify-content: space-between;
+
+            // Header item
+            .header-item {
+                min-width: 110px;
+                min-height: 40px;
+                padding: 10px 0;
+                box-sizing: border-box;
+                flex: 1;
+                padding: 0 5px;
+                text-align: center;
+                word-break: break-all;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                &.highlight {
+                    color: #414bb2;
+                    font-weight: 500;
+                }
+            }
+            .sort-by,
+            .language {
+                padding: 0;
+            }
+            .sort-by,
+            .select-all {
+                width: 100px;
+            }
+            .fake_followers,
+            .avg_comment {
+                min-width: 150px;
+            }
+            .select-all {
+                flex: none;
+                .ant-btn {
+                    font-size: 12px;
+                    height: fit-content;
+                    padding: 2px 8px;
+                    border: 1px solid #414bb2;
+                    color: #414bb2;
+                    border-radius: 4px;
+                }
+            }
+            .sort-by {
+                justify-content: flex-start;
+
+                text-align: left;
+            }
+        }
+
+        // List item
+        .influencer-item {
+            width: 100%;
+            min-height: 40px;
+            &:nth-child(2n) {
+                background: rgba(140, 146, 209, 0.06);
+            }
+
+            .header-item {
+                cursor: unset;
+            }
+        }
+    }
+
+    .btns {
+    }
+}

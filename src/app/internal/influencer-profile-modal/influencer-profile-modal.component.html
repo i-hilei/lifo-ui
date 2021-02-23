@@ -1,0 +1,152 @@
+<!-- template-modal -->
+<div class="fullStyle">
+  <nz-modal #Fulltemplates 
+      nzClassName="fulltemplates"
+      [(nzVisible)]="isModalVisible" 
+      nzTitle="Influencer Profile" 
+      (nzOnCancel)="handleCancel()" 
+      (nzOnOk)="handleOk()" 
+      nzMaskClosable=false
+      [nzFooter]=null
+      nzWidth="100%"
+      [nzStyle]="setModalStyle">
+      <div class="containers">
+        <div class="influencer-infos">
+            <div class="image-holder">
+              <img src="{{influencer?.profile?.influencer.profile.picture}}">
+            </div>
+            <div class="user-profile clearfix">
+                <div class="user-name">
+                    <div class="account-id">@{{influencer?.profile?.influencer.profile.username}}</div>
+                    <div class="account-stats">
+                        <span class="follower">
+                          <span class="material-icons"> person </span>
+                          <b>{{ influencer?.profile?.influencer.profile.followers | number }}</b>&nbsp;
+                          followers
+                        </span>
+                        <span>
+                          <span class="material-icons" style="color:#FF759E;"> favorite </span>
+                          <b>{{ influencer?.profile?.influencer.stats?.avgLikes.value | number }}</b>&nbsp;
+                          Average Likes
+                        </span>
+                    </div>
+                    <div class="info"><b>Tel:</b> {{ influencer?.inf_phone }}</div>
+                    <div class="info"><b>Email:</b> {{ influencer?.email }}</div>
+                    <div class="info"><b>Address:</b> {{ influencer?.influencer_address1 }}
+                      {{ influencer?.influencer_address2 }}</div>
+                    <div class="info" *ngIf="influencer" style="margin-left: -20px;">
+                        <app-edit-notes 
+                            [displayInfluencer]="influencer"
+                            [campaign]="influencer['campaign']">
+                        </app-edit-notes>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <!-- <div class="post-container" *ngIf="influencer?.performance_score">
+            <div class="perform-left">
+                <span>Performance Score</span>
+                <h3></h3>
+            </div>
+            <div class="perform-right">
+
+            </div>
+        </div> -->
+        <div class="reach-contaioner" style="margin-top: 20px;">
+            <h4>Influencer Labeling <a (click)="isShowListLabel()"><span><i nz-icon nzType="edit" nzTheme="outline"></i> Edit</span></a></h4>
+            <div class="label-type clearfix" >
+                <div class="left"># Influencer Attributes</div>
+                <div class="right" *ngFor="let item of attributesArr; let i = index">
+                        <nz-tag class="tag-father" nzMode="default">
+                            {{ item['name'] }}
+                        </nz-tag>
+                        <span *ngFor="let k of item['children']" class="tag-child-margin">
+                        <nz-tag  class="tag-children" nzMode="default">
+                            {{ k['name'] }}</nz-tag>
+                        </span>
+                </div>
+            </div>
+            <div class="label-type clearfix">
+                <div class="left"># Content Types</div>
+                <div class="right" *ngFor="let item of contentArr; let i = index">
+                        <nz-tag class="tag-father" nzMode="default">
+                            {{ item['name'] }}
+                        </nz-tag>
+                        <span *ngFor="let k of item['children']" class="tag-child-margin">
+                        <nz-tag  class="tag-children" nzMode="default">
+                            {{ k['name'] }}</nz-tag>
+                        </span>
+                </div>
+            </div>
+            <div class="label-type clearfix">
+                <div class="left"># Social Platforms</div>
+                <div class="right" *ngFor="let item of platformArr; let i = index">
+                    <nz-tag class="tag-father" nzMode="default">
+                        {{ item['name'] }}
+                    </nz-tag>
+                    <span *ngFor="let k of item['children']" class="tag-child-margin">
+                    <nz-tag  class="tag-children" nzMode="default">
+                        {{ k['name'] }}</nz-tag>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="post-container">
+            <div class="title">
+                <span>Campaigns List</span>
+            </div>
+            <div nz-row [nzGutter]="16" class="campaigns-list">
+                <div nz-col class="gutter-row" [nzSpan]="12">
+                    <div class="inner-box">
+                        <ul class="clearfix">
+                            <li class="title">🔥  Active campaigns</li>
+                            <li *ngFor="let i of activeList">
+                                <span>{{ i.campaign_name }}</span>
+                                <span>{{  getStatus(i['influencer_info']) }}</span>
+                                <span>{{ displayTime(i.end_time) }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div nz-col class="gutter-row" [nzSpan]="12">
+                    <div class="inner-box">
+                        <ul class="right clearfix">
+                            <li class="title">⌛️  passing campaigns</li>
+                            <li *ngFor="let i of paidList">
+                                <span>{{ i.campaign_name }}</span>
+                                <span>{{  getStatus(i['influencer_info']) }}</span>
+                                <span>{{ displayTime(i.end_time) }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="follower-info">
+            <app-follower-info [influencer]="fllowersDatas" #followerList></app-follower-info>
+        </div>
+        <div class="post-container">
+            <div class="title">
+                <span>Post Style</span>
+            </div>
+  
+            <div class="posts" *ngFor="let post of fllowersDatas?.popularPosts?.slice(0,3)">
+                <app-posts [post]="post"></app-posts>
+            </div>
+        </div>
+        <div class="footers">
+            <button nz-button nzType="default" class="cancelBtn" (click)="handleCancel()">
+                Close
+            </button>
+        </div>
+      </div>
+      
+  </nz-modal>
+
+  <app-influencer-list-labeling #listLabel 
+pageName="influencer"
+[defaultLabelTagList] = "labelTagList"
+(childOuter)="getData($event)"></app-influencer-list-labeling>
+</div>
+

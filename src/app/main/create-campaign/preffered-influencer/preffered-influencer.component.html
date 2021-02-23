@@ -1,0 +1,156 @@
+<div class="influencer">
+  <p class="common-subtips">
+    {{ 'Preferred Influencer Style (Optional)' | translate }}
+  </p>
+  <p class="common-explain">
+    {{ 'Lifo will match the best influencers for your campaign' | translate }}
+  </p>
+  <div class="common-select-target">
+    <nz-select
+        nzMode="multiple"
+        nzPlaceHolder="{{ 'Age' | translate }}"
+        [(ngModel)]="selectAudienceAge"
+        >
+        <nz-option *ngFor="let item of ageOptions" [nzLabel]="item" [nzValue]="item"></nz-option>
+    </nz-select>
+    <nz-select
+        nzPlaceHolder="{{ 'Gender' | translate }}"
+        [(ngModel)]="selectAudienceInterest"
+        >
+        <nz-option *ngFor="let item of genderOptions" [nzLabel]="item" [nzValue]="item"></nz-option>
+    </nz-select>
+    <nz-select
+        nzPlaceHolder="{{ 'Language' | translate }}"
+        [(ngModel)]="selectAudienceLanguage" 
+        >
+        <nz-option *ngFor="let item of languageOptions" [nzLabel]="item.name" [nzValue]="item.name"></nz-option>
+    </nz-select>
+    <nz-select
+        nzPlaceHolder="{{ 'Min Follower Base' | translate }}"
+        [(ngModel)]="selectAudienceFollower"
+        >
+        <nz-option *ngFor="let item of followerOptions" [nzLabel]="item" [nzValue]="item"></nz-option>
+    </nz-select>
+    <i nz-icon nzTooltipTitle="Lifo’s algorithm will try to find influencers whose fanbase best matches the criteria here. " nzTooltipPlacement="top"  nzType="question-circle" nzTheme="outline" nz-tooltip></i>
+  </div>
+  <!-- Regional -->
+  <div class="regional clearfix">
+    <div class="left">{{ 'Regional' | translate }}</div>
+    <div class="right">
+      <div class="selectorRadio">
+        <nz-radio-group [(ngModel)]="regionalRadio" nzButtonStyle="solid" (ngModelChange)="regionalChange('regional')">
+          <label nz-radio-button nzValue="all">{{ 'All' | translate }}</label>
+          <label nz-radio-button nzValue="customize">{{ 'Customize' | translate }}</label>
+        </nz-radio-group>
+        <!-- <div class="regionalBox" *ngIf="regionalRadio === 'customize'">
+          <div class="title">Regional <a (click)="clearItem('regional')">Clear</a></div>
+          <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="log('regional', $event)">
+            <ul class="containers">
+              <li *ngFor="let item of this.regionalContent">
+                <label nz-checkbox [nzValue]="item">{{ item.name }}--{{ item.value }}</label>
+              </li>
+            </ul>
+          </nz-checkbox-wrapper>
+        </div> -->
+        <div class="regionalBox" *ngIf="regionalRadio === 'customize'">
+          <nz-select style="width: 376px;"
+                  nzMode="multiple"
+                  nzAllowClear
+                  nzShowSearch
+                  nzServerSearch
+                  nzDropdownClassName="name"
+                  nzPlaceHolder="Enter US State or City"
+                  [(ngModel)]="selectInfluencerLocation"
+                  (ngModelChange)="regionalChange('regional')"
+                  (nzOnSearch)="updataInfluencerLocationOptions($event)"
+                  >
+              <nz-option *ngFor="let option of influencerLocationOptions" [nzLabel]="option.name" [nzValue]="option"></nz-option>
+            </nz-select>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- influencer -->
+  <div class="regional clearfix">
+    <div class="left">{{ 'Influencer Tags' | translate }}</div>
+    <div class="right">
+      <div class="selectorRadio">
+        <nz-radio-group [(ngModel)]="influencerRadio" nzButtonStyle="solid" (ngModelChange)="regionalChange('influencer')">
+          <label nz-radio-button nzValue="all">{{ 'All' | translate }}</label>
+          <label nz-radio-button nzValue="customize">{{ 'Customize' | translate }}</label>
+        </nz-radio-group>
+        <div class="regionalBox" *ngIf="influencerRadio === 'customize'">
+          <div class="title">{{ 'Type' | translate }} <a (click)="clearItem('influencer')">{{ 'Clear' | translate }}</a></div>
+          <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="log('influencer', $event)">
+            <ul class="containers">
+                <li *ngFor="let item of this.influencerContent">
+                    <label nz-checkbox [nzValue]="item" [(ngModel)]="item['checked']">{{ item.value }}</label>
+                </li>
+            </ul>
+          </nz-checkbox-wrapper>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu -->
+  <div class="information" [ngClass]="{'infoHeight': !isShowDownIcon}">
+    <p> {{ influencerCount | number }} +<span>{{ 'Matching Influencers' | translate }}</span></p>
+    <div class="userImg">
+      <span *ngFor="let item of userRandomImage, let key = index;" [ngStyle]="{'z-index': userRandomImage.length-key}">
+        <img src="assets/images/wireframe/{{item.src}}">
+      </span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="ageBox" *ngIf='!isShowDownIcon'>
+      <div class="title">{{ 'Age' | translate }}</div>
+      <div class="content">
+        {{ selectAudienceAge.length != 0 ?  selectAudienceAge : 'All'  | translate}}
+      </div>
+    </div>
+    <div class="ageBox" *ngIf='!isShowDownIcon'>
+      <div class="title">{{ 'Gender' | translate }}</div>
+      <div class="content">
+        {{ selectAudienceInterest ?  selectAudienceInterest : 'All'  | translate}}
+      </div>
+    </div>
+    <div class="ageBox" *ngIf='!isShowDownIcon'>
+      <div class="title">{{ 'Language' | translate }}</div>
+      <div class="content">
+        {{ selectAudienceLanguage ? selectAudienceLanguage['name'] : 'All'  | translate}}
+      </div>
+    </div>
+    <div class="ageBox showContents" *ngIf='!isShowDownIcon'>
+      <div class="title">{{ 'Regional' | translate }}</div>
+      <div class="content contentHeight" *ngIf="regionalRadio === 'all'">
+        {{ 'All' | translate }}
+      </div>
+      <div class="content contentHeight" *ngIf="regionalRadio !== 'all'">
+        <span class="showSelectValue" *ngFor="let item of selectInfluencerLocation">
+          {{ item.name }},
+        </span>
+      </div>
+    </div>
+    <div class="ageBox showContents" *ngIf='!isShowDownIcon'>
+      <div class="title">{{ 'Influencer Type' | translate }}</div>
+      <div class="content contentHeight" *ngIf="influencerRadio === 'all'">
+        {{ 'All' | translate }}
+      </div>
+      <div class="content contentHeight" *ngIf="influencerRadio !== 'all'">
+        <span class="showSelectValue" *ngFor="let item of influencerSelectValue">
+          {{ item.value }},
+        </span>
+      </div>
+    </div>
+    <div class="down-auto-height">
+      <img src="assets/svg/frame-down.png" *ngIf='isShowDownIcon' (click)="isShowDownIcon = false" width="33">
+      <img src="assets/svg/frame-up.png" *ngIf='!isShowDownIcon'  (click)="isShowDownIcon = true" width="33">
+    </div>
+  </div>
+  <div class="warning-info" *ngIf="regionalRadio !== 'all' || influencerRadio !== 'all'">
+    <i nz-icon nzType="exclamation-circle" nzTheme="fill"></i>
+    <p>
+      {{ 'Current settings may lead to less number of influencers be availalbe. We would recommend to boarden the requirements to allow more  influencers join for a higher turn-over rate.' | translate }}
+    </p>
+  </div>
+</div>

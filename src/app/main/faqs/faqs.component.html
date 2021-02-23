@@ -1,0 +1,85 @@
+<div class="faqs-container">
+  
+  <div class="faqs_header">
+    <div class="left">
+      <div class="title">Frequently Asked Questions</div>
+      <div class="sub_title">If you are new to lifo, this guide will help you learn more about the product and its features.  </div>
+    </div>
+    <div class="right">
+      <img src="assets/images/undraw_Questions.svg" width="150" alt="">
+    </div>
+  </div>
+
+  <div class="faqs_types">
+      <div nz-row nzJustify="space-between">
+        <div nz-col class="gutter-row btnList" [nzSpan]="4" *ngFor="let i of radioData" (click)="goDistance(i.name)">
+            <div class="inner-box">
+              <i nz-icon [nzType]="i.type" nzTheme="outline"></i>
+              <span class="list">
+                {{i.name}}
+              </span>
+            </div>
+        </div>
+      </div>
+  </div>
+  <h3 class="title" #Payment>
+    <i nz-icon nzType="credit-card" nzTheme="outline"></i>Payment
+  </h3>
+  <div *ngFor="let item of faqList">
+    <div class="faqs_list clearfix" *ngIf="item.category == 'Payment'">
+      <div class="left"><i nz-icon [nzType]="item.checked ? 'minus':'plus'" nzTheme="outline" (click)="isShowList(item)"></i></div>
+      <div class="right">
+        <div class="title">{{ item.question }}</div>
+        <div class="content" *ngIf="item.checked">{{ item.response }}</div>
+      </div>
+    </div>
+  </div>
+  <h3 class="title" #Shipping>
+    <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>Shipping
+  </h3>
+  <div *ngFor="let item of faqList">
+    <div class="faqs_list clearfix" *ngIf="item.category == 'Shipping'">
+      <div class="left"><i nz-icon [nzType]="item.checked ? 'minus':'plus'" nzTheme="outline" (click)="isShowList(item)"></i></div>
+      <div class="right">
+        <div class="title">{{ item.question }}</div>
+        <div class="content" *ngIf="item.checked">{{ item.response }}</div>
+      </div>
+    </div>
+  </div>
+  <h3 class="title" #Discovery>
+    <i nz-icon nzType="file-search" nzTheme="outline"></i>Discovery
+  </h3>
+  <div *ngFor="let item of faqList">
+    <div class="faqs_list clearfix" *ngIf="item.category == 'Discovery'">
+      <div class="left"><i nz-icon [nzType]="item.checked ? 'minus':'plus'" nzTheme="outline" (click)="isShowList(item)"></i></div>
+      <div class="right">
+        <div class="title">{{ item.question }}</div>
+        <div class="content" *ngIf="item.checked">{{ item.response }}</div>
+      </div>
+    </div>
+  </div>
+  <h3 class="title" #Content>
+    <i nz-icon nzType="credit-card" nzTheme="outline"></i>Content
+  </h3>
+  <div *ngFor="let item of faqList">
+    <div class="faqs_list clearfix" *ngIf="item.category == 'Content'">
+      <div class="left"><i nz-icon [nzType]="item.checked ? 'minus':'plus'" nzTheme="outline" (click)="isShowList(item)"></i></div>
+      <div class="right">
+        <div class="title">{{ item.question }}</div>
+        <div class="content" *ngIf="item.checked">{{ item.response }}</div>
+      </div>
+    </div>
+  </div>
+  <h3 class="title" #Posting>
+    <i nz-icon nzType="credit-card" nzTheme="outline"></i>Posting
+  </h3>
+  <div *ngFor="let item of faqList">
+    <div class="faqs_list clearfix" *ngIf="item.category == 'Posting'">
+      <div class="left"><i nz-icon [nzType]="item.checked ? 'minus':'plus'" nzTheme="outline" (click)="isShowList(item)"></i></div>
+      <div class="right">
+        <div class="title">{{ item.question }}</div>
+        <div class="content" *ngIf="item.checked">{{ item.response }}</div>
+      </div>
+    </div>
+  </div>
+</div>

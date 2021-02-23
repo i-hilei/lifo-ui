@@ -1,0 +1,180 @@
+<div class="person">
+    <div class="user-profile">
+        <a nz-button nzSize="default" nzType="link" (click)="showProfile()">View Profile</a>
+    </div>
+    <div *ngIf="influencer" class="influencer-tiny-box">
+        <div class="image-holder">
+            <img src="{{influencer.profile.influencer.profile.picture}}">
+        </div>
+        <div class="user-profile">
+            <div class="user-name">
+                <b>{{influencer.profile.influencer.profile.fullname}}</b>
+                <p>{{influencer.email}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="steps">
+    <nz-steps [nzCurrent]="currentStep" nzSize="small">
+        <nz-step nzTitle="Prepare Contract"></nz-step>
+        <nz-step nzTitle="Review & Send Contract"></nz-step>
+        <nz-step nzTitle="Sign Contract"></nz-step>
+    </nz-steps>
+</div>
+
+<div class="steps-container">
+    <div class="step">
+        <div class="step-title">
+            <mat-icon class="step-icon" svgIcon="step"></mat-icon>
+            Prepare Contract for Collaboration</div>
+        <div class="step-description">Now it’s time to prepare contract.  Fill and check the information necessary for the contract.</div>
+        <div class="step-actions" *ngIf="!allowViewContractInfo">
+            <button nz-button nzType="primary" (click)="prepareContract()">Prepare Contract</button>
+        </div>
+        <div class="step-actions" *ngIf="allowViewContractInfo">
+            <i nz-icon nzType="check-circle" nzTheme="fill" class="check-icon"></i> 
+            <span class="check-message">Prepare Contract</span>
+
+            <button nz-button class="secondary-button" (click)="reviewContract()">Review Contract</button>
+            <button nz-button nzType="primary" (click)="prepareContract()">Prepare Another Contract</button>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-title">
+            <mat-icon class="step-icon" svgIcon="step"></mat-icon>
+            Send the Contract to the Influencer for Signature
+        </div>
+        <div class="step-description">Your contract has been prepared. Review the contract and send it to the influencer!</div>
+        <div class="step-actions" *ngIf="!contractSent">
+            <button nz-button nzType="primary" (click)="startToSendContract()" [disabled]="!allowViewContractInfo">Send Contract</button>
+        </div>
+        <div class="step-actions" *ngIf="contractSent">
+            <i nz-icon nzType="check-circle" nzTheme="fill" class="check-icon"></i> 
+            <span class="check-message">Contract Sent</span>
+            <div class="notification">
+                <a nz-button 
+                    nzSize="default" 
+                    nzType="link" 
+                    (click)="showContractEmailThread()" 
+                    *ngIf="!shouldShowContractEmailThread && influencer.inf_contract_thread"
+                >
+                    View Email Thread
+                    <i nz-icon nzType="caret-down" nzTheme="outline"></i>
+                </a>
+                <a nz-button 
+                    nzSize="default" 
+                    nzType="link" 
+                    (click)="shouldShowContractEmailThread = false" 
+                    *ngIf="shouldShowContractEmailThread && influencer.inf_contract_thread"
+                >
+                    Hide Thread
+                    <i nz-icon nzType="caret-up" nzTheme="outline"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="email-thread" *ngIf="shouldShowContractEmailThread">
+        <div class="email-thread-item" *ngFor="let email of contractEmailThread">
+            <div class="image-holder">
+                <img src="{{influencer.profile.influencer.profile.picture}}">
+            </div>
+            <div class="content">
+                <b> {{ email.from[0]['email'] }} </b>
+                <span class="time">{{ (email.date)*1000 | date:'MMMM d, HH:mm' }}</span>
+                <h4>{{ email.subject }}</h4>
+                <p [innerHTML]="email.body"></p>
+            </div>
+        </div>
+
+        <a nz-button nzType="link" class="reply-button" (click)="startReplyEmail()" *ngIf="contractEmailThread.length > 0 && !replyEmail">
+            <span class="material-icons"> reply </span> Reply
+        </a>
+    </div>
+
+    <div class="email-sender" *ngIf="replyEmail">
+        <div class="from">
+            <div *ngIf="emailAuth"> 
+                <img src="assets/svg/mailbox.svg" alt="" width="22">
+                <span class="chat-email-add">{{ emailAuth }}</span>
+            </div>
+            <div *ngIf="!emailAuth"> 
+                <img src="assets/svg/mailbox.svg" alt="" width="22">
+                <span (click)="authorizeNylas()" class="chat-email-auth">Authorize your email account</span> 
+            </div>
+        </div>
+        <app-email-editor 
+            #replyEmailEditor 
+            [htmlContent]="replyEmailContent"
+            [isHeight]="'300px'">
+        </app-email-editor>
+        <div class="action" (click)="sendReplyEmail()">
+            <a nz-button nzType="link" class="reply-button">
+                Send Email
+                <i class="send-icon" nz-icon nzType="send" nzTheme="outline"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="email-sender" *ngIf="sendingContract && emailTemplate">
+        <div class="from">
+            <div *ngIf="emailAuth"> 
+                <img src="assets/svg/mailbox.svg" alt="" width="22">
+                <span class="chat-email-add">{{ emailAuth }}</span>
+            </div>
+            <div *ngIf="!emailAuth"> 
+                <img src="assets/svg/mailbox.svg" alt="" width="22">
+                <span (click)="authorizeNylas()" class="chat-email-auth">Authorize your email account</span> 
+            </div>
+            <div class="close">
+                <i nz-icon nzType="close" nzTheme="outline" (click)="sendingContract=false"></i>
+            </div>
+        </div>
+        <div class="body subject"><b>{{emailTemplate.subject}}</b></div>
+        <div class="body" [innerHTML]="emailTemplate.body"></div>
+        <div class="action" (click)="sendContract()">
+            <a nz-button nzType="link" class="reply-button">
+                Send Email
+                <i class="send-icon" nz-icon nzType="send" nzTheme="outline"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-title">
+            <mat-icon class="step-icon" svgIcon="step"></mat-icon> 
+            Provide Your Signature</div>
+        <div class="step-description">
+            It’s your turn to sign the contract.
+        </div>
+        <div class="step-actions" *ngIf="!completeSignContract">
+            <button nz-button nzType="primary" [disabled]="!allowSignContract" (click)="signContract()">Sign Contract</button>
+        </div>
+        <div class="step-actions" *ngIf="completeSignContract">
+            <i nz-icon nzType="check-circle" nzTheme="fill" class="check-icon"></i> 
+            <span class="check-message">Contract Signed</span>
+            
+            <button nz-button class="secondary-button" *ngIf="allowDownloadContract" (click)="downloadContract()">Download Contract</button>
+            <div class="notification" *ngIf="pendingInfuencerSign">
+                <span> 
+                    <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+                    Pending Influencer Signature
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="step" *ngIf="allowDownloadContract">
+        <div class="step-title">
+            <mat-icon class="step-icon" svgIcon="step"></mat-icon>
+            Congratulations!</div>
+        <div class="step-description">
+            You have finished the contracting process successfully. Once your influencer receives product and starts content creation, you can then go to the Content page to review the content draft. 
+        </div>
+        <div class="step-actions">
+            <button nz-button nzType="primary" (click)="goContentReview()">Go to Content Review</button>
+        </div>
+    </div>
+</div>
+

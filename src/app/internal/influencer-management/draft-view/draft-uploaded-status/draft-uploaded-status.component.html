@@ -1,0 +1,67 @@
+<div class="operation-container">
+  <div class="title">Draft Uploaded ({{draftUploadedInfluencer.length}})</div>
+  <div class="batch-operations">
+      <span><b>{{uploadedChecked}}</b> influencer selected</span>
+      <div class="batch-buttons">
+          <button nz-button nzType="primary" disabled><i nz-icon nzType="close-circle" nzTheme="fill"></i>Reject</button>
+          <button nz-button nzType="primary" (click)="batchApproveCampaign()"><i nz-icon nzType="check-circle" nzTheme="fill"></i>Approve</button>
+      </div>
+  </div>
+  <div class="operation-table">
+      <nz-table #draftUploadTable [nzData]="draftUploadedInfluencer" [nzLoading]="loading">
+          <thead>
+              <tr>
+                  <th nzWidth="60px" 
+                      [(nzChecked)]="allUploadedChecked"
+                      (nzCheckedChange)="checkAllUploaded($event)"></th>
+                  <th nzWidth="80px"></th>
+                  <th>Influencer</th>
+                  <th>Campaign</th>
+                  <th>Status</th>
+                  <th>Operation</th>
+              </tr>
+          </thead>
+          <tbody>
+              <ng-container *ngFor="let data of draftUploadTable.data">
+                  <tr>
+                      <td [(nzChecked)]="data.checked"></td>
+                      <td>
+                          <div class="image-holder" (click)="showFullModals(data)">
+                              <img src="{{ data.profile.influencer.profile.picture }}" />
+                          </div>
+                      </td>
+                      <td> 
+                          <div class="user-profile">
+                              <div class="user-name">@{{ data.profile.influencer.profile.username }}</div>
+                              <div class="email"><i nz-icon nzType="mail" nzTheme="outline"></i>{{ data.email }}</div>
+                              <div class="phone"><i nz-icon nzType="phone" nzTheme="outline"></i>{{ data.inf_phone }}</div>
+                          </div>
+                      </td>
+                      <td> 
+                          <div class="campaign">
+                              <div class="link" (click)="showDetailModals(data)">{{ data.campaign.campaign_name }}</div>
+                              <div class="time">{{ data.campaign.end_time }}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="status">
+                              <div class="content">Pending For Review</div>
+                              <div class="time">Submitted At {{ data.content_submit_time * 1000 | date: 'MM/dd, HH:mm' }}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <button nz-button nzType="link" (click)="reviewCampaign(data)"><i nz-icon nzType="eye" nzTheme="fill"></i>Review Content</button>
+                          <button nz-button nzType="link" (click)="rejectCampaign(data)" disabled><i nz-icon nzType="close-circle" nzTheme="fill"></i>Reject</button>
+                          <button nz-button nzType="link" (click)="approveCampaign(data)"><i nz-icon nzType="check-circle" nzTheme="fill"></i>Approve</button>
+                      </td>
+                  </tr>
+                  <tr [nzExpand]="data.expanded">
+                  </tr>
+              </ng-container>
+          </tbody>
+      </nz-table>
+  </div>
+</div>
+
+<app-influencer-profile-modal #influencerProfile></app-influencer-profile-modal>
+<app-campaign-detail-modal #campaignDetail></app-campaign-detail-modal>

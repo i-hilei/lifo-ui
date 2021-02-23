@@ -1,0 +1,73 @@
+<div class="operation-container">
+  <div class="title">Campaign Incompleted ({{campaignClosedInfluencer.length}})</div>
+  <div class="operation-table">
+      <nz-table #campaignClosedTable [nzData]="campaignClosedInfluencer" [nzLoading]="loading">
+          <thead>
+              <tr>
+                  <th nzWidth="80px"></th>
+                  <th>Influencer</th>
+                  <th>Campaign</th>
+                  <th>Status</th>
+                  <th>Commission</th>
+                  <th>Reason</th>
+                  <th>Performance</th>
+              </tr>
+          </thead>
+          <tbody>
+              <ng-container *ngFor="let data of campaignClosedTable.data">
+                  <tr>
+                      <td>
+                          <div class="image-holder" (click)="showFullModals(data)">
+                              <img src="{{ data.profile.influencer.profile.picture }}" />
+                          </div>
+                      </td>
+                      <td> 
+                          <div class="user-profile">
+                              <div class="user-name">@{{ data.profile.influencer.profile.username }}</div>
+                              <div class="email"><i nz-icon nzType="mail" nzTheme="outline"></i>{{ data.email }}</div>
+                              <div class="phone"><i nz-icon nzType="phone" nzTheme="outline"></i>{{ data.inf_phone }}</div>
+                          </div>
+                      </td>
+                      <td> 
+                          <div class="campaign">
+                              <div class="link" (click)="showDetailModals(data)">{{ data.campaign.campaign_name }}</div>
+                              <div class="time">{{ data.campaign.end_time }}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="status">
+                              <div class="content">Incompleted</div>
+                              <div class="time">Closed At {{ data.campaign_close_time * 1000 | date: 'MM/dd, HH:mm' }}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="status">
+                              <div class="content">$ {{data.accept_commission}}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="status">
+                              <div class="content">{{data.campaign_close_reason}}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <button nz-button nzType="link" (click)="reviewCampaign(data)"><i nz-icon nzType="eye" nzTheme="fill"></i>View Post</button>
+                      </td>
+                      <td>
+                          <div class="status">
+                              <button nz-button nzType="link" *ngIf="!data['performance_score']" (click)="addPerformanceDefault(data)">Add Performance</button>
+                              <div class="content" style="margin-left: 15px;" *ngIf="data['performance_score']">{{ calScore(data['performance_score']) }}</div>
+                          </div>
+                      </td>
+                  </tr>
+                  <tr [nzExpand]="data.expanded">
+                  </tr>
+              </ng-container>
+          </tbody>
+      </nz-table>
+  </div>
+</div>
+
+<app-influencer-profile-modal #influencerProfile></app-influencer-profile-modal>
+<app-campaign-detail-modal #campaignDetail></app-campaign-detail-modal>
+<app-add-performance #performance (childOuter)="addPerformance($event)"></app-add-performance>

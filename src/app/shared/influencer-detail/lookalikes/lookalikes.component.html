@@ -1,0 +1,22 @@
+<div class="lookalikes">
+  <div class="title">
+    <span class="text">Lookalikes</span> 
+    <span class="pull-icon" (click)="pullAllProfile()">
+        <span class="material-icons">  vertical_align_bottom </span>
+        Add Look Alikes To List
+    </span>
+  </div>
+  <div class="container" *ngFor="let item of influencer.audience?.audienceLookalikes">
+    <div class="image-holder">
+        <img src="{{item.picture}}">
+    </div>
+    <div class="user-profile">
+        <div class="profile-container">
+            <div class="user-name">{{item.fullname}}</div>
+            <div class="user-name-link">
+                <span (click)="openInsPage(item.url)">@{{item.username}}</span>
+            </div>
+        </div>
+    </div>
+  </div>
+</div >

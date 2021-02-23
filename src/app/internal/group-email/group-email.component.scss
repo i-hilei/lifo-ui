@@ -1,0 +1,65 @@
+
+.email-sender {
+    padding-top: 20px;
+    .label {
+        display: inline-block;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        text-transform: capitalize;
+        color: #000000;
+    }
+    .emails {
+        margin-left: 10px;
+        display: inline-block;
+        max-width: calc(100% - 120px);
+        vertical-align: top;
+    }
+    .from {
+        min-height: 40px;
+        padding: 10px 30px;
+        max-height: 200px;
+        overflow-y: auto;
+
+        .chat-email-add {
+            margin-left: 8px;
+            text-decoration: underline;
+            color: #2F80ED;
+        }
+        .chat-email-auth {
+            margin-left: 10px;
+            color: #2F80ED;
+            cursor: pointer;
+        }
+
+        .close {
+            float: right;
+            margin-top: -24px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .template-version-select {
+            width: 200px;
+            position: absolute;
+            right: 30px;
+            display: inline-block;
+        }
+    }
+    .body {
+        padding: 10px 30px;
+    }
+    .action {
+        float: right;
+        margin-right: 60px;
+        font-size: 16px;
+        color: #414BB2;
+        font-weight: 500;
+        cursor: pointer;
+        i {
+            font-size: 20px;
+            margin-left: 5px;
+        }
+    }
+}
+

@@ -1,0 +1,45 @@
+.top {
+    nz-tag, .editable-tag, .add-new-label {
+        background: #ECEDF7;
+        border-radius: 4px;
+        padding: 4px 8px;
+        margin-bottom: 10px;
+        border: 0;
+        color: #000;
+        font-size: 12px;
+        >span {
+            color: #999;
+        }
+    }
+    .title {
+        width: 120px;
+        display: inline-block;
+        text-align: right;
+        margin-right: 10px;
+    }
+    .add-new-label {
+       font-weight: normal;
+       display: block;
+       height: 28px;
+    }
+    .add-new-label:hover, .add-new-label:focus {
+        color: #000 !important;
+    }
+    .tag-father {
+        // margin-right: -24px;
+    }
+    .tag-child-margin {
+        margin-left: -14px;
+        margin-right: 10px;
+        .tag-children {
+            margin-right: -5px;
+            color: rgba(13, 5, 60, 0.5);
+        }
+        
+    }
+    
+    
+}
+.ant-popover-inner-content {
+    padding: 0 !important;
+}

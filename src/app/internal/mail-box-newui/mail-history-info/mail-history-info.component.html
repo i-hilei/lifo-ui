@@ -1,0 +1,17 @@
+<div class="historyInfo" *ngIf="historyAllInfo.length>0">
+    <div *ngFor="let i of historyAllInfo">
+        <div class="mailListFrom" *ngIf="i['from'][0]['email'] == authName">
+            <h4>{{ i.subject }} <span>{{ (i.date)*1000 | date:'MMMM d, HH:mm' }}</span></h4>
+            <p [innerHTML]="i.body | emailHtml"></p>
+        </div>
+        <div class="mailListTo" *ngIf="i['from'][0]['email'] != authName">
+            <h4>{{ i.subject }} <span>{{ (i.date)*1000 | date:'MMMM d, HH:mm' }}</span></h4>
+            <p [innerHTML]="i.body | emailHtml"></p>
+            <a nz-button nzType="link" class="replyStyle">
+                <span class="material-icons">
+                reply
+                </span>Reply
+            </a>
+        </div>
+    </div>
+</div>

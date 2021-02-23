@@ -1,0 +1,51 @@
+@import 'common';
+@import 'global';
+
+.container {
+    background: #FFFFFF;
+    border-radius: 20px;
+    margin: 20px 40px;
+    display: table;
+    width: 500px;
+    padding: 20px 40px;
+
+    .title {
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 29px;
+        color: $COLOR_PRIMARY;
+        margin-bottom: 20px;
+    }
+
+    .sub-title {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 24px;
+        color: $COLOR_PRIMARY;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .item-title {
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 600;
+    }
+
+    .large-input-box {
+        width: 100%;
+    }
+}
+
+
+.create-button {
+    float: right;
+    margin-right: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 44px;
+    background: #0071FF;
+    border-radius: 81px;
+    font-size: 20px;
+    padding: 0px 30px;
+}

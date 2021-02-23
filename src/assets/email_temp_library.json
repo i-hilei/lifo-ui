@@ -1,0 +1,23 @@
+[
+    {
+        "body": "<p>Hello $(receiver_name),<span>&nbsp;</span></p><p><span></span>It’s a pleasure to meet you!<span>&nbsp;</span></p><p><span></span>My name is [NAME] and I’m reaching out on behalf of [BRAND NAME]. I found your profile on Lifo, and think that your content and vision would be a great match with the values of [BRAND NAME].&nbsp;</p><p><span></span>If you’re interested in learning more about the product, you can find more details as well as campaign details with the link below.&nbsp;</p><p><a href=\"https://influencer.lifo.ai/public-invitation/$(brand_campaign_id)/$(receiver_name)\" title=\"https://influencer.lifo.ai/public-invitation/$(brand_campaign_id)/$(receiver_name)\"> View Campaign Overview</a></p><p><span></span>If you have any questions, feel free to reach out to me at this email, and I’ll be happy to help!<span>&nbsp;</span></p><p><span></span>Yours,<span>&nbsp;</span></p><p><span></span>[NAME]</p>",
+        "subject": "Instagram Collaboration Opportunity!",
+        "template_name": "Influencer Outreach Email – Detailed",
+        "template_type": "email_temp_library",
+        "require_offer_detail": true
+    },
+    {
+        "body": "<p>Hello $(receiver_name),<span>&nbsp;</span></p><p><br></p><p><span></span>I hope this email finds you well!<span>&nbsp;</span></p><p><br></p><p><span></span>I came across your account while looking for potential collaborators for [BRAND NAME], and your content looks like it would be a perfect match with our vision and values!&nbsp;</p><p><br></p><p><span></span>We’re working on promoting [BRIEF DESCRIPTION OF PRODUCT], and are looking for personalities and content creators who would be as passionate as we are about our product.<span>&nbsp;</span></p><p><br></p><p><span></span>We would love to collaborate with you on a campaign to promote [PRODUCT] on our influencer marketing campaign. Let us know if you’re interested!</span></p><p><span><br></span></p><p><span></span>Yours,<span>&nbsp;</span></p><p><span></span>[NAME]</p>",
+        "subject": "Instagram Collaboration Opportunity!",
+        "template_name": "Influencer Outreach Email – Open-Ended",
+        "template_type": "email_temp_library",
+        "require_offer_detail": false
+    },
+    {
+        "body": "<p>Hello $(receiver_name),<span>&nbsp;</span></p><p><span></span>Your contract is ready. Please use the following link to sign the contract:<span>&nbsp;</span></p><p><span></span><a href=\"https://login.lifo.ai/sign-contract/$(brand_campaign_id)/$(receiver_name)\" title=\"https://login.lifo.ai/sign-contract/$(brand_campaign_id)/$(receiver_name)\"> Sign Contract </a><span>&nbsp;</span></p><p><span></span>Yours,<span>&nbsp;</span></p><p><span></span>[NAME]</p>",
+        "subject": "Contract Generated",
+        "template_name": "Notification of Contract Generation",
+        "template_type": "email_temp_library",
+        "require_offer_detail": false
+    }
+]

@@ -1,0 +1,28 @@
+.alltemplates {
+    .ant-modal-body {
+        width: 100%;
+        min-height: 700px;
+    }
+}
+.discoveryImg {
+    text-align: center;
+    p {
+        width: 600px;
+        margin: 80px auto;
+        text-align: left;
+        color: #0D053C;
+    }
+}
+.butn {
+    padding: 20px 20px 120px 0;
+    text-align: center;
+    .gener-btn {
+        background-color: #414BB2;
+        border-color: #414BB2;
+        width: 222px;
+        height: 50px;
+        border: 2px solid #414BB2;
+        box-sizing: border-box;
+        border-radius: 4px;
+    }
+}

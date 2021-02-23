@@ -1,0 +1,35 @@
+<nz-modal
+    [(nzVisible)]="isVisible"
+    [nzTitle]="modalTitle"
+    [nzContent]="modalContent"
+    [nzFooter]="null"
+    (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle>
+        <h3 *ngIf="title === 'create'">Create a new list</h3>
+        <h3 *ngIf="title === 'copy'">Copy the list</h3>
+    </ng-template>
+
+    <ng-template #modalContent>
+        <div class="create-container">
+            <div class="name"> List Name  
+                <input nz-input [(ngModel)]="names" /></div>
+    
+            <div class="name"> Platform 
+                <div class="platforms">
+                    <div class="platform-item" [ngClass]="{'selected': platform === 'instagram'}" (click)="platform = 'instagram'">
+                        <img class="logo-image" width="18" style="margin-right: 10px;" src="assets/images/instagram.jpg">
+                        <span>instagram</span>
+                    </div>
+                    <div class="platform-item" [ngClass]="{'selected': platform === 'tiktok'}" (click)="platform = 'tiktok'">
+                        <img class="logo-image" width="18" style="margin-right: 10px;" src="assets/images/tiktok.jpg">
+                        <span>tiktok</span>
+                    </div>
+                </div>
+            </div>
+    
+            <button nz-button nzType="primary" *ngIf="title === 'create'" (click)="handleOk('create')" [nzLoading]="isConfirmLoading">Create</button>
+            <button nz-button nzType="primary" *ngIf="title === 'copy'" (click)="handleOk('copy')" [nzLoading]="isConfirmLoading">Confirm</button>
+            <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+        </div>
+    </ng-template>
+</nz-modal>

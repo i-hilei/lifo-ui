@@ -1,0 +1,23 @@
+.internal-search {
+    display: flex;
+    justify-content: space-between;
+    min-height: 100%;
+    height: fit-content;
+    .left-influencer-info {
+        width: 230px;
+        padding: 20px 40px;
+        box-sizing: border-box;
+        background-color: #eef0f7;
+    }
+    .audience-info-influencer-list {
+        flex: 1;
+        background-color: #f7f8fc;
+        padding: 20px 40px;
+        box-sizing: border-box;
+        min-width: 1040px;
+        .audience-info {
+        }
+        .influencer-list {
+        }
+    }
+}

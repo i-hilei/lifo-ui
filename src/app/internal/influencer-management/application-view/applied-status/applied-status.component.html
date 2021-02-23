@@ -1,0 +1,89 @@
+<div class="operation-container">
+  <div class="title">Applied ({{appliedInfluencers.length}})</div>
+  <div class="batch-operations">
+      <span><b>{{appliedChecked}}</b> influencer selected</span>
+      <div class="batch-buttons">
+          <button nz-button nzType="primary" (click)="batchAcceptApplication()"><i nz-icon nzType="check" nzTheme="outline"></i>Accept application</button>
+          <button nz-button nzType="primary" (click)="batchSkipApplication()"><i nz-icon nzType="step-forward" nzTheme="outline"></i>Skip</button>
+      </div>
+  </div>
+  <div class="operation-table">
+      <nz-table #appliedTable [nzData]="appliedInfluencers" [nzLoading]="appliedTableLoading">
+          <thead>
+              <tr>
+                  <th nzWidth="60px" 
+                      [(nzChecked)]="allAppliedChecked"
+                      (nzCheckedChange)="checkAllApplied($event)"></th>
+                  <th nzWidth="80px"></th>
+                  <th>Influencer</th>
+                  <th>Campaign</th>
+                  <th>Status</th>
+                  <th>Operation</th>
+              </tr>
+          </thead>
+          <tbody>
+              <ng-container *ngFor="let data of appliedTable.data">
+                  <tr>
+                      <td [(nzChecked)]="data.checked"></td>
+                      <td>
+                          <div class="image-holder" (click)="showFullModals(data)">
+                              <img src="{{ data.profile.influencer.profile.picture }}" />
+                          </div>
+                      </td>
+                      <td> 
+                          <div class="user-profile">
+                              <div class="user-name">@{{ data.profile.influencer.profile.username }}</div>
+                              <div class="email"><i nz-icon nzType="mail" nzTheme="outline"></i>{{ data.email }}</div>
+                              <div class="phone"><i nz-icon nzType="phone" nzTheme="outline"></i>{{ data.inf_phone }}</div>
+                          </div>
+                      </td>
+                      <td> 
+                          <div class="campaign">
+                              <div class="link" (click)="showDetailModals(data)">{{ data.campaign.campaign_name }}</div>
+                              <div class="time">{{ data.campaign.end_time }}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="status">
+                              <div class="content">Applied</div>
+                              <div class="time">Applied At {{ data.application_time * 1000 | date: 'MM/dd, HH:mm' }}</div>
+                          </div>
+                      </td>
+                      <td>
+                          <button nz-button nzType="link" (click)="startAcceptApplication(data)"> <i nz-icon nzType="check" nzTheme="outline"></i> Accept application</button>
+                          <button nz-button nzType="link" *ngIf="!data.application_decline_time" (click)="startSkipApplication(data)"><i nz-icon nzType="edit" nzTheme="outline"></i>Skip</button>
+                          <span *ngIf="data.application_decline_time"> Skipped </span>
+                      </td>
+                  </tr>
+                  <tr [nzExpand]="data.expanded">
+                  </tr>
+              </ng-container>
+          </tbody>
+      </nz-table>
+  </div>
+</div>
+<app-influencer-profile-modal #influencerProfile></app-influencer-profile-modal>
+<app-campaign-detail-modal #campaignDetail></app-campaign-detail-modal>
+
+<nz-modal
+    [(nzVisible)]="showAcceptApplication"
+    nzTitle="Accept Application"
+    (nzOnCancel)="cancelAcceptApplication()"
+    (nzOnOk)="acceptApplication()"
+    nzOkText="Accept"
+>
+    <div *ngIf="acceptInfluencer">
+        <div class="input-item">
+            <div>Commission:</div>
+            <nz-input-group nzPrefix="$">
+                <input nz-input [(ngModel)]="acceptInfluencer.accept_commission" />
+            </nz-input-group>
+        </div>
+        <div class="input-item">
+            <div>Bonus:</div>
+            <nz-input-group nzPrefix="$">
+                <input nz-input [(ngModel)]="acceptInfluencer.accept_bonus" />
+            </nz-input-group>
+        </div>
+    </div>
+</nz-modal>

@@ -1,0 +1,75 @@
+<section class="confirm-dialog-container">
+    <div class="title">
+        Contact Information 
+        <span class="material-icons" (click)="onNoClick()"> close </span>
+    </div>
+    <div class="description">
+        Please leave your information here. Lifo will generate a contract for you to review later.
+    </div>
+
+    <mat-divider></mat-divider>
+    
+    <div class="input">
+        <div class="input-box">
+            <div class="input-name">Full Name</div>
+            <div class="input-field">
+                <mat-form-field class="example-half-width" floatLabel="never">
+                    <input 
+                        matInput 
+                        placeholder="" 
+                        [(ngModel)]="influencer.inf_name"
+                        autocomplete="off"
+                    >
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="input-box">
+            <div class="input-name">Phone Number</div>
+            <div class="input-field">
+                <mat-form-field class="example-half-width" floatLabel="never">
+                    <input 
+                        matInput 
+                        placeholder="" 
+                        [(ngModel)]="influencer.inf_phone"
+                        autocomplete="off"
+                    >
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <div class="input-box">
+            <div class="input-name">Address</div> 
+            <div class="explaination">We will ship a product for your content creation.</div>
+            <div class="input-field">
+                <mat-form-field class="example-half-width" floatLabel="never">
+                    <input 
+                        matInput 
+                        placeholder="" 
+                        [(ngModel)]="influencer.influencer_address1"
+                        autocomplete="off"
+                    >
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <div class="input-box">
+            <div class="input-name"></div> 
+            <div class="input-field">
+                <mat-form-field class="example-half-width" floatLabel="never">
+                    <input 
+                        matInput 
+                        placeholder="" 
+                        [(ngModel)]="influencer.influencer_address2"
+                        autocomplete="off"
+                    >
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <section class="btn-group">
+        <button mat-button (click)="onNoClick()"> CANCEL </button>
+        <button mat-raised-button color="primary" class="confirm" (click)="submit()"> SUBMIT </button>
+    </section>
+</section>

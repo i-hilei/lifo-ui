@@ -1,0 +1,108 @@
+<div class="title">
+    <div class="recommended-title">
+        {{recommendedInfluencer.length}} influencers found
+    </div>
+    <div class="recommended-stats"  *ngIf="countLifoRecommended > 0">
+        {{countLifoRecommended}} <i class="like-icon" nz-icon nzType="like" nzTheme="fill"></i> highly recommended
+    </div>
+
+    <button nz-button 
+        nzType="default" 
+        class="discoverBtn" 
+        nz-tooltip 
+        [nzTooltipTitle]="discoverToolTips" 
+        nzTooltipPlacement="top" 
+        nzShape="circle" 
+        *ngIf="isSearchDiscover" 
+        (click)="showDiscoveryModals()">
+        <span class="material-icons">
+            search
+        </span>	         
+        Discover More
+    </button>
+    <button nz-button 
+        nzType="default" 
+        *ngIf="!isSearchDiscover" 
+        class="discoverBtn discoveringBtn"  
+        nzShape="circle">
+        <span class="material-icons">
+        more_horiz
+        </span>
+        Discovering
+    </button>
+</div>
+
+<div class="discovery-table">
+    <nz-table #nzTable [nzData]="displayInfluencer" nzTableLayout="fixed">
+        <thead>
+            <tr>
+                <th nzWidth="60px"
+                    [(nzChecked)]="allChecked"
+                    (nzCheckedChange)="checkAll($event)">
+                </th>
+                <th nzWidth="340px">Influencers</th>
+                <th>Follower Range</th>
+                <th>Fake Followers Rate</th>
+                <th>Average Likes</th>
+                <th>Engagement Rate</th>
+                <!-- <th>Estimated Price</th> -->
+                <th nzWidth="40px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let data of nzTable.data">
+                <tr>
+                    <td 
+                        [(nzChecked)]="data.checked" 
+                        (nzCheckedChange)="refreshStatus()"
+                    ></td>
+                    <td>
+                        <div class="image-holder">
+                            <img src="{{data.profile.influencer.profile.picture}}">
+                            <i class="like-icon" nz-icon nzType="like" nzTheme="fill" *ngIf="data.profile.highlyRecommend"></i>
+                        </div>
+                        <div class="user-profile">
+                            <div class="profile-container">
+                                <div class="user-name">{{data.profile.influencer.profile.fullname}}</div>
+                                <div class="user-name-link">
+                                    <span (click)="openInsPage(data.profile.influencer)">@{{data.profile.influencer.profile.username}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="material-icons person-icon"> person </span> 
+                        {{ data.profile.influencer.profile.followers | number }} 
+                    </td>
+                    <td>
+                        {{ (1 - data.profile.influencer.audience.credibility) * 100 |  number: '1.0-1'}}%
+                    </td>
+                    <td>
+                        <span class="material-icons favorite-icon"> favorite </span> 
+                        {{ data.profile.influencer.stats?.avgLikes?.value | number }} 
+                    </td>
+                    <td>
+                        {{ data.profile.influencer.profile.engagementRate * 100 | number: '1.0-1'}}%
+                    </td>
+                    <td> 
+                        <i nz-icon class="expand-icon" *ngIf="!data.expanded" nzType="caret-down" nzTheme="outline" (click)="data.expanded = true" ></i> 
+                        <i nz-icon class="expand-icon" *ngIf="data.expanded" nzType="caret-up" nzTheme="outline" (click)="data.expanded = false" ></i> 
+                    </td>
+                </tr>
+                <tr [nzExpand]="data.expanded">
+                    <app-influencer-detail 
+                      [influencer]="data.profile.influencer"
+                      [displayInfluencer]="data"
+                      [campaign]="campaign"
+                      [mode]="'BRAND'"></app-influencer-detail>
+                </tr>
+            </ng-container>
+        </tbody>
+    </nz-table>
+</div>
+
+<div>
+    <button nz-button nzType="primary" (click)="addToCheckBox()">Add to Outreach</button>
+</div>
+
+<app-discovery-status #discoveryModal></app-discovery-status>

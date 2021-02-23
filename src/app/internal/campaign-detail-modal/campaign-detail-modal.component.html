@@ -1,0 +1,27 @@
+<!-- template-modal -->
+<div class="fullStyle">
+  <nz-modal #Fulltemplates 
+      nzClassName="fulltemplates"
+      [(nzVisible)]="isModalVisible" 
+      nzTitle="Influencer Profile" 
+      (nzOnCancel)="handleCancel()" 
+      (nzOnOk)="handleOk()" 
+      nzMaskClosable=false
+      [nzFooter]=null
+      nzWidth="100%"
+      [nzStyle]="setModalStyle">
+      <div class="spin-set" style="text-align: center;" [ngStyle]="{'height': spinHeight}" *ngIf="isShowSpin">
+        <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+      </div>
+      <div class="containers"  *ngIf="!isShowSpin">
+        <app-campaign-overview [influencer]="campaign" payments="show"></app-campaign-overview>
+        <div class="footers">
+          <button nz-button nzType="default" class="cancelBtn" (click)="handleCancel()">
+              Close
+          </button>
+        </div>
+      </div>
+      
+  </nz-modal>
+</div>
+

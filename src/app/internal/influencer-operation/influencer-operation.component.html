@@ -1,0 +1,350 @@
+<div nz-row>
+    <div nz-col nzSpan="8">
+        <div class="panel">
+            <div class="panel-title">Influencer Info</div>
+            <div class="panel-content">
+                <div class="field-name">
+                    <div><b>Name</b></div>
+                    <div><b>Email</b></div>
+                    <div><b>Phone</b></div>
+                    <div><b>Address</b></div>
+                </div>
+                <div class="field-value">
+                    <div>{{ influencer.inf_name }} {{ influencer.inf_last_name }}</div>
+                    <div>{{ influencer.email }}</div>
+                    <div>{{ influencer.inf_phone }}</div>
+                    <div>
+                        {{ influencer.influencer_address1 }} <br *ngIf="influencer.influencer_address1" />
+                        {{ influencer.influencer_address2 }} <br *ngIf="influencer.influencer_address2" />
+                        {{ influencer.influencer_city }}, {{ influencer.influencer_province }}, {{ influencer.influencer_zip }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-title">Compensation</div>
+            <div>
+                <div><b>Commission</b> $ {{influencer.accept_commission ? influencer.accept_commission : 0}} </div>
+                <div><b>Bonus</b> $ {{influencer.accept_bonus ? influencer.accept_bonus : 0}}  </div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-title">Score</div>
+            <button nz-button (click)="deleteCampaignInfluencer()">DELETE</button>
+        </div>
+    </div>
+    <div nz-col nzSpan="16">
+        <div class="panel-title">Action Panel</div>
+
+        <div class="user-status">
+            <div class="status-step status-step-03" *ngIf="campaign.has_initial_payment">
+                <div class="buttons">
+                    <button nz-button nzType="primary" (click)="startUpfrontPayment()">Pay Upfront</button>
+                </div>
+                <div class="infomation">
+                    <b>Paid Amount</b> $ {{ influencer.upfront_paid_amount }} <br />
+                    <b>Paid Time</b> {{ influencer.upfront_paid_time * 1000 | date: 'MMMM d, HH:mm' }}
+                </div>
+            </div>
+            <div class="status-step status-step-01" *ngIf="campaign.has_initial_payment">
+                <b>Order Type:</b> 3rd Party Self-order flow <br />
+                <b>Order Number:</b> {{influencer.order_number}} <br />
+                <b>Order Submitted Time:</b> {{influencer.product_received_time * 1000 | date: 'MMMM d, HH:mm' }} <br />
+                <b>Campaign Started Time:</b> {{influencer.offer_accept_time * 1000 | date: 'MMMM d, HH:mm' }} <br />
+            </div>
+            <div class="status-step" *ngIf="campaign.has_initial_payment">
+                <b>Shipping Skipped</b>
+            </div>
+            <div class="status-step status-step-01" *ngIf="!campaign.has_initial_payment">
+                <div class="buttons">
+                    <button nz-button nzType="primary" (click)="startCreateOrder()">Create Order</button>
+                    <button nz-button nzType="primary" (click)="viewOrder()">View Order</button>
+                    <!-- <button nz-button nzType="primary">Delete Order</button> -->
+                    <button nz-button nzType="primary" (click)="createCouponCode()">Create Coupon Code</button>
+                </div>
+                <div class="infomation">
+                    <b>Order Type: Lifo Order flow</b>
+                    <div *ngIf="influencer.order">
+                        <b>Order Number</b> {{ influencer.order?.id }} <br />
+                        <b>Email</b> {{ influencer.order?.contact_email }} <br />
+                        <b>Created Time</b> {{ influencer.order?.created_at }} <br />
+                        <b>Update Time</b> {{ influencer.order?.updated_at }}
+                    </div>
+                    <div *ngIf="!influencer.order">
+                        <b>Order not created yet</b>
+                    </div>
+                    <div *ngIf="influencer.discount_code"><b>Coupon Code</b> {{ influencer.discount_code.code }} <br /></div>
+                    <div *ngIf="!influencer.discount_code">
+                        <b>Coupon code not created yet</b>
+                    </div>
+                </div>
+            </div>
+            <div class="status-step status-step-02" *ngIf="!campaign.has_initial_payment">
+                <div class="buttons">
+                    <button nz-button nzType="primary" (click)="parseTracking()">Parse Tracking</button>
+                    <button nz-button nzType="primary" (click)="startAddShippingInfo()">Add Shipping Info</button>
+                    <button nz-button nzType="primary" (click)="markAsShppingArrived()">Mark as Delivered</button>
+                </div>
+                <div class="infomation">
+                    <div *ngIf="influencer.shipping_info">
+                        <b>Tracking Number</b> {{ influencer.shipping_info?.tracking_number }} <br />
+                        <b>Carrier</b> {{ influencer.shipping_info?.carrier }} <br />
+                        <b>Created Time</b> {{ influencer.product_ship_time * 1000 | date: 'MMMM d, HH:mm' }} <br />
+                        <b>Deliver Time</b> {{ influencer.product_received_time * 1000 | date: 'MMMM d, HH:mm' }} <br />
+                    </div>
+                    <div *ngIf="trackingDetail"><b>Status</b> {{ trackingDetail.status }}: {{ trackingDetail.status_detail }}</div>
+                </div>
+            </div>
+            <div class="status-step status-step-03">
+                <div class="buttons">
+                    <button nz-button nzType="primary" (click)="reivewCampaign()">Review Content</button>
+                </div>
+                <div class="infomation">
+                    <b>Fast Deliver Deadline</b> {{fast_deliver_time}} <br/>
+                    <b>Content Post Deadline</b> {{content_deadline}} <br/>
+                    <b>Post Time</b> {{influencer.content_submit_time * 1000 | date: 'MMMM d, HH:mm'}} <br/>
+                    <b *ngIf="influencer.content_approve_time">Content Approved</b> <br/>
+                    <b>Approve Time</b> {{influencer.content_approve_time * 1000 | date: 'MMMM d, HH:mm'}}
+                </div>
+            </div>
+            <div class="status-step status-step-04">
+                <div class="buttons">
+                    <button nz-button nzType="primary">Approve Post</button>
+                </div>
+                <div class="infomation">
+                    <b>Post Deadline</b> {{post_deadline}} <br/>
+                    <b>URL</b> {{ influencer.post_url }} <br/>
+                    <b>Post Time</b> {{ influencer.submit_post_time * 1000 | date: 'MMMM d, HH:mm' }}
+                </div>
+            </div>
+            <div class="status-step status-step-05">
+                <div class="buttons">
+                    <button nz-button nzType="primary" (click)="startPayInfluencer()">Pay Influencer</button>
+                </div>
+                <div class="infomation" *ngIf="influencer.commission_paid_amount">
+                    <b>Paid Amount</b> $ {{ influencer.commission_paid_amount }} <br />
+                    <b>Paid Time</b> {{ influencer.commission_paid_time * 1000 | date: 'MMMM d, HH:mm' }}
+                    <p><a (click)="showHistoryModal(influencer)">Payment History</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nz-modal [(nzVisible)]="showCreateOrderModal" nzTitle="Confirm Your Order Creation" (nzOnCancel)="cancelCreateOrder()" [nzFooter]="null">
+    <div *ngIf="orderInfo">
+        <div class="input-item">
+            <div>Product:</div>
+            <input nz-input [(ngModel)]="orderInfo.product_name" />
+        </div>
+        <div class="input-item" *ngIf="selectProduct">
+            <div>Type:</div>
+            <nz-select [(ngModel)]="orderInfo.variant_id" nzPlaceHolder="Choose">
+                <nz-option *ngFor="let v of selectProduct.variants" [nzValue]="v.id" [nzLabel]="v.title"></nz-option>
+            </nz-select>
+        </div>
+        <div>
+            For multiple items, seperate by comma
+        </div>
+        <div class="input-item">
+            <div>Variant id:</div>
+            <input nz-input [(ngModel)]="orderInfo.variant_id" />
+        </div>
+        <div class="input-item">
+            <div>Price:</div>
+            <nz-input-group nzPrefix="$">
+                <input nz-input [(ngModel)]="orderInfo.product_price" />
+            </nz-input-group>
+        </div>
+        <div class="input-item">
+            <div>Email:</div>
+            <input nz-input [(ngModel)]="orderInfo.email" />
+        </div>
+        <div class="input-item">
+            <div>First Name:</div>
+            <input nz-input [(ngModel)]="orderInfo.first_name" />
+        </div>
+        <div class="input-item">
+            <div>Last Name:</div>
+            <input nz-input [(ngModel)]="orderInfo.last_name" />
+        </div>
+        <div class="input-item">
+            <div>Phone:</div>
+            <input nz-input [(ngModel)]="orderInfo.phone_number" />
+        </div>
+        <div class="input-item">
+            <div>Address:</div>
+            <input nz-input [(ngModel)]="orderInfo.address_line_1" />
+        </div>
+        <div class="input-item">
+            <div></div>
+            <input nz-input [(ngModel)]="orderInfo.address_line_2" />
+        </div>
+        <div class="input-item">
+            <div>City:</div>
+            <input nz-input [(ngModel)]="orderInfo.city" />
+        </div>
+        <div class="input-item">
+            <div>State:</div>
+            <input nz-input [(ngModel)]="orderInfo.province" />
+        </div>
+        <div class="input-item">
+            <div>Zip:</div>
+            <input nz-input [(ngModel)]="orderInfo.zip" />
+        </div>
+        <div class="input-item">
+            <div>Country:</div>
+            <input nz-input [(ngModel)]="orderInfo.country" />
+        </div>
+    </div>
+
+    <div class="modal-buttons" *ngIf="orderInfo">
+        <nz-alert *ngIf="validateOrder()" nzType="error" [nzMessage]="validateOrder()"></nz-alert>
+        <button nz-button nzType="primary" (click)="createOrder()" [nzLoading]="isCreatingOrder" [disabled]="validateOrder() !== ''">
+            Create Order
+        </button>
+    </div>
+</nz-modal>
+
+<nz-modal
+    [(nzVisible)]="showShippingModal"
+    nzTitle="Add Shipping Info"
+    (nzOnCancel)="cancelAddShippingInfo()"
+    (nzOnOk)="addShippingInfo()"
+    nzOkText="Confirm"
+>
+    <div *ngIf="shippingInfo">
+        <div class="input-item">
+            <div>Tracking #:</div>
+            <input nz-input [(ngModel)]="shippingInfo.tracking_number" />
+        </div>
+        <div class="input-item">
+            <div>Carrier:</div>
+            <input nz-input [(ngModel)]="shippingInfo.carrier" />
+        </div>
+    </div>
+</nz-modal>
+
+<nz-modal
+    [(nzVisible)]="showPaymentModal"
+    nzTitle="Pay Influencer"
+    (nzOnCancel)="cancelPayInfluencer()"
+    [nzFooter]="null"
+>
+    <p>
+        Product receive time is <b>{{influencer.product_received_time * 1000 | date: 'MMMM d, HH:mm'}}</b>, 
+        Content submit time is <b>{{influencer.content_submit_time * 1000 | date: 'MMMM d, HH:mm'}}</b>, 
+        it takes <b>{{calculateContentUploadDiff}}</b> hours, compare to the <b>{{fastDeliverWindow}}</b> hours setting.
+    </p>
+    <p>Are you sure to credit $ {{ paymentAmount }} to the influencer?</p>
+    <div class="input-item">
+        <label nz-checkbox [(ngModel)]="overwritePayment">Overwrite the commission</label>
+    </div>
+    <div class="input-item" *ngIf="overwritePayment">
+        <div>Commission:</div>
+        <input nz-input [(ngModel)]="paymentAmount" />
+    </div>
+    <div class="modal-buttons">
+        <button nz-button nzType="primary" (click)="payInfluencer()" [nzLoading]="isPaying">
+            Pay Influencers
+        </button>
+    </div>
+</nz-modal>
+
+<nz-modal
+    [(nzVisible)]="showPayUpfrontModal"
+    nzTitle="Pay Influencer Upfront Commission"
+    (nzOnCancel)="cancelPayUpfrontCommission()"
+    (nzOnOk)="payUpfrontCommission()"
+    nzOkText="Confirm"
+>
+    <p>Are you sure to credit the following amount to the influencer? Please note that this payment could be cashed out immediately.</p>
+    <div class="input-item">
+        <div>Commission:</div>
+        <input nz-input [(ngModel)]="paymentAmount" />
+    </div>
+</nz-modal>
+
+<nz-modal
+    [(nzVisible)]="showCreateCoupon"
+    nzTitle="Create Coupon Code"
+    (nzOnCancel)="cancelCreateCouponCode()"
+    (nzOnOk)="createCouponCodeReal()"
+    nzOkText="Confirm"
+>
+    <p>Create coupon code for the influencer.</p>
+    <div class="input-item">
+        <div>Code:</div>
+        <input nz-input [(ngModel)]="editCouponCode" />
+    </div>
+</nz-modal>
+
+<nz-modal
+      [(nzVisible)]="isHistoryVisible"
+      [nzTitle]="modalTitle"
+      [nzContent]="modalContent"
+      [nzFooter]=null
+      nzWidth=800
+      (nzOnCancel)="historyHandleCancel()"
+    >
+
+      <ng-template #modalTitle>
+        <b style="font-size: 24px;color: #0D053C;font-weight: bold;">Payment History</b>
+      </ng-template>
+      <ng-template #modalContent>
+        <div class="history-container clearfix">
+            <div class="left">
+                <div class="left-title">
+                    Issued Commission
+                </div>
+                <ul class="left-list">
+                    <li class="clearfix" *ngFor="let item of issuedCommission">
+                        <div class="li-left">
+                            <p>{{ item['meta_data']['campaign_id'] }}</p>
+                            <span>{{ item['transaction_time'] | date}}</span>
+                        </div>
+                        <div class="showDollar">
+                            +${{ item.amount }}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="right">
+                <div class="top">
+                    <div class="left-title">
+                        Pending Commission
+                    </div>
+                    <ul class="left-list">
+                        <li class="clearfix" *ngFor="let item of pendingCommission">
+                            <div class="li-left">
+                                <p>{{ item['meta_data']['campaign_id'] }}</p>
+                                <span>{{ item['transaction_time'] | date}}</span>
+                            </div>
+                            <div class="showDollar">
+                                <i style="color: #c6c8D2;
+                                font-size: 14px;" nz-icon nzType="field-time" nzTheme="outline"></i>
+                                +${{ item.amount }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bottom">
+                    <div class="left-title">
+                        Payout History
+                    </div>
+                    <ul class="left-list">
+                        <li class="clearfix" *ngFor="let item of historyCommission">
+                            <div class="li-left">
+                                <p>{{ item.meta_data?.campaign_id }}</p>
+                                <span>{{ item['transaction_time'] | date}}</span>
+                            </div>
+                            <div class="showDollar">
+                                +${{ item.amount }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </ng-template>
+</nz-modal>

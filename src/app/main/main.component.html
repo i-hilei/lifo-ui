@@ -1,0 +1,34 @@
+<mat-sidenav-container class="nav-container">
+    <mat-sidenav #sidenav mode="side" opened class="example-sidenav" [fixedInViewport]="true" [fixedTopGap]="0"
+        [fixedBottomGap]="0">
+        <div class="logo">
+            <img class="logo-image" src="assets/images/lifo.svg">
+        </div>
+        <div class="icon" (click)="navigate('home')" *ngIf="!isBrandView">
+            <i nz-icon class="menu-icon" nzType="home" nzTheme="fill"></i>
+        </div>
+        <div class="icon" [ngClass]="{'home-icon': homeClass}" (click)="navigate('brand-home')" *ngIf="isBrandView">
+            <i nz-icon class="menu-icon"  nzType="home" *ngIf="!homeClass" nzTheme="outline"></i>
+            <i nz-icon class="menu-icon"  nzType="home" *ngIf="homeClass" nzTheme="fill"></i>
+        </div>
+        <!-- <div class="icon disabled" [matTooltip]="'Coming Soon'">
+            <mat-icon class="menu-icon" mat-list-icon> calendar_today </mat-icon>
+        </div> -->
+        <!-- <div class="icon" (click)="change()">
+            <mat-icon class="menu-icon" mat-list-icon> notifications_none </mat-icon>
+        </div> -->
+
+
+        <div class="icon help-icon" [ngClass]="{'home-icon': helpClass}"  (click)="showHelp()">
+            <i nz-icon class="menu-icon"  nzType="question-circle" *ngIf="!helpClass" nzTheme="outline"></i>
+            <i nz-icon class="menu-icon"  nzType="question-circle" *ngIf="helpClass" nzTheme="fill"></i>
+        </div>
+        <div class="icon logout-icon" (click)="logout()">
+            <mat-icon class="menu-icon" mat-list-icon> exit_to_app </mat-icon>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

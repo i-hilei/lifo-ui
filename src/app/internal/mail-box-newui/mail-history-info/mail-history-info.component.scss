@@ -1,0 +1,44 @@
+.historyInfo {
+    padding: 10px;
+    h4{
+        font-family: Montserrat;
+        font-style: normal;
+        font-size: 14px;
+        // height: 25px;
+        color: #0D053C;
+        font-weight: 500;
+        span {
+            float: right;
+        }
+    }
+    .replyStyle {
+        color:#4F4F4F;
+        padding-left: 0;
+        margin-bottom: 5px;
+        
+    }
+    .replyStyle:hover {
+        color: #1890ff;
+    }
+    .mailListFrom {
+        width: 100%;
+        padding: 10px 20px 0 20px;
+        margin-bottom: 10px;
+        background: #F5F6FB;
+        border-radius: 20px 20px 0 20px;
+        border: 1px solid #DEDEDE;
+    }
+    .mailListTo {
+        width: 100%;
+        padding: 10px 20px 0 20px;
+        margin-bottom: 10px;
+        background: #FBFBFC;
+        border-radius: 20px 20px 20px 0;
+        border: 1px solid #DEDEDE;
+        .material-icons {
+            transform: rotateY(180deg);
+            vertical-align: middle;
+            font-size: 20px;
+        }
+    }
+}
